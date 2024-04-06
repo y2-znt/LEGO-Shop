@@ -19,12 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={clsx(inter.className, "bg-background overflow-x-hidden")}
+        className={clsx(inter.className, " overflow-x-hidden")}
       >
-        <ThemeProvider attribute="class" defaultTheme="system">
+        <ThemeProvider attribute="class" defaultTheme="light">
           {children}
-        </ThemeProvider>{" "}
-      </body>{" "}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
