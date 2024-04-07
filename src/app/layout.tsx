@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Lego Shop",
   description: "You never get too old to play, Right?",
   icons: {
-    icon: ["/assets/"],
+    icon: ["/assets/LEGO_logo.png"],
   },
 };
 
