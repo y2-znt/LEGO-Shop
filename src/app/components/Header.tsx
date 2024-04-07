@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { LucideLogIn, ShoppingCart } from "lucide-react";
+import { IoBag } from "react-icons/io5";
+import { MdAccountCircle } from "react-icons/md";
 
 export default function Header() {
   return (
-    <div className="bg-[#FFD300]">
+    <div className="bg-[#FFD300] fixed w-full z-10">
       <nav className=" max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
         <Link href="/">
           <Image
@@ -18,10 +19,10 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-5 max-sm:gap-3">
           <Link href="/">
-            <ShoppingCart />
+            <IoBag size={25} />
           </Link>
           <Link href="/">
-            <LucideLogIn />
+            <MdAccountCircle size={25} />
           </Link>
         </div>
       </nav>

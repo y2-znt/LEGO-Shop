@@ -9,7 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ShoppingCart } from "lucide-react";
+import { IoBag } from "react-icons/io5";
+
 import { CollectionData } from "./CollectionData";
 
 // Definition of types
@@ -55,7 +56,7 @@ export default async function Collection() {
                     className="rounded-xl text-md bg-[#FFD300] font-bold text-black max-md:text-sm"
                   >
                     Add to bag
-                    <ShoppingCart />
+                    <IoBag size={25} className="pl-2" />
                   </Button>
                 </CardFooter>
               </Card>
