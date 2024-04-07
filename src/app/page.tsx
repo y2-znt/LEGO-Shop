@@ -1,6 +1,7 @@
 import Image from "next/image";
-import Header from "./components/theme/Header";
-import Hero from "./components/theme/Hero";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Collection from "./components/Collection";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Header />
       <div className="max-w-6xl mx-auto max-xl:px-8">
         <Hero />
+        <Collection />
       </div>
     </div>
   );
