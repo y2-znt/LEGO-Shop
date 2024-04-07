@@ -7,7 +7,7 @@ import { ThemeToggle } from "./ThemeToggle";
 export default function Header() {
   return (
     <div className="bg-[#FFD300]">
-      <nav className=" max-w-6xl mx-auto max-xl:px-8 flex justify-between items-center">
+      <nav className=" max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
         <Link href="/">
           <Image
             src="/LEGO_logo.png"
@@ -24,9 +24,7 @@ export default function Header() {
           <Link href="/">
             <LucideLogIn />
           </Link>
-          <div>
-            <ThemeToggle />
-          </div>
+         
         </div>
       </nav>
     </div>
