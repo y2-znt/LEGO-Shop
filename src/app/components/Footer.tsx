@@ -44,9 +44,9 @@ export default function Footer() {
           <SiGithub size={15} />
         </Link>
         <Link
-          href="https://github.com/Yoni-Deserbaix"
-          target="_blank"
-          aria-label="Navigate to the Github account"
+          href="mailto:yonideserbaix@gmail.com"
+          className="hover:scale-110 transition-all z-10"
+          aria-label="Email me at yonideserbaix@gmail.com"
         >
           <MdMailOutline size={15} />
         </Link>
