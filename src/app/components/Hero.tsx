@@ -19,7 +19,7 @@ export default function Hero() {
           </p>
 
           <Image
-            src="/hero-lego.png"
+            src="/assets/hero-lego.png"
             width={2000}
             height={2000}
             alt=""

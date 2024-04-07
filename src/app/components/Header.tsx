@@ -10,7 +10,7 @@ export default function Header() {
       <nav className=" max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
         <Link href="/">
           <Image
-            src="/LEGO_logo.png"
+            src="/assets/LEGO_logo.png"
             width={60}
             height={60}
             alt="logo"
