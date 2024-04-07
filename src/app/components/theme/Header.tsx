@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { LucideLogIn, ShoppingCart } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -24,7 +23,6 @@ export default function Header() {
           <Link href="/">
             <LucideLogIn />
           </Link>
-         
         </div>
       </nav>
     </div>

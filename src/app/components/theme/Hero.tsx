@@ -11,8 +11,8 @@ export default function Hero() {
             Lego Shop
           </h1>
         </div>
-        <div className="bg-[#FFD300] mt-12 min-h-[40vh] w-full rounded-xl flex justify-between max-lg:flex-col-reverse max-lg:items-center max-lg:pt-8">
-          <p className="text-4xl text-black lg:text-5xl font-bold p-14">
+        <div className="bg-[#FFD300] mt-12 min-h-[40vh] w-full rounded-xl flex justify-between max-lg:flex-col max-lg:items-center max-lg:pb-12">
+          <p className="text-4xl text-black lg:text-5xl font-bold p-12">
             You never get too old <br />
             to play,
             <span className="text-red-700"> Right?</span>
@@ -23,7 +23,7 @@ export default function Hero() {
             width={2000}
             height={2000}
             alt=""
-            className="relative w-1/4 -pr-2 rounded- max-lg:rounded-3xl max-lg:w-1/2 max-lg:mr-14"
+            className="relative w-2/6 -pr-2 rounded- max-lg:rounded-3xl max-lg:w-1/3 max-sm:w-1/2 max-lg:mr-14"
           ></Image>
         </div>
       </div>
