@@ -48,7 +48,7 @@ export default async function Collection() {
               $6.99
               <Button
                 size="default"
-                className="rounded-xl text-md bg-[#FFD300] font-bold"
+                className="rounded-xl text-md bg-[#FFD300] font-bold text-black"
               >
                 Add to bag
                 <ShoppingCart />
