@@ -18,7 +18,7 @@ export default function Header() {
           ></Image>
         </Link>
         <div className="flex items-center gap-5 max-sm:gap-3">
-          <Link href="/">
+          <Link href="/cart">
             <IoBag size={25} />
           </Link>
           <Link href="/">

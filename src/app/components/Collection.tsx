@@ -51,13 +51,15 @@ export default async function Collection() {
                 </CardHeader>
                 <CardFooter className="flex justify-between py-12 font-bold">
                   ${lego.price}
-                  <Button
-                    size="default"
-                    className="rounded-xl text-md bg-[#FFD300] font-bold text-black max-md:text-sm"
-                  >
-                    Add to bag
-                    <IoBag size={25} className="pl-2" />
-                  </Button>
+                  <Link href="/cart">
+                    <Button
+                      size="default"
+                      className="rounded-xl text-md bg-[#FFD300] font-bold text-black max-md:text-sm"
+                    >
+                      Add to bag
+                      <IoBag size={25} className="pl-2" />
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             );
