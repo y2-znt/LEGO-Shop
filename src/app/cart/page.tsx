@@ -19,22 +19,22 @@ export default function page() {
         <p className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
           Shopping Cart
         </p>
-        <div className="mx-8">
-          <ul className="grid-cols-4 grid">
+        <div className="mx-8 space-y-10">
+          <ul className="grid-cols-4 grid pt-12">
             <li>Product</li>
-            <li>Price</li>
-            <li>Quantity</li>
+            <li className="pl-20">Price</li>
+            <li className="pl-20">Quantity</li>
             <li className="flex justify-self-end">Total</li>
           </ul>
           <div>
             <div className="grid-cols-4 grid items-center">
-              <div className="cart-product flex">
+              <div>
                 <Card className="rounded-lg">
-                  <CardTitle className="text-xl p-8 font-bold">
+                  <CardTitle className="text-xl p-5 font-bold">
                     <p>SHARK NAME</p>
                   </CardTitle>
                   <CardHeader>
-                    <figure className="flex justify-center h-40">
+                    <figure className="flex justify-center h-32">
                       <Image
                         className="w-24"
                         src="/assets/collection/collection01.png"
@@ -53,8 +53,8 @@ export default function page() {
                 </Card>
                 <div></div>
               </div>
-              <div>$6.99</div>
-              <div className="flex items-start justify-center w-32 max-w-full border rounded-lg py-3 font-bold">
+              <div className="pl-20">$6.99</div>
+              <div className="flex items-start justify-center w-32 max-w-full border rounded-lg py-3 ml-20 font-bold">
                 <button className="px-5">-</button>
                 <div>2</div>
                 <button className="px-5">+</button>
