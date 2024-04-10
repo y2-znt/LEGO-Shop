@@ -10,6 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { TrashIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 
 export default function page() {
   return (
@@ -45,10 +47,13 @@ export default function page() {
                     </figure>
                     <CardDescription></CardDescription>
                   </CardHeader>
-                  <CardFooter className="flex justify-between py-12 font-bold">
-                    <button className="mt-3 text-gray-400 font-normal hover:text-black">
+                  <CardFooter className="flex justify-end py-12 ">
+                    <Button className="font-bold bg-transparent">
                       Remove
-                    </button>
+                      <span className="pl-2">
+                        <TrashIcon color="red" />
+                      </span>
+                    </Button>
                   </CardFooter>
                 </Card>
                 <div></div>
