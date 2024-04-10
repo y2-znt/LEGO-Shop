@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { IoBag } from "react-icons/io5";
-import { MdAccountCircle } from "react-icons/md";
+import { FiShoppingCart } from "react-icons/fi";
+import { RiAccountCircleLine } from "react-icons/ri";
 
 export default function Header() {
   return (
@@ -19,10 +19,10 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-5 max-sm:gap-3">
           <Link href="/cart">
-            <IoBag size={25} />
+            <FiShoppingCart size={25} />
           </Link>
           <Link href="/">
-            <MdAccountCircle size={25} />
+            <RiAccountCircleLine size={25} />
           </Link>
         </div>
       </nav>
