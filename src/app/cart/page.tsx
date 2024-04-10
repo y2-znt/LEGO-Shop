@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Image from "next/image";
-
+import Link from "next/link";
 import {
   Card,
   CardDescription,
@@ -82,12 +82,14 @@ export default function page() {
               <Button className="w-full font-bold text-black mt-3">
                 Checkout
               </Button>
-              <div className="flex pt-4">
-                <span className="translate-y-1 pr-2">
-                  <BsArrowLeft />
-                </span>
-                <p>Continue shopping</p>
-              </div>
+              <Link href="/">
+                <div className="flex pt-4">
+                  <span className="translate-y-1 pr-2">
+                    <BsArrowLeft />
+                  </span>
+                  <p>Continue shopping</p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
