@@ -4,14 +4,14 @@ import Image from "next/image";
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TrashIcon } from "@radix-ui/react-icons";
+import { BsArrowLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
+import { GoTrash } from "react-icons/go";
 
 export default function page() {
   return (
@@ -23,10 +23,10 @@ export default function page() {
         </p>
         <div className="mx-8 space-y-10">
           <ul className="grid-cols-4 grid pt-12">
-            <li>Product</li>
-            <li className="pl-20">Price</li>
-            <li className="pl-20">Quantity</li>
-            <li className="flex justify-self-end">Total</li>
+            <li>PRODUCT</li>
+            <li className="pl-32">PRICE</li>
+            <li className="pl-32">QUANTITY</li>
+            <li className="flex justify-self-end">TOTAL</li>
           </ul>
           <div>
             <div className="grid-cols-4 grid items-center">
@@ -47,22 +47,22 @@ export default function page() {
                     </figure>
                     <CardDescription></CardDescription>
                   </CardHeader>
-                  <CardFooter className="flex justify-end py-12 ">
+                  <CardFooter className="flex justify-end py-8 ">
                     <Button className="font-bold bg-transparent text-gray-700">
                       Remove
                       <span className="pl-2">
-                        <TrashIcon color="red" />
+                        <GoTrash color="red" />
                       </span>
                     </Button>
                   </CardFooter>
                 </Card>
                 <div></div>
               </div>
-              <div className="pl-20">$6.99</div>
-              <div className="flex items-start justify-center w-32 max-w-full border rounded-lg py-3 ml-20 font-bold">
-                <button className="px-5">-</button>
+              <div className="pl-32">$6.99</div>
+              <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32 font-bold">
+                <button className="px-8">-</button>
                 <div>2</div>
-                <button className="px-5">+</button>
+                <button className="px-8">+</button>
               </div>
               <div className="justify-self-end">$13.98</div>
             </div>
@@ -73,15 +73,20 @@ export default function page() {
             </Button>
             <div className="w-72 ">
               <div className="flex justify-between ">
-                <span>Subtotal</span>
-                <span>Cart totalAmount</span>
+                <span>SUBTOTAL</span>
+                <span>$13.98</span>
               </div>
-              <p className="text-sm mx-2">
+              <p className="text-sm pt-4 text-gray-700 font-medium">
                 Taxes and shipping calculated at checkout
               </p>
-              <button className="w-full bg-red-500">Check out</button>
-              <div>
-                <span>continue shopping</span>
+              <Button className="w-full font-bold text-black mt-3">
+                Checkout
+              </Button>
+              <div className="flex pt-4">
+                <span className="translate-y-1 pr-2">
+                  <BsArrowLeft />
+                </span>
+                <p>Continue shopping</p>
               </div>
             </div>
           </div>
