@@ -48,7 +48,7 @@ export default function page() {
                     <CardDescription></CardDescription>
                   </CardHeader>
                   <CardFooter className="flex justify-end py-12 ">
-                    <Button className="font-bold bg-transparent">
+                    <Button className="font-bold bg-transparent text-gray-700">
                       Remove
                       <span className="pl-2">
                         <TrashIcon color="red" />
@@ -67,8 +67,10 @@ export default function page() {
               <div className="justify-self-end">$13.98</div>
             </div>
           </div>
-          <div className="flex justify-between items-start border-t pt-8">
-            <button className="w-32 rounded border p-2">Clear Cart</button>
+          <div className="flex justify-between items-start border-t pt-8 pl-2">
+            <Button className="font-bold border px-8 py-5 text-gray-700 bg-transparent">
+              Clear Cart
+            </Button>
             <div className="w-72 ">
               <div className="flex justify-between ">
                 <span>Subtotal</span>
