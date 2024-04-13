@@ -11,19 +11,11 @@ import {
 } from "@/components/ui/card";
 import { IoBag } from "react-icons/io5";
 
-import { LegoData } from "./LegoData";
-
-// Definition of types
-type ArticleType = {
-  id: number;
-  title: string;
-  author: string;
-  date: string;
-  user_id: number;
-  linkImage: string;
-};
+import { Data } from "./Data";
 
 export default async function Collection() {
+  const { products } = Data;
+
   return (
     <main>
       <h1 className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
@@ -31,7 +23,7 @@ export default async function Collection() {
       </h1>
       <div className="pt-16">
         <div className="grid grid-cols-3 gap-20 max-lg:gap-5 max-md:grid-cols-2 max-sm:grid-cols-1">
-          {LegoData.products.map((lego, index) => {
+          {products.map((lego, index) => {
             return (
               <Card className="rounded-lg" key={index}>
                 <CardTitle className="text-xl p-8 font-bold">

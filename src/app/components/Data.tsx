@@ -1,4 +1,4 @@
-export const LegoData = {
+export const Data = {
   products: [
     {
       id: 1,
