@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -19,10 +17,10 @@ import { addToCart } from "@/lib/redux/features/cartSlice";
 export default function Collection() {
   const { products } = Data;
   const dispatch = useDispatch();
+
   const handleAddToCart = (lego: any) => {
     dispatch(addToCart(lego));
   };
-
 
   return (
     <main>

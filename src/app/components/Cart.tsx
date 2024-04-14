@@ -10,12 +10,19 @@ import {
 import { BsArrowLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { GoTrash } from "react-icons/go";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
+import { removeFromCart } from "@/lib/redux/features/cartSlice";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = (cartItem: any) => {
+    dispatch(removeFromCart(cartItem));
+  };
+
   return (
     <div>
       <Header />
@@ -51,7 +58,10 @@ export default function Cart() {
                       <CardDescription></CardDescription>
                     </CardHeader>
                     <CardFooter className="flex justify-end py-8 ">
-                      <Button className=" bg-transparent text-gray-700 hover:text-black">
+                      <Button
+                        onClick={() => handleRemoveFromCart(cartItem)}
+                        className=" bg-transparent text-gray-700 hover:text-black"
+                      >
                         Remove
                         <span className="pl-2">
                           <GoTrash color="red" />
