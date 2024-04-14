@@ -23,6 +23,7 @@ export default function Collection() {
     dispatch(addToCart(lego));
   };
 
+
   return (
     <main>
       <h1 className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
