@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -10,11 +12,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { IoBag } from "react-icons/io5";
-
 import { Data } from "./Data";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/lib/redux/features/cartSlice";
 
-export default async function Collection() {
+export default function Collection() {
   const { products } = Data;
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (lego: any) => {
+    dispatch(addToCart(lego));
+  };
 
   return (
     <main>
@@ -43,15 +51,14 @@ export default async function Collection() {
                 </CardHeader>
                 <CardFooter className="flex justify-between py-12 font-bold">
                   ${lego.price}
-                  <Link href="/cart">
-                    <Button
-                      size="default"
-                      className="rounded-xl text-md bg-[#FFD300] font-bold text-black max-md:text-sm"
-                    >
-                      Add to bag
-                      <IoBag size={25} className="pl-2" />
-                    </Button>
-                  </Link>
+                  <Button
+                    onClick={() => handleAddToCart(lego)}
+                    size="default"
+                    className="rounded-xl text-md bg-[#FFD300] font-bold text-black max-md:text-sm"
+                  >
+                    Add to cart
+                    <IoBag size={25} className="pl-2" />
+                  </Button>
                 </CardFooter>
               </Card>
             );
