@@ -6,13 +6,17 @@ type CartType = {
   cartTotalAmount: number;
 };
 
-const initialState: CartType = {
+// Initialize cartItems based on localStorage or an empty array if not available
+const initialCartItems =
   // Check if "cartItems" key exists in localStorage
   // If yes, retrieve and parse its value
   // If not found, initialize cartItems with an empty array
-  cartItems: localStorage.getItem("cartItems")
+  typeof window !== "undefined" && localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems")!)
-    : [],
+    : [];
+
+const initialState: CartType = {
+  cartItems: initialCartItems,
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
