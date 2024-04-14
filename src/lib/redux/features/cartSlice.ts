@@ -7,7 +7,12 @@ type CartType = {
 };
 
 const initialState: CartType = {
-  cartItems: [],
+  // Check if "cartItems" key exists in localStorage
+  // If yes, retrieve and parse its value
+  // If not found, initialize cartItems with an empty array
+  cartItems: localStorage.getItem("cartItems")
+    ? JSON.parse(localStorage.getItem("cartItems")!)
+    : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
@@ -24,6 +29,8 @@ const cartSlice = createSlice({
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
       }
+      // Stock data in LocalStorage
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
