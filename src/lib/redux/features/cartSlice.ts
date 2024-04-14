@@ -6,7 +6,7 @@ type CartType = {
   cartTotalAmount: number;
 };
 
-// Initialize cartItems based on localStorage or an empty array if not available
+// Initialize cartItems based on the value stored in localStorage, or initialize with an empty array if "cartItems" key is not found in localStorage
 const initialCartItems =
   // Check if "cartItems" key exists in localStorage
   // If yes, retrieve and parse its value
