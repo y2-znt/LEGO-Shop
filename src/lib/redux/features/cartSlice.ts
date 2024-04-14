@@ -17,7 +17,13 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.cartItems.push(action.payload);
+      const { id } = action.payload;
+      const existingItem = state.cartItems.find((item) => item.id === id);
+      if (existingItem) {
+        existingItem.cartQuantity += 1;
+      } else {
+        state.cartItems.push({ ...action.payload, cartQuantity: 1 });
+      }
     },
   },
 });
