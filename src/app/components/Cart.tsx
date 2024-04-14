@@ -13,7 +13,11 @@ import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
-import { decreaseCart, removeFromCart } from "@/lib/redux/features/cartSlice";
+import {
+  decreaseCart,
+  increaseCart,
+  removeFromCart,
+} from "@/lib/redux/features/cartSlice";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
@@ -25,6 +29,9 @@ export default function Cart() {
 
   const handleDecreaseCart = (cartItem: any) => {
     dispatch(decreaseCart(cartItem));
+  };
+  const handleIncreaseCart = (cartItem: any) => {
+    dispatch(increaseCart(cartItem));
   };
 
   return (
@@ -83,7 +90,12 @@ export default function Cart() {
                     -
                   </button>
                   <div>{cartItem.cartQuantity}</div>
-                  <button className="px-8">+</button>
+                  <button
+                    onClick={() => handleIncreaseCart(cartItem)}
+                    className="px-8"
+                  >
+                    +
+                  </button>
                 </div>
                 <div className="justify-self-end">
                   ${cartItem.price * cartItem.cartQuantity}
