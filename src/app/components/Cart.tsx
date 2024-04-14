@@ -13,7 +13,7 @@ import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
-import { removeFromCart } from "@/lib/redux/features/cartSlice";
+import { decreaseCart, removeFromCart } from "@/lib/redux/features/cartSlice";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
@@ -21,6 +21,10 @@ export default function Cart() {
 
   const handleRemoveFromCart = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
+  };
+
+  const handleDecreaseCart = (cartItem: any) => {
+    dispatch(decreaseCart(cartItem));
   };
 
   return (
@@ -72,7 +76,12 @@ export default function Cart() {
                 </div>
                 <div className="pl-32">${cartItem.price}</div>
                 <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32">
-                  <button className="px-8">-</button>
+                  <button
+                    onClick={() => handleDecreaseCart(cartItem)}
+                    className="px-8"
+                  >
+                    -
+                  </button>
                   <div>{cartItem.cartQuantity}</div>
                   <button className="px-8">+</button>
                 </div>
