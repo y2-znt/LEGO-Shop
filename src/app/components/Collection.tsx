@@ -19,7 +19,6 @@ import { addToCart } from "@/lib/redux/features/cartSlice";
 export default function Collection() {
   const { products } = Data;
   const dispatch = useDispatch();
-
   const handleAddToCart = (lego: any) => {
     dispatch(addToCart(lego));
   };
