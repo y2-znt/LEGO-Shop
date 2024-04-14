@@ -54,7 +54,7 @@ export default function Collection() {
                   <Button
                     onClick={() => handleAddToCart(lego)}
                     size="default"
-                    className="rounded-xl text-md bg-[#FFD300] font-bold text-black max-md:text-sm"
+                    className="rounded-xl text-md font-bold text-black max-md:text-sm active:bg-amber-200 transition-all"
                   >
                     Add to cart
                     <IoBag size={25} className="pl-2" />

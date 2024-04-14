@@ -68,7 +68,7 @@ export default function page() {
             </div>
           </div>
           <div className="flex justify-between items-start border-t pt-8 pl-2">
-            <Button className="font-bold border px-8 py-5 text-gray-700 bg-transparent">
+            <Button className="font-bold border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black">
               Clear Cart
             </Button>
             <div className="w-72 ">
@@ -79,7 +79,7 @@ export default function page() {
               <p className="text-sm pt-4 text-gray-700 font-medium">
                 Taxes and shipping calculated at checkout
               </p>
-              <Button className="w-full font-bold text-black mt-3">
+              <Button className="w-full font-bold text-black mt-3 active:bg-amber-200 transition-all">
                 Checkout
               </Button>
               <Link href="/">
