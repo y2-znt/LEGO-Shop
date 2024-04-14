@@ -63,10 +63,12 @@ export default function Cart() {
                 <div className="pl-32">${cartItem.price}</div>
                 <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32">
                   <button className="px-8">-</button>
-                  <div>2</div>
+                  <div>{cartItem.cartQuantity}</div>
                   <button className="px-8">+</button>
                 </div>
-                <div className="justify-self-end">$13.98</div>
+                <div className="justify-self-end">
+                  ${cartItem.price * cartItem.cartQuantity}
+                </div>
               </div>
             ))}
           </div>
@@ -77,7 +79,7 @@ export default function Cart() {
             <div className="w-72 ">
               <div className="flex justify-between ">
                 <span>SUBTOTAL</span>
-                <span>$13.98</span>
+                <span>${cart.cartTotalAmount}</span>
               </div>
               <p className="text-sm pt-4 text-gray-700 font-medium">
                 Taxes and shipping calculated at checkout
