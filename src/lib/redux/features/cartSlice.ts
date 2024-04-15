@@ -77,9 +77,6 @@ const cartSlice = createSlice({
         }
       }
     },
-    updateNotificationCount: (state, action) => {
-      state.notificationCount += 1;
-    },
     clearCart: (state) => {
       state.cartItems = [];
       // Update the LocalStorage
@@ -93,7 +90,6 @@ export const {
   removeFromCart,
   decreaseCart,
   increaseCart,
-  updateNotificationCount,
   clearCart,
 } = cartSlice.actions;
 
