@@ -32,9 +32,9 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find((item) => item.id === id);
       if (existingItem) {
         existingItem.cartQuantity += 1;
+        state.notificationCount++;
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
-        state.notificationCount++;
       }
       // Stock data in LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
