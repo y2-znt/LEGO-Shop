@@ -34,15 +34,21 @@ const cartSlice = createSlice({
         existingItem.cartQuantity += 1;
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
+        state.notificationCount++;
       }
       // Stock data in LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     removeFromCart: (state, action) => {
       // Remove the cart item with the ID matching the action payload
-      state.cartItems = state.cartItems.filter(
-        (cartItem: any) => cartItem.id !== action.payload.id
-      );
+      state.cartItems = state.cartItems.filter((cartItem: any) => {
+        if (cartItem.id === action.payload.id) {
+          state.notificationCount -= 1; // Decrement notification count
+          return false; // Exclude the item from the filtered array
+        }
+        return true; // Include other items in the filtered array
+      });
+
       // Update the LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
@@ -79,6 +85,7 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cartItems = [];
+      state.notificationCount = 0;
       // Update the LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
