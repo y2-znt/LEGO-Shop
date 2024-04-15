@@ -4,6 +4,7 @@ type CartType = {
   cartItems: any[];
   cartTotalQuantity: number;
   cartTotalAmount: number;
+  notificationCount: number;
 };
 
 // Initialize cartItems based on the value stored in localStorage, or initialize with an empty array if "cartItems" key is not found in localStorage
@@ -19,6 +20,7 @@ const initialState: CartType = {
   cartItems: initialCartItems,
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
+  notificationCount: 0,
 };
 
 const cartSlice = createSlice({
@@ -72,16 +74,21 @@ const cartSlice = createSlice({
         const item = state.cartItems[itemIndex];
         if (item.cartQuantity > 0) {
           item.cartQuantity += 1;
-        } else {
-          // If the quantity is 1 or less, remove the item from the cart
-          state.cartItems.splice(itemIndex, 1);
         }
       }
+    },
+    updateNotificationCount: (state, action) => {
+      state.notificationCount += 1;
     },
   },
 });
 
-export const { addToCart, removeFromCart, decreaseCart, increaseCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  decreaseCart,
+  increaseCart,
+  updateNotificationCount,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

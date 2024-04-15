@@ -12,7 +12,10 @@ import {
 import { IoBag } from "react-icons/io5";
 import { Data } from "./Data";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/lib/redux/features/cartSlice";
+import {
+  addToCart,
+  updateNotificationCount,
+} from "@/lib/redux/features/cartSlice";
 
 export default function Collection() {
   const { products } = Data;
@@ -20,6 +23,7 @@ export default function Collection() {
 
   const handleAddToCart = (lego: any) => {
     dispatch(addToCart(lego));
+    dispatch(updateNotificationCount());
   };
 
   return (

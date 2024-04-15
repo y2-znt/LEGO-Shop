@@ -52,8 +52,8 @@ export default function Cart() {
             {cart.cartItems?.map((cartItem: any, index: number) => (
               <div key={index} className="grid-cols-4 my-4 grid items-center">
                 <div>
-                  <Card className="rounded-lg">
-                    <CardTitle className="text-xl p-5 font-bold">
+                  <Card className="rounded-xl">
+                    <CardTitle className="text-xl pl-5 pt-5  font-bold">
                       <p>{cartItem.title}</p>
                     </CardTitle>
                     <CardHeader>
