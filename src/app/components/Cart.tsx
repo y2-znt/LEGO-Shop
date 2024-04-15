@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  clearCart,
   decreaseCart,
   increaseCart,
   removeFromCart,
@@ -32,6 +33,10 @@ export default function Cart() {
   };
   const handleIncreaseCart = (cartItem: any) => {
     dispatch(increaseCart(cartItem));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
   };
 
   return (
@@ -104,7 +109,10 @@ export default function Cart() {
             ))}
           </div>
           <div className="flex justify-between items-start border-t pt-8 pl-2">
-            <Button className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black">
+            <Button
+              onClick={() => handleClearCart()}
+              className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black"
+            >
               Clear Cart
             </Button>
             <div className="w-72 ">
