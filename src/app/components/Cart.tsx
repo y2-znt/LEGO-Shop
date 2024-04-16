@@ -39,6 +39,7 @@ export default function Cart() {
     dispatch(clearCart());
   };
 
+
   return (
     <div>
       <Header />
@@ -54,7 +55,7 @@ export default function Cart() {
             <li className="flex justify-self-end">TOTAL</li>
           </ul>
           <div>
-            {cart.cartItems?.map((cartItem: any, index: number) => (
+            {cart.cartItems.map((cartItem: any, index: number) => (
               <div key={index} className="grid-cols-4 my-4 grid items-center">
                 <div>
                   <Card className="rounded-xl">

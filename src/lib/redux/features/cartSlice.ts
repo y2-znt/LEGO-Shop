@@ -6,7 +6,6 @@ type CartType = {
   cartTotalAmount: number;
   notificationCount: number;
 };
-
 // Initialize cartItems based on the value stored in localStorage, or initialize with an empty array if "cartItems" key is not found in localStorage
 const initialCartItems =
   // Check if "cartItems" key exists in localStorage
@@ -35,19 +34,22 @@ const cartSlice = createSlice({
         state.notificationCount++;
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
+        state.notificationCount++;
       }
       // Stock data in LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     removeFromCart: (state, action) => {
-      // Remove the cart item with the ID matching the action payload
-      state.cartItems = state.cartItems.filter((cartItem: any) => {
-        if (cartItem.id === action.payload.id) {
-          state.notificationCount -= 1; // Decrement notification count
-          return false; // Exclude the item from the filtered array
-        }
-        return true; // Include other items in the filtered array
-      });
+      const { id, cartQuantity } = action.payload;
+      const itemIndex = state.cartItems.findIndex(
+        (cartItem) => cartItem.id === id
+      );
+
+      if (itemIndex !== -1) {
+        state.cartItems[itemIndex];
+        state.cartItems.splice(itemIndex, 1);
+        state.notificationCount -= cartQuantity; // Decrease notification count by the quantity of the removed item
+      }
 
       // Update the LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -57,11 +59,12 @@ const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex(
         (cartItem) => cartItem.id === itemId
       );
+      state.notificationCount--;
 
       if (itemIndex !== -1) {
         // Get the item object from the cartItems array
         const item = state.cartItems[itemIndex];
-        if (item.cartQuantity > 0) {
+        if (item.cartQuantity > 1) {
           item.cartQuantity -= 1;
         } else {
           // If the quantity is 1 or less, remove the item from the cart
@@ -74,6 +77,7 @@ const cartSlice = createSlice({
       const itemIndex = state.cartItems.findIndex(
         (cartItem) => cartItem.id === itemId
       );
+      state.notificationCount++;
 
       if (itemIndex !== -1) {
         // Get the item object from the cartItems array
