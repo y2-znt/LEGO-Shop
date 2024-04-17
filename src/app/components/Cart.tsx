@@ -43,7 +43,7 @@ export default function Cart() {
 
   useEffect(() => {
     dispatch(getTotals());
-  });
+  }, [cart, dispatch]);
 
   return (
     <div>
