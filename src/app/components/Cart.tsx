@@ -21,6 +21,7 @@ import {
   removeFromCart,
 } from "@/lib/redux/features/cartSlice";
 import { useEffect } from "react";
+import Footer from "./Footer";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
@@ -110,7 +111,7 @@ export default function Cart() {
                       </CardFooter>
                     </Card>
                   </div>
-                  <div className="pl-32">${cartItem.price}</div>
+                  <div className="pl-32">${cartItem.price.toFixed(2)}</div>
                   <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32">
                     <button
                       onClick={() => handleDecreaseCart(cartItem)}
@@ -127,7 +128,9 @@ export default function Cart() {
                     </button>
                   </div>
                   <div className="justify-self-end">
-                    ${cartItem.price * cartItem.cartQuantity}
+                    <div className="justify-self-end">
+                      ${(cartItem.price * cartItem.cartQuantity).toFixed(2)}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -142,12 +145,12 @@ export default function Cart() {
               <div className="w-72 ">
                 <div className="flex justify-between ">
                   <span>SUBTOTAL</span>
-                  <span>${cart.cartTotalAmount}</span>
+                  <span>${cart.cartTotalAmount.toFixed(2)}</span>
                 </div>
                 <p className="text-sm pt-4 text-gray-700 font-medium">
                   Taxes and shipping calculated at checkout
                 </p>
-                <Button className="w-full  text-black mt-3 active:bg-amber-200 transition-all">
+                <Button className="w-full font-bold text-black mt-3 active:bg-amber-200 transition-all">
                   Checkout
                 </Button>
                 <Link href="/">
@@ -162,6 +165,7 @@ export default function Cart() {
             </div>
           </div>
         )}
+        <Footer />
       </main>
     </div>
   );
