@@ -16,9 +16,11 @@ import Link from "next/link";
 import {
   clearCart,
   decreaseCart,
+  getTotals,
   increaseCart,
   removeFromCart,
 } from "@/lib/redux/features/cartSlice";
+import { useEffect } from "react";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
@@ -39,6 +41,9 @@ export default function Cart() {
     dispatch(clearCart());
   };
 
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart]);
 
   return (
     <div>
