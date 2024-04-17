@@ -59,8 +59,8 @@ export default function Cart() {
               Your cart is currently empty.
               <Link href="/">
                 <div className="flex pt-4">
-                  <Button size="lg" className="text-lg">
-                    <span className=" pr-2">
+                  <Button size="lg" className="text-base font-bold text-black">
+                    <span className="pr-2">
                       <BsArrowLeft />
                     </span>
                     <p>Continue shopping</p>
