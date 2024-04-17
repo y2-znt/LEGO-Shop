@@ -48,13 +48,26 @@ export default function Cart() {
   return (
     <div>
       <Header />
+
       <main className="max-w-7xl mx-auto max-xl:px-8 font-bold">
         <p className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
           Shopping Cart
         </p>
         {cart.cartItems.length === 0 ? (
           <div>
-            <Link href="/">Continue shopping</Link>
+            <div className="flex flex-col m-12 items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
+              Your cart is currently empty.
+              <Link href="/">
+                <div className="flex pt-4">
+                  <Button size="lg" className="text-lg">
+                    <span className=" pr-2">
+                      <BsArrowLeft />
+                    </span>
+                    <p>Continue shopping</p>
+                  </Button>
+                </div>
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="mx-8 space-y-10">
