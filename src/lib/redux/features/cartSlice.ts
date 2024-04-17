@@ -94,14 +94,18 @@ const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     getTotals: (state) => {
+      // reduce method to calculate total
       const { total, quantity } = state.cartItems.reduce(
+        // Update the accumulator properties: total and quantity
         (acc, { price, cartQuantity }) => ({
           total: acc.total + price * cartQuantity,
           quantity: acc.quantity + cartQuantity,
         }),
+        // Initial values for the accumulator
         { total: 0, quantity: 0 }
       );
 
+      // Update the state values
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
