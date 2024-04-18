@@ -72,11 +72,13 @@ export default function Cart() {
           </div>
         ) : (
           <div className="mx-8 space-y-10">
-            <ul className="grid-cols-4 grid pt-12">
+            <ul className="grid-cols-4 grid pt-12 max-lg:grid-cols-1">
               <li>PRODUCT</li>
-              <li className="pl-32">PRICE</li>
-              <li className="pl-32">QUANTITY</li>
-              <li className="flex justify-self-end">TOTAL</li>
+              <li className="pl-32 max-lg:pl-0">PRICE</li>
+              <li className="pl-32 max-lg:pl-0">QUANTITY</li>
+              <li className="flex justify-self-end max-lg:justify-self-start">
+                TOTAL
+              </li>
             </ul>
             <div>
               {cart.cartItems.map((cartItem: any, index: number) => (
