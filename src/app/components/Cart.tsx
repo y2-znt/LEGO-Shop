@@ -72,7 +72,7 @@ export default function Cart() {
           </div>
         ) : (
           <div className="mx-8 space-y-10">
-            <ul className="grid-cols-4 grid pt-12">
+            <ul className="grid-cols-4 grid pt-12 max-sm:hidden">
               <li>PRODUCT</li>
               <li className="pl-32 max-lg:pl-12">PRICE</li>
               <li className="pl-32 max-lg:pl-12">QUANTITY</li>
@@ -80,10 +80,13 @@ export default function Cart() {
             </ul>
             <div>
               {cart.cartItems.map((cartItem: any, index: number) => (
-                <div key={index} className="grid-cols-4 my-4 grid items-center">
+                <div
+                  key={index}
+                  className="grid-cols-4 my-4 grid items-center max-sm:grid-cols-1"
+                >
                   <div>
                     <Card className="rounded-xl">
-                      <CardTitle className="text-xl pl-5 pt-5  font-bold">
+                      <CardTitle className="text-xl pl-5 pt-5 font-bold">
                         <p>{cartItem.title}</p>
                       </CardTitle>
                       <CardHeader>
@@ -111,10 +114,10 @@ export default function Cart() {
                       </CardFooter>
                     </Card>
                   </div>
-                  <div className="pl-32 max-lg:pl-12">
+                  <div className="pl-32 max-lg:pl-12 max-sm:pl-0 max-sm:mt-6">
                     ${cartItem.price.toFixed(2)}
                   </div>
-                  <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32 max-lg:ml-12">
+                  <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32 max-lg:ml-12 max-sm:m-auto">
                     <button
                       onClick={() => handleDecreaseCart(cartItem)}
                       className="px-8"
@@ -140,12 +143,12 @@ export default function Cart() {
             <div className="flex justify-between items-start border-t pt-8 pl-2">
               <Button
                 onClick={() => handleClearCart()}
-                className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black"
+                className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black max-sm:px-5 max-sm:py-2"
               >
                 Clear Cart
               </Button>
-              <div className="w-72 ">
-                <div className="flex justify-between ">
+              <div className="w-72 max-sm:pl-8">
+                <div className="flex justify-between">
                   <span>SUBTOTAL</span>
                   <span>${cart.cartTotalAmount.toFixed(2)}</span>
                 </div>
