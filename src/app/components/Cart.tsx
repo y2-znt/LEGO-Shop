@@ -72,13 +72,11 @@ export default function Cart() {
           </div>
         ) : (
           <div className="mx-8 space-y-10">
-            <ul className="grid-cols-4 grid pt-12 max-lg:grid-cols-1">
+            <ul className="grid-cols-4 grid pt-12">
               <li>PRODUCT</li>
-              <li className="pl-32 max-lg:pl-0">PRICE</li>
-              <li className="pl-32 max-lg:pl-0">QUANTITY</li>
-              <li className="flex justify-self-end max-lg:justify-self-start">
-                TOTAL
-              </li>
+              <li className="pl-32 max-lg:pl-12">PRICE</li>
+              <li className="pl-32 max-lg:pl-12">QUANTITY</li>
+              <li className="flex justify-self-end">TOTAL</li>
             </ul>
             <div>
               {cart.cartItems.map((cartItem: any, index: number) => (
@@ -113,8 +111,10 @@ export default function Cart() {
                       </CardFooter>
                     </Card>
                   </div>
-                  <div className="pl-32">${cartItem.price.toFixed(2)}</div>
-                  <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32">
+                  <div className="pl-32 max-lg:pl-12">
+                    ${cartItem.price.toFixed(2)}
+                  </div>
+                  <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32 max-lg:ml-12">
                     <button
                       onClick={() => handleDecreaseCart(cartItem)}
                       className="px-8"
