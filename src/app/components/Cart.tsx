@@ -101,7 +101,7 @@ export default function Cart() {
                         </figure>
                         <CardDescription></CardDescription>
                       </CardHeader>
-                      <CardFooter className="flex justify-end py-8 ">
+                      <CardFooter className="flex justify-end py-8">
                         <Button
                           onClick={() => handleRemoveFromCart(cartItem)}
                           className=" bg-transparent text-gray-700 hover:text-black"
@@ -114,26 +114,26 @@ export default function Cart() {
                       </CardFooter>
                     </Card>
                   </div>
-                  <div className="pl-32 max-lg:pl-12 max-sm:pl-0 max-sm:mt-6">
+                  <div className="pl-32 max-lg:pl-12 max-sm:pl-0 max-sm:mt-24 max-sm:ml-6 max-sm:absolute">
                     ${cartItem.price.toFixed(2)}
                   </div>
-                  <div className="flex items-start justify-center w-40 max-w-full border rounded-lg py-3 ml-32 max-lg:ml-12 max-sm:m-auto">
+                  <div className="flex items-start justify-center w-40 max-w-full rounded-lg bg-[#FFD300] py-3 ml-32 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
                     <button
                       onClick={() => handleDecreaseCart(cartItem)}
                       className="px-8"
                     >
-                      -
+                      <span className="rounded-full px-3 py-1 text-xl">-</span>
                     </button>
                     <div>{cartItem.cartQuantity}</div>
                     <button
                       onClick={() => handleIncreaseCart(cartItem)}
                       className="px-8"
                     >
-                      +
+                      <span className="rounded-full px-3 py-1 text-xl">+</span>
                     </button>
                   </div>
-                  <div className="justify-self-end">
-                    <div className="justify-self-end">
+                  <div className="justify-self-end max-sm:text-xl max-sm:p-12 max-sm:pt-0">
+                    <div>
                       ${(cartItem.price * cartItem.cartQuantity).toFixed(2)}
                     </div>
                   </div>
@@ -170,7 +170,7 @@ export default function Cart() {
             </div>
           </div>
         )}
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </div>
   );
