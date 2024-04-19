@@ -114,10 +114,10 @@ export default function Cart() {
                       </CardFooter>
                     </Card>
                   </div>
-                  <div className="pl-32 max-lg:pl-12 max-sm:pl-0 max-sm:mt-24 max-sm:ml-6 max-sm:absolute">
+                  <div className="pl-32 max-lg:pl-12 max-sm:pl-0 max-sm:mt-14 max-sm:ml-6 max-sm:absolute">
                     ${cartItem.price.toFixed(2)}
                   </div>
-                  <div className="flex items-start justify-center w-40 max-w-full rounded-lg bg-[#FFD300] py-3 ml-32 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
+                  <div className="flex items-start justify-center w-40 max-w-full rounded-lg bg-[#FFD300] py-2 ml-32 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
                     <button
                       onClick={() => handleDecreaseCart(cartItem)}
                       className="px-8"
@@ -140,14 +140,14 @@ export default function Cart() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between items-start border-t pt-8 pl-2">
+            <div className="flex justify-between items-start border-t pt-8 pl-2 max-sm:justify-center max-sm:flex-col max-sm:items-center">
               <Button
                 onClick={() => handleClearCart()}
                 className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black max-sm:px-5 max-sm:py-2"
               >
                 Clear Cart
               </Button>
-              <div className="w-72 max-sm:pl-8">
+              <div className="w-72 pt-12">
                 <div className="flex justify-between">
                   <span>SUBTOTAL</span>
                   <span>${cart.cartTotalAmount.toFixed(2)}</span>
@@ -155,11 +155,11 @@ export default function Cart() {
                 <p className="text-sm pt-4 text-gray-700 font-medium">
                   Taxes and shipping calculated at checkout
                 </p>
-                <Button className="w-full font-bold text-black mt-3 active:bg-amber-200 transition-all">
+                <Button className="w-full py-5 font-bold text-black mt-3 active:bg-amber-200 transition-all">
                   Checkout
                 </Button>
                 <Link href="/">
-                  <div className="flex pt-4">
+                  <div className="flex pt-4 mb-24">
                     <span className="translate-y-1 pr-2">
                       <BsArrowLeft />
                     </span>
@@ -170,7 +170,6 @@ export default function Cart() {
             </div>
           </div>
         )}
-        {/* <Footer /> */}
       </main>
     </div>
   );
