@@ -69,6 +69,17 @@ const cartSlice = createSlice({
       if (itemIndex !== -1) {
         state.cartItems[itemIndex];
         state.cartItems.splice(itemIndex, 1);
+        toast.error(`${action.payload.title} removed from cart.🧺`, {
+          position: "top-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
 
       // Update the LocalStorage
