@@ -16,8 +16,10 @@ const favSlice = createSlice({
   reducers: {
     addToFav: (state, action) => {
       const { id } = action.payload;
-      state.favItems.find((item) => item.id === id);
-      state.favItems.push({ ...action.payload, cartQuantity: 1 });
+      const existingItem = state.favItems.find((item) => item.id === id);
+      if (!existingItem) {
+        state.favItems.push({ ...action.payload, cartQuantity: 1 });
+      }
     },
   },
 });
