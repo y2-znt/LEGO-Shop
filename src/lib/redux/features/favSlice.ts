@@ -12,7 +12,9 @@ const favSlice = createSlice({
   name: "favorite",
   initialState,
   reducers: {
-    addToFav: (state, action) => {},
+    addToFav: (state, action) => {
+      state.favItems.push(action.payload);
+    },
   },
 });
 

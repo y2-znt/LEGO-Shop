@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/redux/features/cartSlice";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { useState } from "react";
+import { addToFav } from "@/lib/redux/features/favSlice";
 
 export default function Collection() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -28,6 +29,7 @@ export default function Collection() {
 
   const handleAddToFav = (lego: any) => {
     setIsFavorite(!isFavorite);
+    dispatch(addToFav(lego));
   };
 
   return (
