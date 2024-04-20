@@ -132,7 +132,7 @@ export default function Cart() {
                       <span className="rounded-full px-3 py-1 text-xl">+</span>
                     </button>
                   </div>
-                  <div className="justify-self-end max-sm:text-xl max-sm:p-12 max-sm:pt-0">
+                  <div className="justify-self-end max-sm:p-12 max-sm:pt-0">
                     <div>
                       ${(cartItem.price * cartItem.cartQuantity).toFixed(2)}
                     </div>
@@ -143,7 +143,7 @@ export default function Cart() {
             <div className="flex justify-between items-start border-t pt-8 pl-2 max-sm:justify-center max-sm:flex-col max-sm:items-center">
               <Button
                 onClick={() => handleClearCart()}
-                className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black max-sm:px-5 max-sm:py-2"
+                className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black max-sm:px-5 max-sm:py-2 max-sm:w-full"
               >
                 Clear Cart
               </Button>
