@@ -5,8 +5,13 @@ type favType = {
   favQuantity: number;
 };
 
+const initialFavItems =
+  typeof window !== "undefined" && localStorage.getItem("favItems")
+    ? JSON.parse(localStorage.getItem("favItems")!)
+    : [];
+
 const initialState: favType = {
-  favItems: [],
+  favItems: initialFavItems,
   favQuantity: 0,
 };
 
@@ -20,6 +25,8 @@ const favSlice = createSlice({
       if (!existingItem) {
         state.favItems.push({ ...action.payload, cartQuantity: 1 });
       }
+      // Update the LocalStorage
+      localStorage.setItem("favItems", JSON.stringify(state.favItems));
     },
   },
 });
