@@ -32,7 +32,7 @@ const cartSlice = createSlice({
         existingItem.cartQuantity += 1;
         toast.info(`${action.payload.title} quantity increased in cart.🧺`, {
           position: "top-left",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
@@ -45,7 +45,7 @@ const cartSlice = createSlice({
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
         toast.success(`${action.payload.title} added to cart 🧺`, {
           position: "top-left",
-          autoClose: 3000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
