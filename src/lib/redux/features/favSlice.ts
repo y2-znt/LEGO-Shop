@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type favType = {
   favItems: any[];
+  favQuantity: number;
 };
 
 const initialState: favType = {
   favItems: [],
+  favQuantity: 0,
 };
 
 const favSlice = createSlice({
@@ -13,7 +15,9 @@ const favSlice = createSlice({
   initialState,
   reducers: {
     addToFav: (state, action) => {
-      state.favItems.push(action.payload);
+      const { id } = action.payload;
+      state.favItems.find((item) => item.id === id);
+      state.favItems.push({ ...action.payload, cartQuantity: 1 });
     },
   },
 });
