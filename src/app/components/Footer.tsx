@@ -15,7 +15,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="m-10 mt-28 text-center text-lg font-semibold border-t">
+    <footer className="mt-28 text-center text-lg font-semibold border-t bg-[#201D48] text-white max-sm:text-sm">
       <div className="mx-auto max-w-7xl overflow-hidden px-4 py-10 sm:py-16 lg:px-6">
         <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12">
           {FooterLinks.footer.map((item) => (
@@ -28,7 +28,7 @@ export default function Footer() {
       <div className="text-sm underline underline-offset-8 decoration-green-500 rotate-2">
         Yoni Deserbaix 🦇
       </div>
-      <div className="mt-3 gap-4 flex items-center justify-center  ">
+      <div className="p-3 gap-4 flex items-center justify-center  ">
         <Link
           href="https://www.linkedin.com/in/yoni-deserbaix/"
           target="_blank"
