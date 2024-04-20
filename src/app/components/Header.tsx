@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FiShoppingCart } from "react-icons/fi";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 export default function Header() {
   const { cartTotalQuantity } = useSelector((state: any) => state.cart);
@@ -22,6 +23,9 @@ export default function Header() {
           />
         </Link>
         <div className="flex items-center gap-5 max-sm:gap-3">
+          <Link href="/favorites">
+            <IoIosHeartEmpty size={25} />
+          </Link>
           <Link href="/cart" className="relative">
             <FiShoppingCart size={25} />
             {cartTotalQuantity > 0 && (
