@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Bounce, toast } from "react-toastify";
 
 type CartType = {
   cartItems: any[];
@@ -29,6 +30,17 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find((item) => item.id === id);
       if (existingItem) {
         existingItem.cartQuantity += 1;
+        toast.success("Product added to cart", {
+          position: "top-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
       }

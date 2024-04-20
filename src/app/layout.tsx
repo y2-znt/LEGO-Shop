@@ -4,6 +4,8 @@ import "./globals.css";
 import clsx from "clsx";
 import { ThemeProvider } from "next-themes";
 import { StoreProvider } from "./StoreProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +29,7 @@ export default function RootLayout({
       >
         <StoreProvider>
           <ThemeProvider attribute="class" defaultTheme="light">
+            <ToastContainer />
             {children}
           </ThemeProvider>
         </StoreProvider>
