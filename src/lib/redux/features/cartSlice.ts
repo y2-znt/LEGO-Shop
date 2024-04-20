@@ -30,7 +30,7 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find((item) => item.id === id);
       if (existingItem) {
         existingItem.cartQuantity += 1;
-        toast.success("Product added to cart", {
+        toast.info(`${action.payload.title} quantity increased in cart.🧺`, {
           position: "top-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -43,6 +43,17 @@ const cartSlice = createSlice({
         });
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
+        toast.success(`${action.payload.title} added to cart 🧺`, {
+          position: "top-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
       state.cartTotalQuantity += 1;
 
