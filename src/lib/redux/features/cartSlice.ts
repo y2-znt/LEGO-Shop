@@ -99,6 +99,17 @@ const cartSlice = createSlice({
         } else {
           // If the quantity is 1 or less, remove the item from the cart
           state.cartItems.splice(itemIndex, 1);
+          toast.warning(`${action.payload.title} removed from cart`, {
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         }
       }
     },
