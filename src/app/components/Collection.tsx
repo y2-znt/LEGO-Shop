@@ -13,13 +13,21 @@ import { IoBag } from "react-icons/io5";
 import { Data } from "./Data";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/lib/redux/features/cartSlice";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { useState } from "react";
 
 export default function Collection() {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const { products } = Data;
   const dispatch = useDispatch();
 
   const handleAddToCart = (lego: any) => {
     dispatch(addToCart(lego));
+  };
+
+  const handleAddToFav = (lego: any) => {
+    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -32,8 +40,18 @@ export default function Collection() {
           {products.map((lego, index) => {
             return (
               <Card className="rounded-lg" key={index}>
-                <CardTitle className="text-xl p-8 font-bold">
+                <CardTitle className="flex justify-between text-xl p-8 font-bold">
                   {lego.title}
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => handleAddToFav(lego)}
+                  >
+                    {isFavorite ? (
+                      <IoIosHeart color="red" size={25} />
+                    ) : (
+                      <IoIosHeartEmpty color="gray" size={25} />
+                    )}
+                  </span>
                 </CardTitle>
                 <CardHeader>
                   <figure className="flex justify-center h-40">
