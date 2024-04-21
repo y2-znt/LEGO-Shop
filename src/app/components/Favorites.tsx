@@ -16,11 +16,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { IoIosHeart } from "react-icons/io";
 import { removeFromFav } from "@/lib/redux/features/favSlice";
+import { IoBag } from "react-icons/io5";
+import { addToCart } from "@/lib/redux/features/cartSlice";
 
 export default function Favorites() {
   const favorite = useSelector((state: any) => state.favorite);
 
   const dispatch = useDispatch();
+
+  const handleAddToCart = (favItem: any) => {
+    dispatch(addToCart(favItem));
+  };
 
   const handleRemoveFav = (favItem: any) => {
     dispatch(removeFromFav(favItem));
@@ -62,6 +68,14 @@ export default function Favorites() {
                     </CardHeader>
                     <CardFooter className="flex justify-between py-12 font-bold">
                       ${favItem.price}
+                      <Button
+                        onClick={() => handleAddToCart(favItem)}
+                        size="default"
+                        className="rounded-xl text-md font-bold text-black max-md:text-sm active:bg-amber-200 transition-all"
+                      >
+                        Add to cart
+                        <IoBag size={25} className="pl-2" />
+                      </Button>
                     </CardFooter>
                   </Card>
                 </div>
