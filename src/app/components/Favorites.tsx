@@ -50,7 +50,7 @@ export default function Favorites() {
                   height={1000}
                   className="w-1/2 max-sm:w-full pb-12"
                 ></Image>
-                You are not favorites LEGO.
+                You have not favorites LEGO.
                 <Link href="/">
                   <div className="flex pt-4">
                     <Button
