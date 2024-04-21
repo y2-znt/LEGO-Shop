@@ -35,14 +35,14 @@ export default function Favorites() {
   return (
     <div>
       <Header />
-      <main className="max-w-6xl mx-auto font-bold max-xl:px-8">
+      <main className="max-w-6xl mx-auto max-xl:px-8 font-bold">
         <p className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem]">
           Favorites
         </p>
         <div>
           {favorite.favItems.length === 0 ? (
             <div>
-              <div className="flex flex-col m-12 items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
+              <div className="flex flex-col m-12 items-center text-3xl font-bold text-gray-700 max-sm:text-[1.7rem]">
                 <Image
                   src="/assets/favorite-empty.webp"
                   alt=""
@@ -55,7 +55,7 @@ export default function Favorites() {
                   <div className="flex pt-4">
                     <Button
                       size="lg"
-                      className="text-base font-bold text-black"
+                      className="text-base text-black font-bold"
                     >
                       <span className="pr-2">
                         <BsArrowLeft />
@@ -72,7 +72,7 @@ export default function Favorites() {
                 <div key={index}>
                   <div>
                     <Card className="rounded-lg" key={index}>
-                      <CardTitle className="flex justify-between text-xl p-8 font-bold">
+                      <CardTitle className="flex justify-between text-xl p-8">
                         {favItem.title}
                         <span
                           className="cursor-pointer"
