@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Bounce, toast } from "react-toastify";
 
 type favType = {
   favItems: any[];
@@ -37,6 +38,17 @@ const favSlice = createSlice({
       if (itemIndex !== -1) {
         state.favItems[itemIndex];
         state.favItems.splice(itemIndex, 1);
+        toast.warning(`${action.payload.title} removed from favorites`, {
+          position: "top-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       }
 
       // Update the LocalStorage
