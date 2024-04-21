@@ -6,6 +6,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { FaRegHeart } from "react-icons/fa";
 
 export default function Header() {
   const { cartTotalQuantity } = useSelector((state: any) => state.cart);
@@ -24,7 +25,7 @@ export default function Header() {
         </Link>
         <div className="flex items-center gap-5 max-sm:gap-3">
           <Link href="/favorites">
-            <IoIosHeartEmpty size={25} />
+            <FaRegHeart size={22} />
           </Link>
           <Link href="/cart" className="relative">
             <FiShoppingCart size={25} />
