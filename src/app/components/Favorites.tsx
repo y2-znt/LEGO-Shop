@@ -12,10 +12,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
+import { IoIosHeart } from "react-icons/io";
+import { removeFromFav } from "@/lib/redux/features/favSlice";
+
 export default function Favorites() {
   const favorite = useSelector((state: any) => state.favorite);
+
+  const dispatch = useDispatch();
+
+  const handleRemoveFav = (favItem: any) => {
+    dispatch(removeFromFav(favItem));
+  };
+
   return (
     <div>
       <Header />
@@ -31,6 +41,12 @@ export default function Favorites() {
                   <Card className="rounded-lg" key={index}>
                     <CardTitle className="flex justify-between text-xl p-8 font-bold">
                       {favItem.title}
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => handleRemoveFav(favItem)}
+                      >
+                        <IoIosHeart color="red" size={25} />
+                      </span>
                     </CardTitle>
                     <CardHeader>
                       <figure className="flex justify-center h-40">
