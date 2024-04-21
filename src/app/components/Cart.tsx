@@ -57,6 +57,13 @@ export default function Cart() {
         {cart.cartItems.length === 0 ? (
           <div>
             <div className="flex flex-col m-12 items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
+              <Image
+                src="/assets/cart-empty.jpg"
+                alt=""
+                width={1000}
+                height={1000}
+                className="w-1/2 max-sm:w-full"
+              ></Image>
               Your cart is currently empty.
               <Link href="/">
                 <div className="flex pt-4">
