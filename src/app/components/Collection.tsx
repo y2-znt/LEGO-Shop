@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,25 +10,28 @@ import {
 } from "@/components/ui/card";
 import { IoBag } from "react-icons/io5";
 import { Data } from "./Data";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/lib/redux/features/cartSlice";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { useState } from "react";
-import { addToFav } from "@/lib/redux/features/favSlice";
+import { addToFav, removeFromFav } from "@/lib/redux/features/favSlice";
 
 export default function Collection() {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   const { products } = Data;
+
+  const favItems = useSelector((state: any) => state.favorite.favItems);
   const dispatch = useDispatch();
 
   const handleAddToCart = (lego: any) => {
     dispatch(addToCart(lego));
   };
 
-  const handleAddToFav = (lego: any) => {
-    setIsFavorite(!isFavorite);
-    dispatch(addToFav(lego));
+  const toggleFavorite = (lego: any) => {
+    const isAlreadyFavorite = favItems.some((item: any) => item.id === lego.id);
+    if (isAlreadyFavorite) {
+      dispatch(removeFromFav(lego));
+    } else {
+      dispatch(addToFav(lego));
+    }
   };
 
   return (
@@ -40,13 +42,16 @@ export default function Collection() {
       <div className="pt-16">
         <div className="grid grid-cols-3 gap-20 max-lg:gap-5 max-md:grid-cols-2 max-sm:grid-cols-1">
           {products.map((lego, index) => {
+            const isFavorite = favItems.some(
+              (item: any) => item.id === lego.id
+            );
             return (
               <Card className="rounded-lg" key={index}>
                 <CardTitle className="flex justify-between text-xl p-8 font-bold">
                   {lego.title}
                   <span
                     className="cursor-pointer"
-                    onClick={() => handleAddToFav(lego)}
+                    onClick={() => toggleFavorite(lego)}
                   >
                     {isFavorite ? (
                       <IoIosHeart color="red" size={25} />

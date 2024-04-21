@@ -28,9 +28,23 @@ const favSlice = createSlice({
       // Update the LocalStorage
       localStorage.setItem("favItems", JSON.stringify(state.favItems));
     },
+    removeFromFav: (state, action) => {
+      const { id } = action.payload;
+      const itemIndex = state.favItems.findIndex(
+        (favItem) => favItem.id === id
+      );
+
+      if (itemIndex !== -1) {
+        state.favItems[itemIndex];
+        state.favItems.splice(itemIndex, 1);
+      }
+
+      // Update the LocalStorage
+      localStorage.setItem("favItems", JSON.stringify(state.favItems));
+    },
   },
 });
 
-export const { addToFav } = favSlice.actions;
+export const { addToFav, removeFromFav } = favSlice.actions;
 
 export default favSlice.reducer;
