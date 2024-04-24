@@ -19,7 +19,19 @@ const Input = ({
   register,
   errors,
 }: inputType) => {
-  return <div></div>;
+  return (
+    <div className="w-full relative">
+      <input
+        autoComplete="off"
+        id={id}
+        disabled={disabled}
+        {...register(id, { required })}
+        placeholder=""
+        type={type}
+      ></input>
+      <label htmlFor={id}>{label}</label>
+    </div>
+  );
 };
 
 export default Input;
