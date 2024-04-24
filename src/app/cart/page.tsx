@@ -1,9 +1,10 @@
-import React from "react";
-import Cart from "../components/Cart";
+import Header from "../components/Header";
+import Cart from "./Cart";
 
 export default function page() {
   return (
     <div>
+      <Header />
       <Cart />
     </div>
   );

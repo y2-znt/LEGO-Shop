@@ -1,5 +1,5 @@
 "use client";
-import Header from "../components/Header";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -7,12 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BsArrowLeft } from "react-icons/bs";
-import { Button } from "@/components/ui/button";
-import { GoTrash } from "react-icons/go";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "next/image";
-import Link from "next/link";
 import {
   clearCart,
   decreaseCart,
@@ -20,8 +14,12 @@ import {
   increaseCart,
   removeFromCart,
 } from "@/lib/redux/features/cartSlice";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
-import Footer from "./Footer";
+import { BsArrowLeft } from "react-icons/bs";
+import { GoTrash } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
@@ -48,8 +46,6 @@ export default function Cart() {
 
   return (
     <div>
-      <Header />
-
       <main className="max-w-7xl mx-auto max-xl:px-8 font-bold">
         <p className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
           Shopping Cart

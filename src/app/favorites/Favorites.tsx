@@ -1,9 +1,5 @@
 "use client";
 
-import React from "react";
-import Header from "./Header";
-import Link from "next/link";
-import { BsArrowLeft } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,12 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useDispatch, useSelector } from "react-redux";
-import Image from "next/image";
-import { IoIosHeart } from "react-icons/io";
-import { removeFromFav } from "@/lib/redux/features/favSlice";
-import { IoBag } from "react-icons/io5";
 import { addToCart } from "@/lib/redux/features/cartSlice";
+import { removeFromFav } from "@/lib/redux/features/favSlice";
+import Image from "next/image";
+import Link from "next/link";
+import { BsArrowLeft } from "react-icons/bs";
+import { IoIosHeart } from "react-icons/io";
+import { IoBag } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Favorites() {
   const favorite = useSelector((state: any) => state.favorite);
@@ -34,7 +32,6 @@ export default function Favorites() {
 
   return (
     <div>
-      <Header />
       <main className="max-w-6xl mx-auto max-xl:px-8 font-bold">
         <p className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem]">
           Favorites
