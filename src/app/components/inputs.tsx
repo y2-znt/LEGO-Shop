@@ -22,7 +22,7 @@ const Inputs = ({
   errors,
 }: inputType) => {
   return (
-    <div className="m-auto relative py-2">
+    <div className="m-auto relative py-2 font">
       <Label htmlFor={id}>{label}</Label>
       <Input
         autoComplete="off"

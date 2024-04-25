@@ -22,14 +22,14 @@ export default function RegisterForm() {
     <div>
       <main className="max-w-6xl text-black mx-auto max-xl:px-8 font-bold">
         <h1 className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem] mb-12">
-          Sign-up
+          Log-in
         </h1>
         <div className="w-3/4 m-auto">
-          <Button className="w-full bg-transparent px-7 gap-3 font-semibold border py-6">
+          <Button className="w-full font-semibold bg-transparent px-7 gap-3 border py-6">
             <span>
               <BsGoogle />
             </span>
-            Sign Up with Google
+            Continue with Google
           </Button>
           <Inputs
             id="name"
@@ -56,9 +56,9 @@ export default function RegisterForm() {
             Sign Up
           </Button>
           <p className="text-sm font-semibold text-center pt-4">
-            Already a account?{" "}
-            <Link href="/login" className="underline">
-              Log in
+            Do not have an account?{" "}
+            <Link href="/register" className="underline">
+              Sign Up
             </Link>
           </p>
         </div>
