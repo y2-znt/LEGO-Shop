@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FieldValues, useForm } from "react-hook-form";
 import { BsGoogle } from "react-icons/bs";
-import Inputs from "../components/inputs";
+import Inputs from "../../components/ui/inputs";
 
 export default function RegisterForm() {
   const {
