@@ -24,7 +24,7 @@ export default function RegisterForm() {
         <h1 className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem] mb-12">
           Log-in
         </h1>
-        <div className="w-3/4 m-auto">
+        <div className="w-3/4 max-sm:w-full m-auto">
           <Button className="w-full font-semibold bg-transparent px-7 gap-3 border py-6">
             <span>
               <BsGoogle />
