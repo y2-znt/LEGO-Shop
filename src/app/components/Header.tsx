@@ -33,7 +33,7 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <Link href="/">
+          <Link href="/register">
             <RiAccountCircleLine size={25} />
           </Link>
         </div>
