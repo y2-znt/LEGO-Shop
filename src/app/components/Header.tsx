@@ -1,18 +1,16 @@
 "use client";
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { FaRegHeart } from "react-icons/fa";
 
 export default function Header() {
   const { cartTotalQuantity } = useSelector((state: any) => state.cart);
 
   return (
-    <div className="bg-[#FFD300] fixed w-full z-10">
+    <div className="bg-[#FFD300] text-black fixed w-full z-10">
       <nav className="max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
         <Link href="/">
           <Image

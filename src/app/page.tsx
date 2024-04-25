@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <div className="max-w-6xl mx-auto max-xl:px-8">
+      <div className="max-w-6xl mx-auto max-xl:px-8  text-black">
         <Hero />
         <Collection />
         <Contact />

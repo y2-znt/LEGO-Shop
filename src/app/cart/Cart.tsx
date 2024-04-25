@@ -46,7 +46,7 @@ export default function Cart() {
 
   return (
     <div>
-      <main className="max-w-7xl mx-auto max-xl:px-8 font-bold">
+      <main className="max-w-7xl mx-auto max-xl:px-8 font-bold  text-black">
         <p className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
           Shopping Cart
         </p>
@@ -63,7 +63,7 @@ export default function Cart() {
               Your cart is currently empty.
               <Link href="/">
                 <div className="flex pt-4">
-                  <Button size="lg" className="text-base font-bold text-black">
+                  <Button size="lg" className="text-base font-bold">
                     <span className="pr-2">
                       <BsArrowLeft />
                     </span>
@@ -75,7 +75,7 @@ export default function Cart() {
           </div>
         ) : (
           <div className="mx-8 space-y-10">
-            <ul className="grid-cols-4 grid pt-12 max-sm:hidden">
+            <ul className="grid-cols-4 grid pt-12 max-sm:hidden ">
               <li>PRODUCT</li>
               <li className="pl-32 max-lg:pl-12">PRICE</li>
               <li className="pl-32 max-lg:pl-12">QUANTITY</li>
