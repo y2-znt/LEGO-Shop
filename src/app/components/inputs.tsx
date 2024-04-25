@@ -1,3 +1,5 @@
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 type inputType = {
@@ -10,7 +12,7 @@ type inputType = {
   errors: FieldErrors;
 };
 
-const Input = ({
+const Inputs = ({
   id,
   label,
   type = "text",
@@ -20,18 +22,19 @@ const Input = ({
   errors,
 }: inputType) => {
   return (
-    <div className="w-full relative">
-      <input
+    <div className="w-3/4 m-auto relative py-2">
+      <Label htmlFor={id}>{label}</Label>
+      <Input
         autoComplete="off"
         id={id}
         disabled={disabled}
         {...register(id, { required })}
         placeholder=""
         type={type}
-      ></input>
-      <label htmlFor={id}>{label}</label>
+        className={`${errors[id] ? "border-rose-400" : "border-slate-300"}`}
+      ></Input>
     </div>
   );
 };
 
-export default Input;
+export default Inputs;
