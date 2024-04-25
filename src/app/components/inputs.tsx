@@ -22,7 +22,7 @@ const Inputs = ({
   errors,
 }: inputType) => {
   return (
-    <div className="w-3/4 m-auto relative py-2">
+    <div className="m-auto relative py-2">
       <Label htmlFor={id}>{label}</Label>
       <Input
         autoComplete="off"
