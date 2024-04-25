@@ -12,15 +12,15 @@ type inputType = {
   errors: FieldErrors;
 };
 
-const Inputs = ({
+const Inputs: React.FC<inputType> = ({
   id,
   label,
-  type = "text",
-  disabled = false,
-  required = false,
+  type,
+  disabled,
+  required,
   register,
   errors,
-}: inputType) => {
+}) => {
   return (
     <div className="m-auto relative py-2 font">
       <Label htmlFor={id}>{label}</Label>

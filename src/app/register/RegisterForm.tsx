@@ -1,11 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { FieldValues, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGoogle } from "react-icons/bs";
+import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
 
 export default function RegisterForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -17,6 +23,38 @@ export default function RegisterForm() {
       password: "",
     },
   });
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsLoading(true);
+    console.log("form data: ", data);
+
+    axios
+      .post("/api/register/", data)
+      .then(() => {
+        toast.success("Account successfully created");
+
+        signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        }).then((callback) => {
+          if (callback?.ok) {
+            // router.push("/cart");
+            // router.refresh();
+            toast.success("Logged In");
+          }
+          if (callback?.error) {
+            toast.error(callback.error);
+          }
+        });
+      })
+      .catch(() => toast.error("Something wen wrong"))
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <div>
@@ -34,6 +72,7 @@ export default function RegisterForm() {
           <Inputs
             id="name"
             label="Name"
+            disabled={isLoading}
             register={register}
             errors={errors}
             required
@@ -41,18 +80,24 @@ export default function RegisterForm() {
           <Inputs
             id="email"
             label="Email"
+            disabled={isLoading}
             register={register}
             errors={errors}
             required
           />
           <Inputs
             id="password"
+            disabled={isLoading}
             label="Password"
             register={register}
             errors={errors}
             required
+            type="password"
           />
-          <Button className="font-bold w-full text-black active:bg-amber-200 transition-all py-6 mt-4">
+          <Button
+            className="font-bold w-full text-black active:bg-amber-200 transition-all py-6 mt-4"
+            onClick={handleSubmit(onSubmit)}
+          >
             Sign Up
           </Button>
           <p className="text-sm font-semibold text-center pt-4">

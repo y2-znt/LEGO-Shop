@@ -23,8 +23,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           type: "text",
         },
         password: {
-          label: "passowrd",
-          type: "passowrd",
+          label: "password",
+          type: "password",
         },
       },
       // Authorize function to validate credentials
