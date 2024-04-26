@@ -31,7 +31,7 @@ export default function RegisterForm() {
     console.log("form data: ", data);
 
     axios
-      .post("/api/register/", data)
+      .post("/api/register", data)
       .then(() => {
         toast.success("Account successfully created");
 
@@ -41,8 +41,8 @@ export default function RegisterForm() {
           redirect: false,
         }).then((callback) => {
           if (callback?.ok) {
-            // router.push("/cart");
-            // router.refresh();
+            router.push("/cart");
+            router.refresh();
             toast.success("Logged In");
           }
           if (callback?.error) {
