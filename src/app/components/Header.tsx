@@ -1,8 +1,17 @@
 "use client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import { GoTriangleDown } from "react-icons/go";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 
@@ -33,9 +42,23 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <Link href="/register">
-            <RiAccountCircleLine size={25} />
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="py-1 px-5 border-2 border-black rounded-2xl flex">
+              <RiAccountCircleLine size={25} />
+              <GoTriangleDown className="translate-x-3 translate-y-1" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem>
+                <Link href="/login">Login</Link>
+              </DropdownMenuItem>
+              <Link href="/register">
+                <DropdownMenuItem>Register</DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
     </div>
