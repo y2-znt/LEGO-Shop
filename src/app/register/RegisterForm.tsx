@@ -41,7 +41,7 @@ export default function RegisterForm() {
           redirect: false,
         }).then((callback) => {
           if (callback?.ok) {
-            router.push("/cart");
+            router.push("../cart");
             router.refresh();
             toast.success("Logged In");
           }
@@ -50,7 +50,7 @@ export default function RegisterForm() {
           }
         });
       })
-      .catch(() => toast.error("Something wen wrong"))
+      .catch(() => toast.error("Something went wrong"))
       .finally(() => {
         setIsLoading(false);
       });
