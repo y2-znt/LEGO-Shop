@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
@@ -50,7 +51,15 @@ export default function Header() {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-
+              <DropdownMenuItem>
+                <Link href="/orders">Your orders</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/admin">Admin Dashboard</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => signOut()}>
+                Logout
+              </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="/login">Login</Link>
               </DropdownMenuItem>
