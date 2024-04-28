@@ -7,6 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,7 +45,7 @@ export default function Header() {
             )}
           </Link>
           <DropdownMenu>
-            <DropdownMenuTrigger className="py-1 px-5 border-2 border-black rounded-2xl flex">
+            <DropdownMenuTrigger className="py-1 pr-5 pl-2 hover:bg-amber-200 flex rounded-2xl border-none outline-none">
               <RiAccountCircleLine size={25} />
               <GoTriangleDown className="translate-x-3 translate-y-1" />
             </DropdownMenuTrigger>
