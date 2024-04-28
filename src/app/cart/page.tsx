@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/Nav/Header";
 import Cart from "./Cart";
 
 export default function page() {

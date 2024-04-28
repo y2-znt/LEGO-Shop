@@ -1,8 +1,8 @@
 import Collection from "./components/Collection";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Header from "./components/Header";
 import Hero from "./components/Hero";
+import Header from "./components/Nav/Header";
 
 export default function Home() {
   return (

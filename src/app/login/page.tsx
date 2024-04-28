@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/Nav/Header";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
