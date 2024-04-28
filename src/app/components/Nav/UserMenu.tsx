@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { GoTriangleDown } from "react-icons/go";
 import { RiAccountCircleLine } from "react-icons/ri";
@@ -32,7 +33,17 @@ export default function UserMenu({ currentUser }: currentUserType) {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger className="py-2 pr-6 pl-2 hover:bg-amber-200 transition-all flex rounded-2xl border-none outline-none">
-          <RiAccountCircleLine size={25} aria-label="Account" />
+          {currentUser && currentUser.image ? (
+            <Image
+              alt=""
+              src={currentUser?.image}
+              width={30}
+              height={30}
+              className="rounded-full"
+            ></Image>
+          ) : (
+            <RiAccountCircleLine size={25} aria-label="Account" />
+          )}
           <GoTriangleDown className="translate-x-4 translate-y-1" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
