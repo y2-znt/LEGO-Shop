@@ -33,10 +33,16 @@ export default function Header() {
           />
         </Link>
         <div className="flex items-center gap-5 max-sm:gap-3">
-          <Link href="/favorites">
+          <Link
+            href="/favorites"
+            className="hover:bg-amber-200 transition-all p-2 rounded-full"
+          >
             <FaRegHeart size={22} />
           </Link>
-          <Link href="/cart" className="relative">
+          <Link
+            href="/cart"
+            className="relative hover:bg-amber-200 transition-all p-2 rounded-full"
+          >
             <FiShoppingCart size={25} />
             {cartTotalQuantity > 0 && (
               <span className="absolute top-2 right-4 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
@@ -45,9 +51,9 @@ export default function Header() {
             )}
           </Link>
           <DropdownMenu>
-            <DropdownMenuTrigger className="py-1 pr-5 pl-2 hover:bg-amber-200 flex rounded-2xl border-none outline-none">
+            <DropdownMenuTrigger className="py-2 pr-6 pl-2 hover:bg-amber-200 transition-all flex rounded-2xl border-none outline-none">
               <RiAccountCircleLine size={25} />
-              <GoTriangleDown className="translate-x-3 translate-y-1" />
+              <GoTriangleDown className="translate-x-4 translate-y-1" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
