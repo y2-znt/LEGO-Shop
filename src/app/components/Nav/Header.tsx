@@ -2,10 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import { getCurrentUser } from "../getCurrentUser";
 import CartQuantity from "./CartQuantity";
 import UserMenu from "./UserMenu";
 
-export default function Header() {
+export default async function Header() {
+  const currentUser = await getCurrentUser();
+
+  console.log("Current user: ", currentUser);
+
   return (
     <div className="bg-[#FFD300] text-black fixed w-full z-10">
       <nav className="max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
@@ -32,7 +37,7 @@ export default function Header() {
             <FiShoppingCart size={25} />
             <CartQuantity />
           </Link>
-          <UserMenu />
+          <UserMenu currentUser={currentUser} />
         </div>
       </nav>
     </div>

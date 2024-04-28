@@ -4,7 +4,6 @@ import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getCurrentUser } from "./components/getCurrentUser";
 import "./globals.css";
 import { StoreProvider } from "./StoreProvider";
 
@@ -23,10 +22,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentUser = await getCurrentUser();
-
-  console.log("user >>>", currentUser);
-
   return (
     <html lang="en">
       <body
