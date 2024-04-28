@@ -45,7 +45,7 @@ export default function Header() {
           >
             <FiShoppingCart size={25} />
             {cartTotalQuantity > 0 && (
-              <span className="absolute top-2 right-4 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+              <span className="absolute top-4 right-5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {cartTotalQuantity}
               </span>
             )}
@@ -58,18 +58,21 @@ export default function Header() {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link href="/orders">Your orders</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/admin">Admin Dashboard</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => signOut()}>
+              <Link href="/orders">
+                <DropdownMenuItem>Your orders</DropdownMenuItem>
+              </Link>
+              <Link href="/admin">
+                <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem
+                onClick={() => signOut()}
+                className="cursor-pointer"
+              >
                 Logout
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/login">Login</Link>
-              </DropdownMenuItem>
+              </DropdownMenuItem>{" "}
+              <Link href="/login">
+                <DropdownMenuItem>Login</DropdownMenuItem>
+              </Link>
               <Link href="/register">
                 <DropdownMenuItem>Register</DropdownMenuItem>
               </Link>

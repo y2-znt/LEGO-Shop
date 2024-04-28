@@ -59,14 +59,6 @@ export default function LoginForm() {
             Continue with Google
           </Button>
           <Inputs
-            id="name"
-            disabled={isLoading}
-            label="Name"
-            register={register}
-            errors={errors}
-            required
-          />
-          <Inputs
             id="email"
             disabled={isLoading}
             label="Email"
