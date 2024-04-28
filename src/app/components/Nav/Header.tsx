@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
-import { getCurrentUser } from "../getCurrentUser";
+import { getCurrentUser } from "../../../pages/api/auth/getCurrentUser";
 import CartQuantity from "./CartQuantity";
 import UserMenu from "./UserMenu";
 

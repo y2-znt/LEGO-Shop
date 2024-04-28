@@ -22,7 +22,10 @@ type currentUserType = {
 export default function UserMenu({ currentUser }: currentUserType) {
   const handleSignOut = async () => {
     try {
-      toast.success("Logged Out");
+      toast.success(`Logged Out`, {
+        position: "top-left",
+        autoClose: 2000,
+      });
       await signOut();
     } catch (error) {
       console.error("Error signing out:", error);

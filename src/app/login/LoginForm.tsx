@@ -42,7 +42,10 @@ export default function LoginForm({ currentUser }: LoginFormType) {
       if (callback?.ok) {
         router.push("/");
         router.refresh();
-        toast.success("Logged In");
+        toast.success(`Logged In`, {
+          position: "top-left",
+          autoClose: 2000,
+        });
       }
       if (callback?.error) {
         toast.error(callback.error);
@@ -72,7 +75,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
             <span>
               <BsGoogle />
             </span>
-            Continue with Google 
+            Continue with Google
           </Button>
           <Inputs
             id="email"

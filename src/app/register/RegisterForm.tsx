@@ -39,7 +39,10 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Account successfully created");
+        toast.success(`Account successfully created`, {
+          position: "top-left",
+          autoClose: 2000,
+        });
 
         signIn("credentials", {
           email: data.email,
@@ -49,7 +52,10 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
           if (callback?.ok) {
             router.push("/");
             router.refresh();
-            toast.success("Logged In");
+            toast.success(`Logged In`, {
+              position: "top-left",
+              autoClose: 2000,
+            });
           }
           if (callback?.error) {
             toast.error(callback.error);

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 type CartType = {
   cartItems: any[];
@@ -33,26 +33,12 @@ const cartSlice = createSlice({
         toast.info(`${action.payload.title} quantity increased in cart.🧺`, {
           position: "top-left",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
         });
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
         toast.success(`${action.payload.title} added to cart 🧺`, {
           position: "top-left",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
         });
       }
       state.cartTotalQuantity += 1;
@@ -72,13 +58,6 @@ const cartSlice = createSlice({
         toast.warning(`${action.payload.title} removed from cart`, {
           position: "top-left",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
         });
       }
 
@@ -102,13 +81,6 @@ const cartSlice = createSlice({
           toast.warning(`${action.payload.title} removed from cart`, {
             position: "top-left",
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
           });
         }
       }
@@ -132,13 +104,6 @@ const cartSlice = createSlice({
       toast.error(`Cart cleared`, {
         position: "top-left",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
       });
       // Update the LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));

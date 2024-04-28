@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 type favType = {
   favItems: any[];
@@ -28,13 +28,6 @@ const favSlice = createSlice({
         toast.success(`${action.payload.title} added to favorites`, {
           position: "top-left",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
         });
       }
       // Update the LocalStorage
@@ -52,13 +45,6 @@ const favSlice = createSlice({
         toast.warning(`${action.payload.title} removed from favorites`, {
           position: "top-left",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
         });
       }
 
