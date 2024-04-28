@@ -1,15 +1,11 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import CartQuantity from "./CartQuantity";
 import UserMenu from "./UserMenu";
 
 export default function Header() {
-  const { cartTotalQuantity } = useSelector((state: any) => state.cart);
-
   return (
     <div className="bg-[#FFD300] text-black fixed w-full z-10">
       <nav className="max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
@@ -34,11 +30,7 @@ export default function Header() {
             className="relative hover:bg-amber-200 transition-all p-2 rounded-full"
           >
             <FiShoppingCart size={25} />
-            {cartTotalQuantity > 0 && (
-              <span className="absolute top-4 right-5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {cartTotalQuantity}
-              </span>
-            )}
+            <CartQuantity />
           </Link>
           <UserMenu />
         </div>
