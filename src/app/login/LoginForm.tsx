@@ -3,14 +3,20 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
+import { SafeUser } from "../types";
 
-export default function LoginForm() {
+type LoginFormType = {
+  currentUser: SafeUser | null;
+};
+
+export default function LoginForm({ currentUser }: LoginFormType) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -24,8 +30,7 @@ export default function LoginForm() {
     },
   });
 
-  const router = useRouter();
-
+  // Login function
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     signIn("credentials", {
@@ -35,7 +40,7 @@ export default function LoginForm() {
       setIsLoading(false);
 
       if (callback?.ok) {
-        router.push("../cart");
+        router.push("/");
         router.refresh();
         toast.success("Logged In");
       }
@@ -44,6 +49,14 @@ export default function LoginForm() {
       }
     });
   };
+
+  // Redirection to home page when user is logged
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+      router.refresh();
+    }
+  }, [currentUser, router]);
 
   return (
     <div>
