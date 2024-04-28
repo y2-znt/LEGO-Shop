@@ -1,11 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { FieldValues, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGoogle } from "react-icons/bs";
+import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
 
-export default function RegisterForm() {
+export default function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -17,6 +23,27 @@ export default function RegisterForm() {
       password: "",
     },
   });
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsLoading(true);
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        router.push("../cart");
+        router.refresh();
+        toast.success("Logged In");
+      }
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
+  };
 
   return (
     <div>
@@ -33,6 +60,7 @@ export default function RegisterForm() {
           </Button>
           <Inputs
             id="name"
+            disabled={isLoading}
             label="Name"
             register={register}
             errors={errors}
@@ -40,6 +68,7 @@ export default function RegisterForm() {
           />
           <Inputs
             id="email"
+            disabled={isLoading}
             label="Email"
             register={register}
             errors={errors}
@@ -47,13 +76,18 @@ export default function RegisterForm() {
           />
           <Inputs
             id="password"
+            disabled={isLoading}
             label="Password"
             register={register}
             errors={errors}
             required
+            type="password"
           />
-          <Button className="font-bold w-full text-black active:bg-amber-200 transition-all py-6 mt-4">
-            Sign Up
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            className="font-bold w-full text-black active:bg-amber-200 transition-all py-6 mt-4"
+          >
+            Login
           </Button>
           <p className="text-sm font-semibold text-center pt-4">
             Do not have an account?{" "}
