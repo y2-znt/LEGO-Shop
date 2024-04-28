@@ -72,7 +72,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
             <span>
               <BsGoogle />
             </span>
-            Continue with Google
+            Continue with Google 
           </Button>
           <Inputs
             id="email"
