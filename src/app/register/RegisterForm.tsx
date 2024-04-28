@@ -4,14 +4,21 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
+import { SafeUser } from "../types";
 
-export default function RegisterForm() {
+type LoginFormType = {
+  currentUser: SafeUser | null;
+};
+
+export default function RegisterForm({ currentUser }: LoginFormType) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -24,8 +31,7 @@ export default function RegisterForm() {
     },
   });
 
-  const router = useRouter();
-
+  // Register function
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     console.log("form data: ", data);
@@ -41,7 +47,7 @@ export default function RegisterForm() {
           redirect: false,
         }).then((callback) => {
           if (callback?.ok) {
-            router.push("../cart");
+            router.push("/");
             router.refresh();
             toast.success("Logged In");
           }
@@ -55,6 +61,14 @@ export default function RegisterForm() {
         setIsLoading(false);
       });
   };
+
+  // Redirection to home page when user is logged
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/");
+      router.refresh();
+    }
+  }, [currentUser, router]);
 
   return (
     <div>
