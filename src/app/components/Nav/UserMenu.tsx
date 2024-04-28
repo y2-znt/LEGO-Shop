@@ -12,12 +12,22 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { GoTriangleDown } from "react-icons/go";
 import { RiAccountCircleLine } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 type currentUserType = {
   currentUser: SafeUser | null;
 };
 
 export default function UserMenu({ currentUser }: currentUserType) {
+  const handleSignOut = async () => {
+    try {
+      toast.success("Logged Out");
+      await signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <div>
       <DropdownMenu>
@@ -37,7 +47,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
                 <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
               </Link>
               <DropdownMenuItem
-                onClick={() => signOut()}
+                onClick={() => handleSignOut()}
                 className="cursor-pointer"
               >
                 Logout
