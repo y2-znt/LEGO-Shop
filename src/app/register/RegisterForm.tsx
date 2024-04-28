@@ -77,7 +77,10 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
           Sign-up
         </h1>
         <div className="w-3/4 max-sm:w-full m-auto">
-          <Button className="w-full bg-transparent px-7 gap-3 font-semibold border py-6">
+          <Button
+            className="w-full bg-transparent px-7 gap-3 font-semibold border py-6"
+            onClick={() => signIn("google")}
+          >
             <span>
               <BsGoogle />
             </span>
