@@ -1,5 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -79,57 +86,70 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
   return (
     <div>
       <main className="max-w-6xl text-black mx-auto max-xl:px-8 font-bold">
-        <h1 className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem] mb-12">
-          Sign-up
-        </h1>
-        <div className="w-3/4 max-sm:w-full m-auto">
-          <Button
-            className="w-full bg-transparent px-7 gap-3 font-semibold border py-6"
-            onClick={() => signIn("google")}
-          >
-            <span>
-              <BsGoogle />
-            </span>
-            Sign Up with Google
-          </Button>
-          <Inputs
-            id="name"
-            label="Name"
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
-          <Inputs
-            id="email"
-            label="Email"
-            disabled={isLoading}
-            register={register}
-            errors={errors}
-            required
-          />
-          <Inputs
-            id="password"
-            disabled={isLoading}
-            label="Password"
-            register={register}
-            errors={errors}
-            required
-            type="password"
-          />
-          <Button
-            className="font-bold w-full text-black active:bg-amber-200 transition-all py-6 mt-4"
-            onClick={handleSubmit(onSubmit)}
-          >
-            Sign Up
-          </Button>
-          <p className="text-sm font-semibold text-center pt-4">
-            Already a account?{" "}
-            <Link href="/login" className="underline">
-              Log in
-            </Link>
-          </p>
-        </div>
+        <div className="pt-24"></div>
+        <div className="w-3/4 max-sm:w-full m-auto"></div>
+        <Card className="mx-auto max-w-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold">
+              Create an account
+            </CardTitle>
+            <CardDescription>
+              Enter your name, email and password to register your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Inputs
+              id="name"
+              label="Name"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+            />
+            <Inputs
+              id="email"
+              label="Email"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              type="email"
+            />
+            <Inputs
+              id="password"
+              disabled={isLoading}
+              label="Password"
+              register={register}
+              errors={errors}
+              required
+              type="password"
+            />
+            <Button
+              className="font-bold w-full text-black active:bg-amber-200 transition-all mt-4"
+              onClick={handleSubmit(onSubmit)}
+            >
+              Sign Up
+            </Button>
+            <div className="text-center text-gray-600 p-6 font-semibold text-xs">
+              OR CONTINUE WITH
+            </div>
+            <Button
+              className="w-full text-black bg-transparent px-7 gap-3 font-semibold border"
+              onClick={() => signIn("google")}
+            >
+              <span>
+                <BsGoogle />
+              </span>
+              Google
+            </Button>
+            <p className="text-sm font-semibold text-center pt-4">
+              Already a account?{" "}
+              <Link href="/login" className="underline">
+                Log in
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );

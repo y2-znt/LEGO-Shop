@@ -1,5 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -64,49 +71,58 @@ export default function LoginForm({ currentUser }: LoginFormType) {
   return (
     <div>
       <main className="max-w-6xl text-black mx-auto max-xl:px-8 font-bold">
-        <h1 className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem] mb-12">
-          Log-in
-        </h1>
-        <div className="w-3/4 max-sm:w-full m-auto">
-          <Button
-            className="w-full font-semibold bg-transparent px-7 gap-3 border py-6"
-            onClick={() => signIn("google")}
-          >
-            <span>
-              <BsGoogle />
-            </span>
-            Continue with Google
-          </Button>
-          <Inputs
-            id="email"
-            disabled={isLoading}
-            label="Email"
-            register={register}
-            errors={errors}
-            required
-          />
-          <Inputs
-            id="password"
-            disabled={isLoading}
-            label="Password"
-            register={register}
-            errors={errors}
-            required
-            type="password"
-          />
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            className="font-bold w-full text-black active:bg-amber-200 transition-all py-6 mt-4"
-          >
-            Login
-          </Button>
-          <p className="text-sm font-semibold text-center pt-4">
-            Do not have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign Up
-            </Link>
-          </p>
-        </div>
+        <div className="p-24"></div>
+        <Card className="mx-auto max-w-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold">Login</CardTitle>
+            <CardDescription>
+              Enter your email and password to login to your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Inputs
+              id="email"
+              disabled={isLoading}
+              label="Email"
+              register={register}
+              errors={errors}
+              required
+            />
+            <Inputs
+              id="password"
+              disabled={isLoading}
+              label="Password"
+              register={register}
+              errors={errors}
+              required
+              type="password"
+            />
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              className="font-bold w-full text-black active:bg-amber-200 transition-all mt-4"
+            >
+              Login
+            </Button>
+            <div className="text-center text-gray-600 p-6 font-semibold text-xs">
+              OR CONTINUE WITH
+            </div>
+            <Button
+              className="w-full text-sm font-semibold text-black bg-transparent border"
+              onClick={() => signIn("google")}
+            >
+              <span className="pr-2">
+                <BsGoogle />
+              </span>
+              Google
+            </Button>
+            <p className="text-sm font-semibold text-center pt-4">
+              Do not have an account?{" "}
+              <Link href="/register" className="underline">
+                Sign Up
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
