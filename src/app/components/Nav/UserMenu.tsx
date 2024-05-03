@@ -43,7 +43,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
               className="rounded-full"
             ></Image>
           ) : (
-            <RiAccountCircleLine size={25} aria-label="Account" />
+            <Image src="/assets/LEGO_Head.png" width={30} height={30} alt=""></Image>
           )}
           <GoTriangleDown className="translate-x-4 translate-y-1" />
         </DropdownMenuTrigger>
