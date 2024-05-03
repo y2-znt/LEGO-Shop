@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/card";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
 import { SafeUser } from "../types";
@@ -138,7 +138,12 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               onClick={() => signIn("google")}
             >
               <span>
-                <BsGoogle />
+                <Image
+                  src="/assets/GOOGLE-icon.png"
+                  width={20}
+                  height={20}
+                  alt="google icon"
+                ></Image>{" "}
               </span>
               Google
             </Button>
