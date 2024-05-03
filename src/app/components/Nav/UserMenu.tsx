@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
@@ -50,8 +48,6 @@ export default function UserMenu({ currentUser }: currentUserType) {
           <GoTriangleDown className="translate-x-4 translate-y-1" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           {currentUser ? (
             <>
               <Link href="/orders">
@@ -60,10 +56,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
               <Link href="/admin">
                 <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
               </Link>
-              <DropdownMenuItem
-                onClick={() => handleSignOut()}
-                className="cursor-pointer"
-              >
+              <DropdownMenuItem onClick={() => handleSignOut()}>
                 Logout
               </DropdownMenuItem>
             </>
