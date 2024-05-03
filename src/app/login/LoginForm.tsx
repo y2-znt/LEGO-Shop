@@ -71,7 +71,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
   return (
     <div>
       <main className="max-w-6xl text-black mx-auto max-xl:px-8 font-bold">
-        <div className="p-24"></div>
+        <div className="pt-24"></div>
         <Card className="mx-auto max-w-sm">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">Login</CardTitle>
