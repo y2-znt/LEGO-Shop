@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { BsGithub } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
 import { SafeUser } from "../types";
@@ -146,6 +147,15 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
                 ></Image>{" "}
               </span>
               Google
+            </Button>
+            <Button
+              className="w-full text-black bg-transparent px-7 mt-4 gap-3 font-semibold border"
+              onClick={() => signIn("github")}
+            >
+              <span>
+                <BsGithub size={20} />
+              </span>
+              Github
             </Button>
             <p className="text-sm font-semibold text-center pt-4">
               Already a account?{" "}

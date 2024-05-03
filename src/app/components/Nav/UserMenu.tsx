@@ -10,7 +10,6 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { GoTriangleDown } from "react-icons/go";
-import { RiAccountCircleLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 
 type currentUserType = {

@@ -16,6 +16,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
 import { SafeUser } from "../types";
+import { BsGithub } from "react-icons/bs";
 
 type LoginFormType = {
   currentUser: SafeUser | null;
@@ -119,6 +120,15 @@ export default function LoginForm({ currentUser }: LoginFormType) {
                 ></Image>
               </span>
               Google
+            </Button>
+            <Button
+              className="w-full text-black bg-transparent px-7 mt-4 gap-3 font-semibold border"
+              onClick={() => signIn("github")}
+            >
+              <span>
+                <BsGithub size={20} />
+              </span>
+              Github
             </Button>
             <p className="text-sm font-semibold text-center pt-4">
               Do not have an account?{" "}
