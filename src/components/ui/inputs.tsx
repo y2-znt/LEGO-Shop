@@ -31,8 +31,13 @@ const Inputs: React.FC<inputType> = ({
         {...register(id, { required })}
         placeholder=""
         type={type}
-        className={`${errors[id] ? "border-rose-400" : "border-slate-300"}`}
-      ></Input>
+        className={`${errors[id] ? "border-red-500" : "border-slate-300"}`}
+      />
+      {errors[id] && (
+        <p className="text-xs font-semibold text-red-500 mt-1">
+          This field is required
+        </p>
+      )}
     </div>
   );
 };

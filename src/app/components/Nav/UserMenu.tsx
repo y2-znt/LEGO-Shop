@@ -42,7 +42,12 @@ export default function UserMenu({ currentUser }: currentUserType) {
               className="rounded-full"
             ></Image>
           ) : (
-            <Image src="/assets/LEGO_Head.png" width={30} height={30} alt=""></Image>
+            <Image
+              src="/assets/LEGO_Head.png"
+              width={30}
+              height={30}
+              alt=""
+            ></Image>
           )}
           <GoTriangleDown className="translate-x-4 translate-y-1" />
         </DropdownMenuTrigger>

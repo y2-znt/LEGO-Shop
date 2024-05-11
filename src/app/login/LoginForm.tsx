@@ -13,10 +13,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { BsGithub } from "react-icons/bs";
 import { toast } from "react-toastify";
 import Inputs from "../../components/ui/inputs";
 import { SafeUser } from "../types";
-import { BsGithub } from "react-icons/bs";
 
 type LoginFormType = {
   currentUser: SafeUser | null;
@@ -88,6 +88,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               register={register}
               errors={errors}
               required
+              type="email"
             />
             <Inputs
               id="password"

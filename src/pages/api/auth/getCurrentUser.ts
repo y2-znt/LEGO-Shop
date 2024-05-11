@@ -7,7 +7,9 @@ export async function getSession() {
   try {
     // Get the user session with next-auth function
     return await getServerSession(authOptions);
-  } catch (error) {}
+  } catch (error) {
+    console.error(" Couldn't get user session", error);
+  }
 }
 
 // Get informations about the user connected
