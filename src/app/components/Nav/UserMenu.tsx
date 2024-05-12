@@ -10,7 +10,7 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { GoTriangleDown } from "react-icons/go";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 type currentUserType = {
   currentUser: SafeUser | null;
@@ -19,13 +19,17 @@ type currentUserType = {
 export default function UserMenu({ currentUser }: currentUserType) {
   const handleSignOut = async () => {
     try {
-      toast.success(`Logged Out`, {
-        position: "top-left",
-        autoClose: 2000,
-      });
       await signOut();
+
+      const promise = (): Promise<void> =>
+        new Promise((resolve) => setTimeout(() => resolve(), 2000));
+      toast.promise(promise(), {
+        loading: "Logging out...",
+        success: "Logged Out Successfully",
+        error: "Error",
+      });
     } catch (error) {
-      console.error("Error signing out:", error);
+      toast.error("Error signing out");
     }
   };
 

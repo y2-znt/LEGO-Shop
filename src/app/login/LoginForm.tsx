@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGithub } from "react-icons/bs";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Inputs from "../../components/ui/inputs";
 import { SafeUser } from "../types";
 
@@ -40,7 +40,15 @@ export default function LoginForm({ currentUser }: LoginFormType) {
 
   // Login function
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true);
+    const promise = (): Promise<void> =>
+      new Promise((resolve) => setTimeout(() => resolve(), 2000));
+    toast.promise(promise(), {
+      loading: "Loading...",
+      success: "Logged In Successfully",
+      error: "Error",
+    });
+
+    // SignIn
     signIn("credentials", {
       ...data,
       redirect: false,
@@ -50,10 +58,6 @@ export default function LoginForm({ currentUser }: LoginFormType) {
       if (callback?.ok) {
         router.push("/");
         router.refresh();
-        toast.success(`Logged In`, {
-          position: "top-left",
-          autoClose: 2000,
-        });
       }
       if (callback?.error) {
         toast.error(callback.error);

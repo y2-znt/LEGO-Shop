@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGithub } from "react-icons/bs";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Inputs from "../../components/ui/inputs";
 import { SafeUser } from "../types";
 
@@ -47,9 +47,13 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success(`Account successfully created`, {
-          position: "top-left",
-          autoClose: 2000,
+        const promise = (): Promise<void> =>
+          new Promise((resolve) => setTimeout(() => resolve(), 2000));
+
+        toast.promise(promise(), {
+          loading: "Loading...",
+          success: "Account successfully created",
+          error: "Error",
         });
 
         signIn("credentials", {
@@ -60,10 +64,6 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
           if (callback?.ok) {
             router.push("/");
             router.refresh();
-            toast.success(`Logged In`, {
-              position: "top-left",
-              autoClose: 2000,
-            });
           }
           if (callback?.error) {
             toast.error(callback.error);

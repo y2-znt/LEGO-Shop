@@ -2,8 +2,8 @@ import clsx from "clsx";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
-// import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { StoreProvider } from "./StoreProvider";
@@ -30,8 +30,8 @@ export default async function RootLayout({
       >
         <StoreProvider>
           <ThemeProvider attribute="class" defaultTheme="light">
-            {/* <ToastContainer /> */}
             {children}
+            <ToastContainer />
             <Toaster richColors position="bottom-left" />
           </ThemeProvider>
         </StoreProvider>
