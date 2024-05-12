@@ -32,7 +32,7 @@ export default function Favorites() {
 
   return (
     <div>
-      <main className="max-w-6xl mx-auto max-xl:px-8 font-bold text-black" >
+      <main className="max-w-6xl mx-auto max-xl:px-8 font-bold text-black">
         <p className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem]">
           Favorites
         </p>
@@ -50,10 +50,7 @@ export default function Favorites() {
                 You have not favorites LEGO.
                 <Link href="/">
                   <div className="flex pt-4">
-                    <Button
-                      size="lg"
-                      className="text-base text-black font-bold"
-                    >
+                    <Button size="lg" className="text-base">
                       <span className="pr-2">
                         <BsArrowLeft />
                       </span>

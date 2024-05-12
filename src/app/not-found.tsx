@@ -23,7 +23,7 @@ export default function notfound() {
           Page not found :/
           <Link href="/">
             <div className="flex pt-4">
-              <Button size="lg" className="text-base text-black font-bold">
+              <Button size="lg" className="text-base">
                 <span className="pr-2">
                   <BsArrowLeft />
                 </span>

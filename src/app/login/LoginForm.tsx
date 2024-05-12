@@ -99,17 +99,14 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               required
               type="password"
             />
-            <Button
-              onClick={handleSubmit(onSubmit)}
-              className="font-bold w-full text-black active:bg-amber-200 transition-all mt-4"
-            >
+            <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4">
               Login
             </Button>
             <div className="text-center text-gray-600 p-6 font-semibold text-xs">
               OR CONTINUE WITH
             </div>
             <Button
-              className="w-full text-sm font-semibold text-black bg-transparent border"
+              className="w-full text-sm bg-transparent border"
               onClick={() => signIn("google")}
             >
               <span className="pr-2">

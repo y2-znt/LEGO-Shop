@@ -45,9 +45,7 @@ export default function Contact() {
             </form>
           </CardContent>
           <CardFooter>
-            <Button className="w-full py-5 font-bold text-black mt-3 active:bg-amber-200 transition-all">
-              Confirm
-            </Button>
+            <Button className="w-full py-5 mt-3">Confirm</Button>
           </CardFooter>
         </Card>
       </div>

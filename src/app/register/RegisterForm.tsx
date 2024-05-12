@@ -125,17 +125,14 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               required
               type="password"
             />
-            <Button
-              className="font-bold w-full text-black active:bg-amber-200 transition-all mt-4"
-              onClick={handleSubmit(onSubmit)}
-            >
+            <Button className="w-full mt-4" onClick={handleSubmit(onSubmit)}>
               Sign Up
             </Button>
-            <div className="text-center text-gray-600 p-6 font-semibold text-xs">
+            <div className="text-center text-gray-600 p-6  text-xs">
               OR CONTINUE WITH
             </div>
             <Button
-              className="w-full text-black bg-transparent px-7 gap-3 font-semibold border"
+              className="w-full bg-transparent px-7 gap-3 border"
               onClick={() => signIn("google")}
             >
               <span>
@@ -149,7 +146,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               Google
             </Button>
             <Button
-              className="w-full text-black bg-transparent px-7 mt-4 gap-3 font-semibold border"
+              className="w-full bg-transparent px-7 mt-4 gap-3 border"
               onClick={() => signIn("github")}
             >
               <span>

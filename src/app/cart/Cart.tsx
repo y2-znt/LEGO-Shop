@@ -107,7 +107,7 @@ export default function Cart() {
                       <CardFooter className="flex justify-end py-8">
                         <Button
                           onClick={() => handleRemoveFromCart(cartItem)}
-                          className=" bg-transparent text-gray-700 hover:text-black"
+                          className="bg-transparent text-gray-700 hover:text-black"
                         >
                           Remove
                           <span className="pl-2">
@@ -146,7 +146,7 @@ export default function Cart() {
             <div className="flex justify-between items-start border-t pt-8 pl-2 max-sm:justify-center max-sm:flex-col max-sm:items-center">
               <Button
                 onClick={() => handleClearCart()}
-                className="border px-8 py-5 text-gray-700 bg-transparent active:bg-amber-200 transition-all hover:text-black max-sm:px-5 max-sm:py-2 max-sm:w-full"
+                className="border px-8 py-5 text-gray-700 bg-transparent hover:text-black max-sm:px-5 max-sm:py-2 max-sm:w-full"
               >
                 Clear Cart
               </Button>
@@ -158,9 +158,7 @@ export default function Cart() {
                 <p className="text-sm pt-4 text-gray-700 font-medium">
                   Taxes and shipping calculated at checkout
                 </p>
-                <Button className="w-full py-5 font-bold text-black mt-3 active:bg-amber-200 transition-all">
-                  Checkout
-                </Button>
+                <Button className="w-full py-5 mt-3">Checkout</Button>
                 <Link href="/">
                   <div className="flex pt-4 mb-24">
                     <span className="translate-y-1 pr-2">
