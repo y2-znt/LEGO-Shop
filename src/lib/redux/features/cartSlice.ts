@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 type CartType = {
   cartItems: any[];
@@ -30,16 +30,10 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find((item) => item.id === id);
       if (existingItem) {
         existingItem.cartQuantity += 1;
-        toast.info(`${action.payload.title} quantity increased in cart.🧺`, {
-          position: "top-left",
-          autoClose: 2000,
-        });
+        toast.info(`${action.payload.title} quantity increased in cart.🧺`);
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
-        toast.success(`${action.payload.title} added to cart 🧺`, {
-          position: "top-left",
-          autoClose: 2000,
-        });
+        toast.success(`${action.payload.title} added to cart 🧺`);
       }
       state.cartTotalQuantity += 1;
 
@@ -55,10 +49,7 @@ const cartSlice = createSlice({
       if (itemIndex !== -1) {
         state.cartItems[itemIndex];
         state.cartItems.splice(itemIndex, 1);
-        toast.warning(`${action.payload.title} removed from cart`, {
-          position: "top-left",
-          autoClose: 2000,
-        });
+        toast.warning(`${action.payload.title} removed from cart`);
       }
 
       // Update the LocalStorage
@@ -78,10 +69,7 @@ const cartSlice = createSlice({
         } else {
           // If the quantity is 1 or less, remove the item from the cart
           state.cartItems.splice(itemIndex, 1);
-          toast.warning(`${action.payload.title} removed from cart`, {
-            position: "top-left",
-            autoClose: 2000,
-          });
+          toast.warning(`${action.payload.title} removed from cart`);
         }
       }
     },
@@ -101,10 +89,7 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cartItems = [];
-      toast.error(`Cart cleared`, {
-        position: "top-left",
-        autoClose: 2000,
-      });
+      toast.error(`Cart cleared`);
       // Update the LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
