@@ -12,7 +12,7 @@ export default async function Header() {
   console.log("Current user: ", currentUser);
 
   return (
-    <div className="bg-[#FFD300] text-black fixed w-full z-10">
+    <div className="bg-[#FFD300] text-black py-1 fixed w-full z-10">
       <nav className="max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
         <Link href="/">
           <Image
