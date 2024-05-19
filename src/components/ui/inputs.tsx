@@ -24,6 +24,7 @@ const Inputs: React.FC<inputType> = ({
   errors,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="m-auto relative py-2 font">
       <Label htmlFor={id}>{label}</Label>
@@ -34,15 +35,19 @@ const Inputs: React.FC<inputType> = ({
         {...register(id, { required })}
         placeholder=""
         type={type === "password" && !showPassword ? "password" : "text"}
-        className={`${errors[id] ? "border-red-500" : "border-slate-300"}`}
+        className={`w-full ${
+          errors[id] ? "border-red-500" : "border-slate-300"
+        }`}
       />
       {type === "password" && (
         <button
           type="button"
-          onClick={() => setShowPassword(!showPassword)} // inverse the state
-          className="absolute bottom-[1.2rem] right-0 flex items-center pr-3 text-sm text-gray-500"
+          onClick={() => setShowPassword(!showPassword)}
+          className={`absolute bottom-[1.2rem] right-0 flex items-center pr-3 text-sm text-gray-500 ${
+            errors[id] ? "mb-5" : ""
+          }`}
         >
-          {showPassword ? <FaEyeSlash /> : <FaEye />}{" "}
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
         </button>
       )}
       {errors[id] && (
