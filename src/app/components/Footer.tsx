@@ -1,55 +1,98 @@
-import Link from "next/link";
-import { MdMailOutline } from "react-icons/md";
-import { SiGithub, SiLinkedin } from "react-icons/si";
+import Image from "next/image";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaXTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
+
+const socialLinks = [
+  { href: "#", label: "Facebook", icon: FaFacebook },
+  { href: "#", label: "X", icon: FaXTwitter },
+  { href: "#", label: "Instagram", icon: FaInstagram },
+  { href: "#", label: "YouTube", icon: FaYoutube },
+];
+
+const footerLinks = [
+  {
+    title: "Services",
+    links: [
+      "1on1 Coaching",
+      "Company Review",
+      "Accounts Review",
+      "HR Consulting",
+      "SEO Optimisation",
+    ],
+  },
+  {
+    title: "Company",
+    links: ["About", "Meet the Team", "Accounts Review"],
+  },
+  {
+    title: "Helpful Links",
+    links: ["Contact", "FAQs", "Live Chat"],
+  },
+  {
+    title: "Legal",
+    links: [
+      "Accessibility",
+      "Returns Policy",
+      "Refund Policy",
+      "Hiring Statistics",
+    ],
+  },
+];
 
 export default function Footer() {
-  const FooterLinks = {
-    footer: [
-      { name: "Home", href: "/" },
-      { name: "About", href: "/" },
-      { name: "Services", href: "/" },
-      { name: "Vision", href: "/" },
-      { name: "Terms & Conditions", href: "/" },
-      { name: "FAQ", href: "/" },
-    ],
-  };
-
   return (
-    <footer className="mt-28 text-center text-lg font-semibold border-t bg-[#201D48] text-white max-sm:text-sm">
-      <div className="mx-auto max-w-7xl overflow-hidden px-4 py-10 sm:py-16 lg:px-6">
-        <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12">
-          {FooterLinks.footer.map((item) => (
-            <div key={item.name} className="pb-6">
-              <Link href={item.href}>{item.name}</Link>
-            </div>
-          ))}
-        </nav>
-      </div>
-      <div className="text-sm underline underline-offset-8 decoration-green-500 rotate-2">
-        Yoni Deserbaix 🦇
-      </div>
-      <div className="p-3 gap-4 flex items-center justify-center  ">
-        <Link
-          href="https://www.linkedin.com/in/yoni-deserbaix/"
-          target="_blank"
-          aria-label="Navigate to the LinkedIn account"
-        >
-          <SiLinkedin size={15} />
-        </Link>
-        <Link
-          href="https://github.com/Yoni-Deserbaix"
-          target="_blank"
-          aria-label="Navigate to the Github account"
-        >
-          <SiGithub size={15} />
-        </Link>
-        <Link
-          href="mailto:yonideserbaix@gmail.com"
-          className="hover:scale-110 transition-all z-10"
-          aria-label="Email me at yonideserbaix@gmail.com"
-        >
-          <MdMailOutline size={15} />
-        </Link>
+    <footer className="bg-[#201D48] text-white">
+      <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div>
+            <Image
+              src="/assets/LEGO_logo.png"
+              width={75}
+              height={75}
+              alt="LEGO logo"
+            />
+            <p className="mt-4 max-w-xs">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non
+              cupiditate quae nam molestias.
+            </p>
+            <ul className="mt-8 flex gap-6">
+              {socialLinks.map(({ href, label, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="transition hover:opacity-75 "
+                  >
+                    <span className="sr-only">{label}</span>
+                    <Icon size={25} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
+            {footerLinks.map(({ title, links }) => (
+              <div key={title}>
+                <p className="font-medium">{title}</p>
+                <ul className="mt-6 space-y-4 text-sm">
+                  {links.map((link) => (
+                    <li key={link}>
+                      <a href="#" className="transition hover:opacity-75">
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="text-xs">&copy; 2024. LEGO. All rights reserved.</p>
       </div>
     </footer>
   );
