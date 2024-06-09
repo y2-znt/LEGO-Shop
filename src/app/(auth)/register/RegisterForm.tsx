@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
 import Inputs from "../../../components/ui/inputs";
@@ -49,6 +50,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
       .then(() => {
         const promise = (): Promise<void> =>
           new Promise((resolve) => setTimeout(() => resolve(), 2000));
+        setIsLoading(true);
 
         toast.promise(promise(), {
           loading: "Loading...",
@@ -60,6 +62,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
           password: data.password,
           redirect: false,
         }).then((callback) => {
+          setIsLoading(false);
           if (callback?.ok) {
             toast.success("Account successfully created");
             router.push("/");
@@ -126,7 +129,8 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               type="password"
             />
             <Button className="w-full mt-4" onClick={handleSubmit(onSubmit)}>
-              Sign Up
+              Sign Up{" "}
+              {isLoading && <AiOutlineLoading className="animate-spin ml-2" />}
             </Button>
             <div className="text-center text-gray-600 p-6  text-xs">
               OR CONTINUE WITH
