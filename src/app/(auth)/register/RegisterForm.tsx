@@ -52,7 +52,6 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
 
         toast.promise(promise(), {
           loading: "Loading...",
-          success: "Account successfully created",
           error: "Error",
         });
 
@@ -62,6 +61,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
           redirect: false,
         }).then((callback) => {
           if (callback?.ok) {
+            toast.success("Account successfully created");
             router.push("/");
             router.refresh();
           }

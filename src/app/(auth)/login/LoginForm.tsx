@@ -44,7 +44,6 @@ export default function LoginForm({ currentUser }: LoginFormType) {
       new Promise((resolve) => setTimeout(() => resolve(), 2000));
     toast.promise(promise(), {
       loading: "Loading...",
-      success: "Logged In Successfully",
       error: "Error",
     });
 
@@ -56,6 +55,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
       setIsLoading(false);
 
       if (callback?.ok) {
+        toast.success("Logged In Successfully");
         router.push("/");
         router.refresh();
       }
