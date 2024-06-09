@@ -103,7 +103,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               required
               type="password"
             />
-            <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4">
+            <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4 ">
               Login
             </Button>
             <div className="text-center text-gray-600 p-6 font-semibold text-xs">
