@@ -1,5 +1,5 @@
-import { getCurrentUser } from "../../pages/api/auth/getCurrentUser";
-import Header from "../components/Nav/Header";
+import { getCurrentUser } from "../../../pages/api/auth/getCurrentUser";
+import Header from "../../components/Nav/Header";
 import LoginForm from "./LoginForm";
 
 export default async function Login() {

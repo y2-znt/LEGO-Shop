@@ -15,8 +15,8 @@ import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
-import Inputs from "../../components/ui/inputs";
-import { SafeUser } from "../types";
+import Inputs from "../../../components/ui/inputs";
+import { SafeUser } from "../../types";
 
 type LoginFormType = {
   currentUser: SafeUser | null;
