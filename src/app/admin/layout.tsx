@@ -10,10 +10,5 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      <div className="pt-20 bg-red-400">Admin Nav</div>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
