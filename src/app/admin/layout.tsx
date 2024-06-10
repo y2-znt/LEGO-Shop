@@ -1,4 +1,5 @@
 import React from "react";
+import AdminNav from "../components/admin/AdminNav";
 
 export const metadata = {
   title: "LEGO Shop Admin",
@@ -10,5 +11,10 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <AdminNav />
+      {children}
+    </div>
+  );
 }
