@@ -1,13 +1,13 @@
 "use client";
+import CustomCheckBox from "@/components/ui/inputs/CustomCheckBox";
+import Inputs from "@/components/ui/inputs/inputs";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import CustomCheckBox from "@/components/ui/inputs/CustomCheckBox";
-import Inputs from "@/components/ui/inputs/inputs";
+} from "@/components/ui/shadcn/card";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 
