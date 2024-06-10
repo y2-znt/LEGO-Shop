@@ -1,19 +1,19 @@
 "use client";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { IoBag } from "react-icons/io5";
-import { Data } from "./Data";
-import { useDispatch, useSelector } from "react-redux";
+} from "@/components/ui/shadcn/card";
 import { addToCart } from "@/lib/redux/features/cartSlice";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { addToFav, removeFromFav } from "@/lib/redux/features/favSlice";
+import Image from "next/image";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { IoBag } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { Data } from "./Data";
 
 export default function Collection() {
   const { products } = Data;
