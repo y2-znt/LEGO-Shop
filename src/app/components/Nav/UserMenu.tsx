@@ -9,6 +9,8 @@ import {
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
 
@@ -17,21 +19,35 @@ type currentUserType = {
 };
 
 export default function UserMenu({ currentUser }: currentUserType) {
+  const router = useRouter();
+
   const handleSignOut = async () => {
     try {
       await signOut();
 
       const promise = (): Promise<void> =>
         new Promise((resolve) => setTimeout(() => resolve(), 2000));
-      toast.promise(promise(), {
+
+      await toast.promise(promise(), {
         loading: "Logging out...",
         success: "Logged Out Successfully",
         error: "Error",
       });
+
+      router.push("/");
+      router.refresh();
     } catch (error) {
       toast.error("Error signing out");
     }
   };
+
+  // Redirection to home page
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/");
+      router.refresh();
+    }
+  }, [currentUser, router]);
 
   return (
     <div>
