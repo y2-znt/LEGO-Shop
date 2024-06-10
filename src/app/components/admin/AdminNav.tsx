@@ -20,14 +20,14 @@ export default function AdminNav() {
           <AdminNavItem
             label="AddProducts"
             icon={MdLibraryAdd}
-            selected={pathname === "/add-products"}
+            selected={pathname === "/admin/add-products"}
           />
         </Link>
         <Link href="/admin/manage-products">
           <AdminNavItem
             label="ManageProducts"
             icon={MdDns}
-            selected={pathname === "/manage-products"}
+            selected={pathname === "/admin/manage-products"}
           />
         </Link>
       </div>
