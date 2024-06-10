@@ -8,9 +8,27 @@ import {
 } from "@/components/ui/card";
 import Inputs from "@/components/ui/inputs";
 import { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
 
 export default function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: "",
+      price: "",
+      inStock: false,
+      image: "",
+    },
+  });
+
   return (
     <div>
       <div>
@@ -24,14 +42,23 @@ export default function AddProductForm() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {/* <Inputs
+            <Inputs
               id="name"
               label="Name"
               disabled={isLoading}
               register={register}
               errors={errors}
               required
-            /> */}
+            />
+            <Inputs
+              id="price"
+              label="Price"
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              type="number"
+              required
+            />
           </CardContent>
         </Card>
       </div>

@@ -25,6 +25,13 @@ const Inputs: React.FC<inputType> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const getInputType = () => {
+    if (type === "password") {
+      return showPassword ? "text" : "password";
+    }
+    return type || "text";
+  };
+
   return (
     <div className="m-auto relative py-2 font">
       <Label htmlFor={id}>{label}</Label>
@@ -34,7 +41,7 @@ const Inputs: React.FC<inputType> = ({
         disabled={disabled}
         {...register(id, { required })}
         placeholder=""
-        type={type === "password" && !showPassword ? "password" : "text"}
+        type={getInputType()}
         className={`w-full ${
           errors[id] ? "border-red-500" : "border-slate-300"
         }`}
