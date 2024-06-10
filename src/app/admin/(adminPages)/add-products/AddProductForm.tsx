@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import CustomCheckBox from "@/components/ui/CustomCheckBox";
 import Inputs from "@/components/ui/inputs";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -58,6 +59,11 @@ export default function AddProductForm() {
               errors={errors}
               type="number"
               required
+            />
+            <CustomCheckBox
+              id="inStock"
+              register={register}
+              label="This product is in stock"
             />
           </CardContent>
         </Card>
