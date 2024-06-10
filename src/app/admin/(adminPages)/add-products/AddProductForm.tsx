@@ -1,6 +1,7 @@
 "use client";
 import CustomCheckBox from "@/components/ui/inputs/CustomCheckBox";
 import Inputs from "@/components/ui/inputs/inputs";
+import SelectImage from "@/components/ui/inputs/SelectImage";
 import {
   Card,
   CardContent,
@@ -29,6 +30,10 @@ export default function AddProductForm() {
       image: "",
     },
   });
+
+  const handleFileChange = (file: File) => {
+    setValue("image", file);
+  };
 
   return (
     <div>
@@ -64,6 +69,10 @@ export default function AddProductForm() {
               id="inStock"
               register={register}
               label="This LEGO is in stock"
+            />
+            <SelectImage
+              item={watch("image")}
+              handleFileChange={handleFileChange}
             />
           </CardContent>
         </Card>
