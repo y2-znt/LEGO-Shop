@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { StoreProvider } from "./StoreProvider";
+import Header from "./components/Nav/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,8 @@ export default async function RootLayout({
       >
         <StoreProvider>
           <ThemeProvider attribute="class" defaultTheme="light">
+            <Header />
+
             {children}
             <Toaster richColors position="bottom-left" />
           </ThemeProvider>

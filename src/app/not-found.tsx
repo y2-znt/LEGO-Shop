@@ -2,12 +2,10 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
-import Header from "./components/Nav/Header";
 
 export default function notfound() {
   return (
     <div>
-      <Header />
       <main className="max-w-6xl mx-auto max-xl:px-8 font-bold text-black">
         <p className="text-3xl lg:text-4xl pt-24 max-sm:text-[1.7rem]">
           Not Found :/
