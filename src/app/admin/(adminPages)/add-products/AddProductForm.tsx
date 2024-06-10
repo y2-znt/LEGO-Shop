@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import CustomCheckBox from "@/components/ui/CustomCheckBox";
-import Inputs from "@/components/ui/inputs";
+import CustomCheckBox from "@/components/ui/inputs/CustomCheckBox";
+import Inputs from "@/components/ui/inputs/inputs";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 
@@ -37,9 +37,9 @@ export default function AddProductForm() {
         <div className="w-full max-sm:w-full m-auto"></div>
         <Card className="mx-auto max-w-xl">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Add a product</CardTitle>
+            <CardTitle className="text-2xl font-bold">Add a LEGO</CardTitle>
             <CardDescription>
-              Enter the name, price and image to add the product
+              Enter the name, price and image to add the LEGO
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -63,7 +63,7 @@ export default function AddProductForm() {
             <CustomCheckBox
               id="inStock"
               register={register}
-              label="This product is in stock"
+              label="This LEGO is in stock"
             />
           </CardContent>
         </Card>

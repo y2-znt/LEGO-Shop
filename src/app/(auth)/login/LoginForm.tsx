@@ -16,7 +16,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
-import Inputs from "../../../components/ui/inputs";
+import Inputs from "../../../components/ui/inputs/inputs";
 import { SafeUser } from "../../types";
 
 type LoginFormType = {
