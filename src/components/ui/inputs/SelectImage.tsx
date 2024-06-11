@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../shadcn/button";
 
@@ -10,19 +10,33 @@ type ImageType = {
 };
 
 export default function SelectImage({ item, handleFileChange }: ImageType) {
+  const [file, setFile] = useState<File | null>(item || null);
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
       if (file) {
+        setFile(file);
         handleFileChange(file);
       }
     },
     [handleFileChange]
   );
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "image/*": [".jpeg", ".jpg", ".png", ".webp", ".svg"] },
   });
+
+  const handleCancel = (e: React.MouseEvent) => {
+    // method to avoid upload a file when cancel button is clicked
+    e.stopPropagation();
+
+    setFile(null);
+
+    // call handleFileChange with empty file
+    handleFileChange(new File([], ""));
+  };
 
   return (
     <div
@@ -32,17 +46,20 @@ export default function SelectImage({ item, handleFileChange }: ImageType) {
       <input {...getInputProps()} />
       {isDragActive ? (
         <p>Drop the image here</p>
-      ) : item ? (
+      ) : file ? (
         <div>
           <Image
-            src={URL.createObjectURL(item)}
-            alt="Preview"
+            src={URL.createObjectURL(file)}
+            alt="Aperçu"
             width={200}
             height={200}
             className="my-2 mx-auto max-h-48"
           />
-          <p>{item.name}</p>
-          <Button className="bg-transparent text-gray-700 hover:text-black mt-2">
+          <p>{file.name}</p>
+          <Button
+            className="bg-transparent text-gray-700 hover:text-black mt-2"
+            onClick={handleCancel}
+          >
             Cancel
           </Button>
         </div>
