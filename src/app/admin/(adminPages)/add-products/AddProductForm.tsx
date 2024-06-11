@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
+import axios from "axios";
 import {
   getDownloadURL,
   getStorage,
@@ -55,7 +56,7 @@ export default function AddProductForm() {
     }
 
     const handleImageUpload = async () => {
-      toast("Creating product, please wait...");
+      toast("Creating LEGO, please wait...");
       try {
         const item = data.image;
         const filename = new Date().getTime() + "-" + item.name;
@@ -80,17 +81,17 @@ export default function AddProductForm() {
               }
             },
             (error) => {
-              console.log("Error uploading image: ", error);
+              console.log("Error uploading image : ", error);
               reject(error);
             },
             () => {
               getDownloadURL(uploadTask.snapshot.ref)
                 .then((downloadURL) => {
-                  console.log("File available at", downloadURL);
+                  console.log("File available at :", downloadURL);
                   resolve(downloadURL);
                 })
                 .catch((error) => {
-                  console.log("Error getting the download URL: ", error);
+                  console.log("Error getting the download URL : ", error);
                   reject(error);
                 });
             }
@@ -106,17 +107,26 @@ export default function AddProductForm() {
       }
     };
 
-    try {
-      const imageUrl = await handleImageUpload();
-      const productData = { ...data, image: imageUrl };
-      console.log("productData:", productData);
-      // Here you can proceed to save the productData to your database
-      toast.success("Product added successfully!");
-    } catch (error) {
-      console.log("Error uploading product:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    const imageUrl = await handleImageUpload();
+    const productData = { ...data, image: imageUrl };
+    console.log("productData:", productData);
+
+    axios
+      .post("/api/product", productData)
+      .then(() => {
+        toast.success("LEGO created successfully");
+        setValue("image", null);
+        reset();
+      })
+      .catch((error) => {
+        toast.error(
+          "Something went wrong when saving the product to db",
+          error
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
