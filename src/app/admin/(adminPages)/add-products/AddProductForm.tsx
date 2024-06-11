@@ -81,8 +81,14 @@ export default function AddProductForm() {
               handleFileChange={handleFileChange}
             />
             <Button className="w-full my-4" onClick={handleSubmit(onSubmit)}>
-              Add LEGO
-              {isLoading && <AiOutlineLoading className="animate-spin ml-2" />}
+              {isLoading ? (
+                <>
+                  <AiOutlineLoading className="animate-spin inline-block mr-2" />
+                  Adding LEGO...
+                </>
+              ) : (
+                "Add LEGO"
+              )}
             </Button>
           </CardContent>
         </Card>

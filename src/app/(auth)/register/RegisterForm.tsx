@@ -141,8 +141,14 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               }}
             />
             <Button className="w-full mt-4" onClick={handleSubmit(onSubmit)}>
-              Sign Up{" "}
-              {isLoading && <AiOutlineLoading className="animate-spin ml-2" />}
+              {isLoading ? (
+                <>
+                  <AiOutlineLoading className="animate-spin inline-block mr-2" />
+                  Signing up...
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
             <div className="text-center text-gray-600 p-6  text-xs">
               OR CONTINUE WITH

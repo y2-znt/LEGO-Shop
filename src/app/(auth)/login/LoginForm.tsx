@@ -105,8 +105,14 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               type="password"
             />
             <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4 ">
-              Login
-              {isLoading && <AiOutlineLoading className="animate-spin ml-2" />}
+              {isLoading ? (
+                <>
+                  <AiOutlineLoading className="animate-spin inline-block mr-2" />
+                  Logged in...
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
             <div className="text-center text-gray-600 p-6 font-semibold text-xs">
               OR CONTINUE WITH
