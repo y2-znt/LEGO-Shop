@@ -53,7 +53,7 @@ export default function SelectImage({ item, handleFileChange }: ImageType) {
             alt="Aperçu"
             width={200}
             height={200}
-            className="my-2 mx-auto max-h-48"
+            className="my-2 mx-auto h-28 w-auto"
           />
           <p>{file.name}</p>
           <Button
