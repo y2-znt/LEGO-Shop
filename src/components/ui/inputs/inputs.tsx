@@ -61,7 +61,7 @@ const Inputs: React.FC<inputType> = ({
       )}
       {errors[id] && (
         <p className="text-xs font-semibold text-red-500 mt-1">
-          {errors[id].message || "This field is required"}
+          {errors[id]?.message?.toString() || "This field is required"}
         </p>
       )}
     </div>
