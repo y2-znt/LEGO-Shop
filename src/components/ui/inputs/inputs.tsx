@@ -12,6 +12,7 @@ type inputType = {
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  validation?: object;
 };
 
 const Inputs: React.FC<inputType> = ({
@@ -22,6 +23,7 @@ const Inputs: React.FC<inputType> = ({
   required,
   register,
   errors,
+  validation = {},
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -39,7 +41,7 @@ const Inputs: React.FC<inputType> = ({
         autoComplete="off"
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        {...register(id, { required, ...validation })}
         placeholder=""
         type={getInputType()}
         className={`w-full ${
@@ -59,7 +61,7 @@ const Inputs: React.FC<inputType> = ({
       )}
       {errors[id] && (
         <p className="text-xs font-semibold text-red-500 mt-1">
-          This field is required
+          {errors[id].message || "This field is required"}
         </p>
       )}
     </div>

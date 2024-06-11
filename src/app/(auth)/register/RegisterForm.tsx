@@ -118,6 +118,12 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               errors={errors}
               required
               type="email"
+              validation={{
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Please enter a valid email address.",
+                },
+              }}
             />
             <Inputs
               id="password"
@@ -127,6 +133,12 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               errors={errors}
               required
               type="password"
+              validation={{
+                minLength: {
+                  value: 8,
+                  message: "Password must have at least 8 characters",
+                },
+              }}
             />
             <Button className="w-full mt-4" onClick={handleSubmit(onSubmit)}>
               Sign Up{" "}
