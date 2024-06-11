@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 
 export default function AddProductForm() {
@@ -35,6 +35,10 @@ export default function AddProductForm() {
 
   const handleFileChange = (file: File) => {
     setValue("image", file);
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log("Product data", data);
   };
 
   return (
@@ -76,7 +80,7 @@ export default function AddProductForm() {
               item={watch("image")}
               handleFileChange={handleFileChange}
             />
-            <Button className="w-full my-4 ">
+            <Button className="w-full my-4" onClick={handleSubmit(onSubmit)}>
               Add LEGO
               {isLoading && <AiOutlineLoading className="animate-spin ml-2" />}
             </Button>
