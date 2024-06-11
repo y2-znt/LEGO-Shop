@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { Button } from "../shadcn/button";
 
 type ImageType = {
   item?: File;
@@ -22,6 +23,7 @@ export default function SelectImage({ item, handleFileChange }: ImageType) {
     onDrop,
     accept: { "image/*": [".jpeg", ".jpg", ".png", ".webp", ".svg"] },
   });
+
   return (
     <div
       {...getRootProps()}
@@ -29,7 +31,7 @@ export default function SelectImage({ item, handleFileChange }: ImageType) {
     >
       <input {...getInputProps()} />
       {isDragActive ? (
-        <p>Drop the image here...</p>
+        <p>Drop the image here</p>
       ) : item ? (
         <div>
           <Image
@@ -37,9 +39,12 @@ export default function SelectImage({ item, handleFileChange }: ImageType) {
             alt="Preview"
             width={200}
             height={200}
-            className="mt-2 mx-auto max-h-48"
+            className="my-2 mx-auto max-h-48"
           />
           <p>{item.name}</p>
+          <Button className="bg-transparent text-gray-700 hover:text-black mt-2">
+            Cancel
+          </Button>
         </div>
       ) : (
         <p>Drag & drop an image here, or click to select one</p>
