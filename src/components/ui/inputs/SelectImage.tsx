@@ -1,16 +1,26 @@
-"use client";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "../shadcn/button";
 
 type ImageType = {
   item?: File;
   handleFileChange: (value: File) => void;
+  resetFlag: boolean;
 };
 
-export default function SelectImage({ item, handleFileChange }: ImageType) {
+export default function SelectImage({
+  item,
+  handleFileChange,
+  resetFlag,
+}: ImageType) {
   const [file, setFile] = useState<File | null>(item || null);
+
+  useEffect(() => {
+    if (resetFlag) {
+      setFile(null);
+    }
+  }, [resetFlag]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -31,9 +41,7 @@ export default function SelectImage({ item, handleFileChange }: ImageType) {
   const handleCancel = (e: React.MouseEvent) => {
     // method to avoid upload a file when cancel button is clicked
     e.stopPropagation();
-
     setFile(null);
-
     // call handleFileChange with empty file
     handleFileChange(new File([], ""));
   };

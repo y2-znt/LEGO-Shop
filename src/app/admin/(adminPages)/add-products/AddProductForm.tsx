@@ -25,6 +25,7 @@ import firebaseApp from "../../../../../prisma/firebase";
 
 export default function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [resetFlag, setResetFlag] = useState(false);
 
   const {
     register,
@@ -47,7 +48,6 @@ export default function AddProductForm() {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // Upload image to Firebase
     setIsLoading(true);
 
     if (!data.image) {
@@ -117,6 +117,10 @@ export default function AddProductForm() {
         toast.success("LEGO created successfully");
         setValue("image", null);
         reset();
+        setResetFlag(false); // Reset to initial state
+        setTimeout(() => {
+          setResetFlag(true); // Toggle after a delay
+        }, 0);
       })
       .catch((error) => {
         toast.error(
@@ -166,6 +170,7 @@ export default function AddProductForm() {
           <SelectImage
             item={watch("image")}
             handleFileChange={handleFileChange}
+            resetFlag={resetFlag}
           />
           <Button className="w-full my-4" onClick={handleSubmit(onSubmit)}>
             {isLoading ? (
