@@ -67,7 +67,7 @@ export default function Favorites() {
                   <div>
                     <Card className="rounded-lg" key={index}>
                       <CardTitle className="flex justify-between text-xl p-8">
-                        {favItem.title}
+                        {favItem.name}
                         <span
                           className="cursor-pointer"
                           onClick={() => handleRemoveFav(favItem)}
