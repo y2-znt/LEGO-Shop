@@ -25,7 +25,7 @@ const favSlice = createSlice({
       const existingItem = state.favItems.find((item) => item.id === id);
       if (!existingItem) {
         state.favItems.push({ ...action.payload, cartQuantity: 1 });
-        toast.success(`${action.payload.title} added to favorites`);
+        toast.success(`${action.payload.name} added to favorites`);
       }
       // Update the LocalStorage
       localStorage.setItem("favItems", JSON.stringify(state.favItems));
@@ -39,7 +39,7 @@ const favSlice = createSlice({
       if (itemIndex !== -1) {
         state.favItems[itemIndex];
         state.favItems.splice(itemIndex, 1);
-        toast.warning(`${action.payload.title} removed from favorites`);
+        toast.warning(`${action.payload.name} removed from favorites`);
       }
 
       // Update the LocalStorage

@@ -38,7 +38,7 @@ export default function ManageProductsClient({
           {products.map((product) => (
             <TableRow key={product.id}>
               <TableCell>{product.name}</TableCell>
-              <TableCell>{product.price}</TableCell>
+              <TableCell>${product.price}</TableCell>
               <TableCell>
                 {product.inStock ? "in stock" : "out of stock"}
               </TableCell>

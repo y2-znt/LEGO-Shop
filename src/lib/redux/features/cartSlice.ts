@@ -30,10 +30,10 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find((item) => item.id === id);
       if (existingItem) {
         existingItem.cartQuantity += 1;
-        toast.info(`${action.payload.title} quantity increased in cart.🧺`);
+        toast.info(`${action.payload.name} quantity increased in cart.🧺`);
       } else {
         state.cartItems.push({ ...action.payload, cartQuantity: 1 });
-        toast.success(`${action.payload.title} added to cart 🧺`);
+        toast.success(`${action.payload.name} added to cart 🧺`);
       }
       state.cartTotalQuantity += 1;
 
@@ -49,7 +49,7 @@ const cartSlice = createSlice({
       if (itemIndex !== -1) {
         state.cartItems[itemIndex];
         state.cartItems.splice(itemIndex, 1);
-        toast.warning(`${action.payload.title} removed from cart`);
+        toast.warning(`${action.payload.name} removed from cart`);
       }
 
       // Update the LocalStorage
@@ -69,7 +69,7 @@ const cartSlice = createSlice({
         } else {
           // If the quantity is 1 or less, remove the item from the cart
           state.cartItems.splice(itemIndex, 1);
-          toast.warning(`${action.payload.title} removed from cart`);
+          toast.warning(`${action.payload.name} removed from cart`);
         }
       }
     },
