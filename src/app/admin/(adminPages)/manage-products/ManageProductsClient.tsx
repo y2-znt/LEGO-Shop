@@ -87,7 +87,7 @@ export default function ManageProductsClient({
         price: parseFloat(editValues.price),
       });
 
-      toast.success("Product updated successfully!");
+      toast.success("LEGO updated successfully!");
       setEditingId("");
       router.refresh();
     } catch (error) {
