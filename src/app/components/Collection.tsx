@@ -53,7 +53,14 @@ export default function Collection({ products }: CollectionType) {
               );
               return (
                 <Card className="rounded-lg" key={product.id}>
-                  <CardHeader className="flex justify-between p-8">
+                  {!product.inStock && (
+                    <div className="flex justify-end items-center">
+                      <div className="bg-red-500 text-white text-sm absolute rounded-lg py-2 px-4 mt-8 -mr-4 font-semibold rotate-[20deg] ">
+                        Out of stock
+                      </div>
+                    </div>
+                  )}
+                  <CardHeader className="flex flex-row justify-between p-8">
                     <CardTitle className="text-xl font-bold">
                       {product.name}
                     </CardTitle>
@@ -79,15 +86,17 @@ export default function Collection({ products }: CollectionType) {
                   </figure>
                   <CardDescription></CardDescription>
                   <CardFooter className="flex justify-between py-12 font-bold">
-                    ${product.price}
-                    <Button
-                      onClick={() => handleAddToCart(product)}
-                      size="default"
-                      className="rounded-xl text-md max-md:text-sm"
-                    >
-                      Add to cart
-                      <IoBag size={25} className="pl-2" />
-                    </Button>
+                    ${product.price} $
+                    {product.inStock && (
+                      <Button
+                        onClick={() => handleAddToCart(product)}
+                        size="default"
+                        className="rounded-xl text-md max-md:text-sm"
+                      >
+                        Add to cart
+                        <IoBag size={25} className="pl-2" />
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               );

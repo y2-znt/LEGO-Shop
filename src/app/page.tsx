@@ -4,6 +4,8 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 
+export const revalidate = 0;
+
 export default async function Home() {
   const products = await getProducts();
 
