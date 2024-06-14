@@ -7,28 +7,36 @@ The website will allow users to browse a collection of LEGO, add them to their c
 
 ## Technologies Used 🔪
 
-- Netx.JS: A React framework that enables server-side rendering, static site generation, and routing for building fast and SEO-friendly web applications.
-- Redux Toolkit: A set of tools and best practices for managing application state in Redux
-- TailwindCSS: A utility-first CSS framework for quickly styling web applications.
-- Stripe: Payment processing platform for handling online transactions securely.
-- NextAuth : An authentication library for Next.JS applications, providing features like session management, OAuth authentication, and custom authentication strategies.
-- PostgreSQL (with Vercel): Relational database management system used for storing user data, product information, and order details.
-- Prisma: ORM (Object-Relational Mapping) tool to facilitate interaction with PostgreSQL database and generate SQL queries more efficiently.
-  
+### Frontend
+- **TailwindCSS**: A utility-first CSS framework for quickly styling web applications.
+- **Redux Toolkit**: A set of tools and best practices for managing application state in Redux
+- **React Hook Form**: A library for easy and efficient form management in React applications.
+
+### Backend
+- **Next.JS**: A React framework that enables server-side rendering, static site generation, and routing for building fast and SEO-friendly web applications.
+- **Next-Auth** : An authentication library for Next.JS applications, providing features like session management, OAuth authentication, and custom authentication strategies.
+- **Axios**: A promise-based HTTP client for making requests to the backend API.
+
+### Database
+- **PostgreSQL** (with Vercel): Relational database management system used for storing user data, product information, and order details.
+- **Prisma**: ORM (Object-Relational Mapping) tool to facilitate interaction with PostgreSQL database and generate SQL queries more efficiently.
+
+### Payment integration
+- **Stripe**: Payment processing platform for handling online transactions securely.
+
 ## Project Goals 🚀
 
 - Create a responsive and visually appealing user interface.
-- Implement features such as :
-  - product catalog ✅
-  - shopping cart ✅
-  - favorites products ✅
-  - user authentication with google account ✅
-  - admin dashboard ✅
-  - Utilize PostgreSQL to store and manage user data and product information. ✅
-  - order management ⏳
-  - Integrate Stripe for handling online payments securely. ⏳
-    
-  - Gain practical experience with Next.JS, State management, databases and other modern web development technologies.
+- Implement features such as:
+  - Product catalog ✅
+  - Shopping cart ✅
+  - Favorites products ✅
+  - User authentication with credentials, Google, and GitHub accounts ✅
+  - Admin dashboard (CRUD) ✅
+  - Utilize PostgreSQL to store and manage user data and product information ✅
+  - Order management ⏳
+  - Integrate Stripe for handling online payments securely ⏳
+- Gain practical experience with Next.js, state management, databases, and other modern web development technologies.
 
 ## Getting Started
 
