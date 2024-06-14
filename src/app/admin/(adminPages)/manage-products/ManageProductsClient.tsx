@@ -30,7 +30,7 @@ export default function ManageProductsClient({
 }: ManageProductsClientType) {
   const router = useRouter();
   const storage = getStorage(firebaseApp);
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "", price: "" });
 
   const handleToggleStock = async (id: string, inStock: boolean) => {
@@ -73,9 +73,10 @@ export default function ManageProductsClient({
       });
   };
 
-  const handleEditClick = (product: Product) => {
-    setEditingId(product.id);
-    setEditValues({ name: product.name, price: product.price.toString() });
+  const handleEditClick = (id: string, name: string, price: number) => {
+    setEditingId(id);
+    // Pre-filling fields with current product values
+    setEditValues({ name: name, price: price.toString() });
   };
 
   const handleSaveClick = async (id: string) => {
@@ -87,7 +88,7 @@ export default function ManageProductsClient({
       });
 
       toast.success("Product updated successfully!");
-      setEditingId(null);
+      setEditingId("");
       router.refresh();
     } catch (error) {
       toast.error("Oops! Something went wrong");
@@ -96,7 +97,7 @@ export default function ManageProductsClient({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setEditValues((prev) => ({ ...prev, [name]: value }));
+    setEditValues(() => ({ ...editValues, [name]: value }));
   };
 
   return (
@@ -143,7 +144,7 @@ export default function ManageProductsClient({
               <TableCell>
                 {editingId === product.id ? (
                   <input
-                    type="text"
+                    type="number"
                     name="price"
                     value={editValues.price}
                     onChange={handleChange}
@@ -162,23 +163,28 @@ export default function ManageProductsClient({
               </TableCell>
               <TableCell>
                 <TableCell className="flex gap-4">
-                  {editingId === product.id ? (
-                    <ActionBtn
-                      icon={MdCheck}
-                      onClick={() => handleSaveClick(product.id)}
-                    />
-                  ) : (
-                    <ActionBtn
-                      icon={MdEdit}
-                      onClick={() => handleEditClick(product)}
-                    />
-                  )}
                   <ActionBtn
+                    // Switch icon
                     icon={MdCached}
                     onClick={() =>
                       handleToggleStock(product.id, product.inStock)
                     }
                   />
+                  {editingId === product.id ? (
+                    // Save icon
+                    <ActionBtn
+                      icon={MdCheck}
+                      onClick={() => handleSaveClick(product.id)}
+                    />
+                  ) : (
+                    // Edit icon
+                    <ActionBtn
+                      icon={MdEdit}
+                      onClick={() =>
+                        handleEditClick(product.id, product.name, product.price)
+                      }
+                    />
+                  )}
                   <ActionBtn
                     icon={MdDelete}
                     onClick={() => {
