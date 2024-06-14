@@ -66,6 +66,13 @@ export default function Favorites() {
                 <div key={index}>
                   <div>
                     <Card className="rounded-lg" key={index}>
+                      {!favItem.inStock && (
+                        <div className="flex justify-end items-center">
+                          <div className="bg-red-500 text-white text-sm absolute rounded-lg py-2 px-4 mt-6 -mr-4 font-semibold rotate-[20deg] ">
+                            Out of stock
+                          </div>
+                        </div>
+                      )}
                       <CardTitle className="flex justify-between text-xl p-8 font-bold">
                         {favItem.name}
                         <span
@@ -89,14 +96,16 @@ export default function Favorites() {
                       </CardHeader>
                       <CardFooter className="flex justify-between py-12 font-bold">
                         ${favItem.price}
-                        <Button
-                          onClick={() => handleAddToCart(favItem)}
-                          size="default"
-                          className="rounded-xl text-md font-bold text-black max-md:text-sm active:bg-amber-200 transition-all"
-                        >
-                          Add to cart
-                          <IoBag size={25} className="pl-2" />
-                        </Button>
+                        {favItem.inStock && (
+                          <Button
+                            onClick={() => handleAddToCart(favItem)}
+                            size="default"
+                            className="rounded-xl text-md max-md:text-sm"
+                          >
+                            Add to cart
+                            <IoBag size={25} className="pl-2" />
+                          </Button>
+                        )}
                       </CardFooter>
                     </Card>
                   </div>
