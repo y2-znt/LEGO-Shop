@@ -66,7 +66,7 @@ export default function Favorites() {
                 <div key={index}>
                   <div>
                     <Card className="rounded-lg" key={index}>
-                      <CardTitle className="flex justify-between text-xl p-8">
+                      <CardTitle className="flex justify-between text-xl p-8 font-bold">
                         {favItem.name}
                         <span
                           className="cursor-pointer"
