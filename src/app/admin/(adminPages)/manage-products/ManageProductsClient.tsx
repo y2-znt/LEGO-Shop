@@ -28,29 +28,27 @@ export default function ManageProductsClient({
         <TableCaption>A list of your products.</TableCaption>
         <TableHeader>
           <TableRow>
+            <TableHead>Image</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>In Stock</TableHead>
-            <TableHead>Image</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {products.map((product) => (
             <TableRow key={product.id}>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>${product.price}</TableCell>
-              <TableCell>
-                {product.inStock ? "in stock" : "out of stock"}
-              </TableCell>
               <TableCell>
                 <Image
                   src={product.image}
                   alt={product.name}
-                  className="w-10 h-10 object-cover"
+                  className="w-12 h-16 rounded-lg border p-1 object-cover"
                   width={50}
                   height={50}
                 />
               </TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>${product.price}</TableCell>
+              <TableCell>{product.inStock ? "Yes" : "No"}</TableCell>
             </TableRow>
           ))}
         </TableBody>
