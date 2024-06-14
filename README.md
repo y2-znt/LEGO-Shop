@@ -19,14 +19,15 @@ The website will allow users to browse a collection of LEGO, add them to their c
 
 - Create a responsive and visually appealing user interface.
 - Implement features such as :
-  - product catalog
-  - shopping cart
-  - favorites products
-  - user authentication with google account
-  - order management
-  - admin dashboard
-  - Integrate Stripe for handling online payments securely.
-  - Utilize PostgreSQL to store and manage user data and product information.
+  - product catalog ✅
+  - shopping cart ✅
+  - favorites products ✅
+  - user authentication with google account ✅
+  - admin dashboard ✅
+  - Utilize PostgreSQL to store and manage user data and product information. ✅
+  - order management ⏳
+  - Integrate Stripe for handling online payments securely. ⏳
+    
   - Gain practical experience with Next.JS, State management, databases and other modern web development technologies.
 
 ## Getting Started
