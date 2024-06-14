@@ -90,7 +90,7 @@ export default function Cart() {
                   <div>
                     <Card className="rounded-xl">
                       <CardTitle className="text-xl pl-5 pt-5 font-bold">
-                        <p>{cartItem.title}</p>
+                        <p>{cartItem.name}</p>
                       </CardTitle>
                       <CardHeader>
                         <figure className="flex justify-center h-32">
