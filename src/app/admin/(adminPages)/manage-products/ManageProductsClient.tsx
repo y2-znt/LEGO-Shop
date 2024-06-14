@@ -1,5 +1,6 @@
 "use client";
 
+import ActionBtn from "@/components/ui/ActionBtn";
 import {
   Table,
   TableBody,
@@ -12,7 +13,7 @@ import {
 import Status from "@/components/ui/Status";
 import { Product } from "@prisma/client";
 import Image from "next/image";
-
+import { MdCached, MdDelete } from "react-icons/md";
 type ManageProductsClientType = {
   products: Product[];
 };
@@ -33,6 +34,7 @@ export default function ManageProductsClient({
             <TableHead>Name</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>In Stock</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -55,6 +57,20 @@ export default function ManageProductsClient({
                 ) : (
                   <Status text="No" color="bg-red-500" />
                 )}
+              </TableCell>
+              <TableCell>
+                <TableCell className="flex gap-4">
+                  <ActionBtn
+                    icon={MdCached}
+                    onClick={() => {}}
+                    disabled={true}
+                  />
+                  <ActionBtn
+                    icon={MdDelete}
+                    onClick={() => {}}
+                    disabled={true}
+                  />
+                </TableCell>
               </TableCell>
             </TableRow>
           ))}
