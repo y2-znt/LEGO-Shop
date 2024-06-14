@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
+import Status from "@/components/ui/Status";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 
@@ -48,7 +49,13 @@ export default function ManageProductsClient({
               </TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell>${product.price}</TableCell>
-              <TableCell>{product.inStock ? "Yes" : "No"}</TableCell>
+              <TableCell>
+                {product.inStock ? (
+                  <Status text="Yes" color="bg-green-500" />
+                ) : (
+                  <Status text="No" color="bg-red-500" />
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
