@@ -12,8 +12,12 @@ import {
 } from "@/components/ui/shadcn/table";
 import Status from "@/components/ui/Status";
 import { Product } from "@prisma/client";
+import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { MdCached, MdDelete } from "react-icons/md";
+import { toast } from "sonner";
+
 type ManageProductsClientType = {
   products: Product[];
 };
@@ -21,6 +25,22 @@ type ManageProductsClientType = {
 export default function ManageProductsClient({
   products,
 }: ManageProductsClientType) {
+  const router = useRouter();
+
+  const handleToggleStock = async (id: string, inStock: boolean) => {
+    try {
+      await axios.put("/api/product", {
+        id,
+        inStock: !inStock,
+      });
+
+      toast.success("Product stock status updated successfully!");
+      router.refresh();
+    } catch (error) {
+      toast.error("Oops! Something went wrong");
+    }
+  };
+
   return (
     <div>
       <h1 className="text-3xl lg:text-4xl pt-10 max-sm:text-[1.7rem]">
@@ -62,14 +82,11 @@ export default function ManageProductsClient({
                 <TableCell className="flex gap-4">
                   <ActionBtn
                     icon={MdCached}
-                    onClick={() => {}}
-                    disabled={true}
+                    onClick={() =>
+                      handleToggleStock(product.id, product.inStock)
+                    }
                   />
-                  <ActionBtn
-                    icon={MdDelete}
-                    onClick={() => {}}
-                    disabled={true}
-                  />
+                  <ActionBtn icon={MdDelete} onClick={() => {}} />
                 </TableCell>
               </TableCell>
             </TableRow>
