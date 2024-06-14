@@ -47,23 +47,3 @@ export async function PUT(req: Request) {
   // Return a JSON response with the newly created user object
   return NextResponse.json(product);
 }
-
-
-export async function DELETE(req: Request) {
-  const currentUser = await getCurrentUser();
-
-  // Check if the current user is not authenticated or is not an admin
-  if (!currentUser || currentUser.role !== "ADMIN") {
-    return NextResponse.error();
-  }
-
-  const { id } = await req.json();
-
-  // Delete the product from the db
-  const product = await prisma.product.delete({
-    where: { id: id },
-  });
-
-  // Return a JSON response with the deleted product object
-  return NextResponse.json(product);
-}

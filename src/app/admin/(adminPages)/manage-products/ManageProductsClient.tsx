@@ -13,10 +13,12 @@ import {
 import Status from "@/components/ui/Status";
 import { Product } from "@prisma/client";
 import axios from "axios";
+import { deleteObject, getStorage, ref } from "firebase/storage";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { MdCached, MdDelete } from "react-icons/md";
 import { toast } from "sonner";
+import firebaseApp from "../../../../../prisma/firebase";
 
 type ManageProductsClientType = {
   products: Product[];
@@ -26,6 +28,7 @@ export default function ManageProductsClient({
   products,
 }: ManageProductsClientType) {
   const router = useRouter();
+  const storage = getStorage(firebaseApp);
 
   const handleToggleStock = async (id: string, inStock: boolean) => {
     try {
@@ -34,11 +37,37 @@ export default function ManageProductsClient({
         inStock: !inStock,
       });
 
-      toast.success("Product stock status updated successfully!");
+      toast.success("LEGO stock status updated successfully!");
       router.refresh();
     } catch (error) {
       toast.error("Oops! Something went wrong");
     }
+  };
+
+  const handleDeleteProduct = async (id: string, image: string) => {
+    toast("Deleting LEGO, please wait...");
+
+    const handleDeleteImage = async () => {
+      try {
+        const imageRef = ref(storage, image);
+        await deleteObject(imageRef);
+        console.log("Image deleted successfully", image);
+      } catch (error) {
+        console.log("Deleting image error", error);
+      }
+    };
+    await handleDeleteImage();
+
+    axios
+      .delete(`/api/product/${id}`)
+      .then((res) => {
+        toast.success("LEGO deleted successfully");
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Error deleting LEGO");
+        console.log("Error deleting product", error);
+      });
   };
 
   return (
@@ -86,7 +115,12 @@ export default function ManageProductsClient({
                       handleToggleStock(product.id, product.inStock)
                     }
                   />
-                  <ActionBtn icon={MdDelete} onClick={() => {}} />
+                  <ActionBtn
+                    icon={MdDelete}
+                    onClick={() => {
+                      handleDeleteProduct(product.id, product.image);
+                    }}
+                  />
                 </TableCell>
               </TableCell>
             </TableRow>
