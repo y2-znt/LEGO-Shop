@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import ActionBtn from "@/components/ui/ActionBtn";
 import {
   Table,
@@ -16,7 +17,7 @@ import axios from "axios";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { MdCached, MdDelete } from "react-icons/md";
+import { MdCached, MdDelete, MdCheck, MdEdit } from "react-icons/md";
 import { toast } from "sonner";
 import firebaseApp from "../../../../../prisma/firebase";
 
@@ -29,6 +30,8 @@ export default function ManageProductsClient({
 }: ManageProductsClientType) {
   const router = useRouter();
   const storage = getStorage(firebaseApp);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValues, setEditValues] = useState({ name: "", price: "" });
 
   const handleToggleStock = async (id: string, inStock: boolean) => {
     try {
@@ -59,7 +62,7 @@ export default function ManageProductsClient({
     await handleDeleteImage();
 
     axios
-      .delete(`/api/product/${id}`)
+      .delete(`/api/product?id=${id}`)
       .then((res) => {
         toast.success("LEGO deleted successfully");
         router.refresh();
@@ -68,6 +71,32 @@ export default function ManageProductsClient({
         toast.error("Error deleting LEGO");
         console.log("Error deleting product", error);
       });
+  };
+
+  const handleEditClick = (product: Product) => {
+    setEditingId(product.id);
+    setEditValues({ name: product.name, price: product.price.toString() });
+  };
+
+  const handleSaveClick = async (id: string) => {
+    try {
+      await axios.put(`/api/product/${id}`, {
+        id,
+        name: editValues.name,
+        price: parseFloat(editValues.price),
+      });
+
+      toast.success("Product updated successfully!");
+      setEditingId(null);
+      router.refresh();
+    } catch (error) {
+      toast.error("Oops! Something went wrong");
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditValues((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -98,8 +127,32 @@ export default function ManageProductsClient({
                   height={50}
                 />
               </TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>${product.price}</TableCell>
+              <TableCell>
+                {editingId === product.id ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={editValues.name}
+                    onChange={handleChange}
+                    className="border p-1"
+                  />
+                ) : (
+                  product.name
+                )}
+              </TableCell>
+              <TableCell>
+                {editingId === product.id ? (
+                  <input
+                    type="text"
+                    name="price"
+                    value={editValues.price}
+                    onChange={handleChange}
+                    className="border p-1"
+                  />
+                ) : (
+                  `$${product.price}`
+                )}
+              </TableCell>
               <TableCell>
                 {product.inStock ? (
                   <Status text="Yes" color="bg-green-500" />
@@ -109,6 +162,17 @@ export default function ManageProductsClient({
               </TableCell>
               <TableCell>
                 <TableCell className="flex gap-4">
+                  {editingId === product.id ? (
+                    <ActionBtn
+                      icon={MdCheck}
+                      onClick={() => handleSaveClick(product.id)}
+                    />
+                  ) : (
+                    <ActionBtn
+                      icon={MdEdit}
+                      onClick={() => handleEditClick(product)}
+                    />
+                  )}
                   <ActionBtn
                     icon={MdCached}
                     onClick={() =>
