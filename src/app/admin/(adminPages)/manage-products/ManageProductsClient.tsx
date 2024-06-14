@@ -62,7 +62,7 @@ export default function ManageProductsClient({
     await handleDeleteImage();
 
     axios
-      .delete(`/api/product?id=${id}`)
+      .delete(`/api/product/${id}`)
       .then((res) => {
         toast.success("LEGO deleted successfully");
         router.refresh();
