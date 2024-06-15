@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import ActionBtn from "@/components/ui/ActionBtn";
 import {
   Table,
@@ -17,7 +16,8 @@ import axios from "axios";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { MdCached, MdDelete, MdCheck, MdEdit } from "react-icons/md";
+import { useState } from "react";
+import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "sonner";
 import firebaseApp from "../../../../../prisma/firebase";
 
@@ -156,9 +156,8 @@ export default function ManageProductsClient({
                 )}
               </TableCell>
               <TableCell>
-                {`${product.updatedAt.getDate()}/${
-                  product.updatedAt.getMonth() + 1
-                }/${product.updatedAt.getFullYear()} - ${product.updatedAt.getHours()}:${product.updatedAt.getMinutes()}`}
+                {new Date(product.createdAt).toLocaleDateString()} -
+                {new Date(product.createdAt).toLocaleTimeString()}
               </TableCell>
               <TableCell>
                 {product.inStock ? (
