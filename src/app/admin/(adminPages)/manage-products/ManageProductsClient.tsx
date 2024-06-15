@@ -112,6 +112,7 @@ export default function ManageProductsClient({
             <TableHead>Image</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Price</TableHead>
+            <TableHead>Update At</TableHead>
             <TableHead>In Stock</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
@@ -155,43 +156,41 @@ export default function ManageProductsClient({
                 )}
               </TableCell>
               <TableCell>
+                {`${product.updatedAt.getDate()}/${
+                  product.updatedAt.getMonth() + 1
+                }/${product.updatedAt.getFullYear()} - ${product.updatedAt.getHours()}:${product.updatedAt.getMinutes()}`}
+              </TableCell>
+              <TableCell>
                 {product.inStock ? (
                   <Status text="Yes" color="bg-green-500" />
                 ) : (
                   <Status text="No" color="bg-red-500" />
                 )}
               </TableCell>
-              <TableCell>
-                <TableCell className="flex gap-4">
+              <TableCell className="flex gap-4 pt-5">
+                <ActionBtn
+                  icon={MdCached}
+                  onClick={() => handleToggleStock(product.id, product.inStock)}
+                />
+                {editingId === product.id ? (
                   <ActionBtn
-                    // Switch icon
-                    icon={MdCached}
+                    icon={MdCheck}
+                    onClick={() => handleSaveClick(product.id)}
+                  />
+                ) : (
+                  <ActionBtn
+                    icon={MdEdit}
                     onClick={() =>
-                      handleToggleStock(product.id, product.inStock)
+                      handleEditClick(product.id, product.name, product.price)
                     }
                   />
-                  {editingId === product.id ? (
-                    // Save icon
-                    <ActionBtn
-                      icon={MdCheck}
-                      onClick={() => handleSaveClick(product.id)}
-                    />
-                  ) : (
-                    // Edit icon
-                    <ActionBtn
-                      icon={MdEdit}
-                      onClick={() =>
-                        handleEditClick(product.id, product.name, product.price)
-                      }
-                    />
-                  )}
-                  <ActionBtn
-                    icon={MdDelete}
-                    onClick={() => {
-                      handleDeleteProduct(product.id, product.image);
-                    }}
-                  />
-                </TableCell>
+                )}
+                <ActionBtn
+                  icon={MdDelete}
+                  onClick={() => {
+                    handleDeleteProduct(product.id, product.image);
+                  }}
+                />
               </TableCell>
             </TableRow>
           ))}
