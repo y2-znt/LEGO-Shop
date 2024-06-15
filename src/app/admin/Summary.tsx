@@ -8,7 +8,27 @@ import {
   TableRow,
 } from "@/components/ui/shadcn/table";
 import { Product } from "@prisma/client";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
 import Image from "next/image";
+import { Bar } from "react-chartjs-2";
+
+// Register the necessary components for Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 type SummaryType = {
   products: Product[];
@@ -17,6 +37,29 @@ type SummaryType = {
 export default function Summary({ products }: SummaryType) {
   const inStockCount = products.filter((product) => product.inStock).length;
   const outOfStockCount = products.length - inStockCount;
+
+  // Data for the bar chart
+  const chartData = {
+    labels: products.map((product) => product.name),
+    datasets: [
+      {
+        label: "Price",
+        data: products.map((product) => product.price),
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        precision: 1,
+      },
+    },
+  };
 
   return (
     <div>
@@ -43,9 +86,15 @@ export default function Summary({ products }: SummaryType) {
         </div>
       </div>
       <div className="mt-20">
-        <h2 className="text-2xl">Recently Added LEGO</h2>
+        <h2 className="text-2xl">Prices Overview</h2>
+        <div className="p-8 mt-10 border rounded-lg">
+          <Bar data={chartData} options={chartOptions} />
+        </div>
+      </div>
+      <div className="mt-20">
+        <h2 className="text-2xl">Recently Updated LEGO</h2>
         <div className="overflow-auto ">
-          <Table className="mt-10">
+          <Table className="my-10">
             <TableHeader>
               <TableRow>
                 <TableHead>Image</TableHead>
