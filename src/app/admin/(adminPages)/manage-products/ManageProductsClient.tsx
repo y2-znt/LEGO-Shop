@@ -156,8 +156,8 @@ export default function ManageProductsClient({
                 )}
               </TableCell>
               <TableCell>
-                {new Date(product.createdAt).toLocaleDateString()} -
-                {new Date(product.createdAt).toLocaleTimeString()}
+                {new Date(product.updatedAt).toLocaleDateString()} -
+                {new Date(product.updatedAt).toLocaleTimeString()}
               </TableCell>
               <TableCell>
                 {product.inStock ? (
