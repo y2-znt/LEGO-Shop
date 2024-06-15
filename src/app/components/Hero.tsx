@@ -1,5 +1,3 @@
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function Hero() {
@@ -7,8 +5,8 @@ export default function Hero() {
     <section>
       <div className="min-h-[60vh] flex flex-col lg:gap-0 items-start pt-36">
         <div className="lg:text-left">
-          <h1 className="text-3xl lg:text-4xl font-bold  max-lg:pt-0 max-sm:text-[1.7rem]">
-            Lego Shop
+          <h1 className="text-3xl lg:text-4xl font-bold max-lg:pt-0 max-sm:text-[1.7rem]">
+            LEGO Shop
           </h1>
         </div>
         <div className="bg-[#FFD300] mt-12 min-h-[40vh] w-full rounded-xl flex justify-between max-lg:flex-col max-lg:items-center max-lg:pb-12">

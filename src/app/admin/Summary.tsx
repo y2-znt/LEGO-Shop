@@ -80,25 +80,25 @@ export default function Summary({ products }: SummaryType) {
       </h1>
       <div className="mt-10 grid grid-cols-2 max-sm:grid-cols-1 gap-4">
         <div className="p-8 border rounded-lg text-center hover:bg-gray-100 transition-all">
-          <h2 className="text-xl">
+          <h2 className="text-2xl">
             {products.length} <br /> Total LEGO
           </h2>
         </div>
         <div className="p-8 border rounded-lg text-center hover:bg-gray-100 transition-all">
-          <h2 className="text-xl">
+          <h2 className="text-2xl">
             {inStockCount}
             <br /> LEGO in Stock
           </h2>
         </div>
         <div className="p-8 border rounded-lg text-center hover:bg-gray-100 transition-all">
-          <h2 className="text-xl">
+          <h2 className="text-2xl">
             {outOfStockCount}
             <br /> LEGO out of Stock
           </h2>
         </div>
       </div>
       <div className="mt-20">
-        <h2 className="text-2xl">Prices Overview</h2>
+        <h2 className="text-2xl">LEGO Overview</h2>
         <div className="p-8 mt-10 border rounded-lg">
           <Bar data={chartData} options={chartOptions} />
         </div>
