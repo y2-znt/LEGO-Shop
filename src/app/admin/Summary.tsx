@@ -24,21 +24,26 @@ export default function Summary({ products }: SummaryType) {
         Summary
       </h1>
       <div className="mt-10 grid grid-cols-2 max-sm:grid-cols-1 gap-4">
-        <div className="p-4 border rounded-lg">
-          <h2 className="text-xl">Total Products</h2>
-          <p>{products.length}</p>
+        <div className="p-8 border rounded-lg text-center">
+          <h2 className="text-xl">
+            {products.length} <br /> Total LEGO
+          </h2>
         </div>
-        <div className="p-4 border rounded-lg">
-          <h2 className="text-xl">In Stock</h2>
-          <p>{inStockCount}</p>
+        <div className="p-8 border rounded-lg text-center">
+          <h2 className="text-xl">
+            {inStockCount}
+            <br /> LEGO in Stock
+          </h2>
         </div>
-        <div className="p-4 border rounded-lg">
-          <h2 className="text-xl">Out of Stock</h2>
-          <p>{outOfStockCount}</p>
+        <div className="p-8 border rounded-lg text-center">
+          <h2 className="text-xl">
+            {outOfStockCount}
+            <br /> LEGO out of Stock
+          </h2>
         </div>
       </div>
       <div className="mt-20">
-        <h2 className="text-2xl">Recently Added Products</h2>
+        <h2 className="text-2xl">Recently Added LEGO</h2>
         <div className="overflow-auto ">
           <Table className="mt-10">
             <TableHeader>
