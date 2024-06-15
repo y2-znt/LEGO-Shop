@@ -86,7 +86,7 @@ export default function Collection({ products }: CollectionType) {
                   </figure>
                   <CardDescription></CardDescription>
                   <CardFooter className="flex justify-between py-12 font-bold">
-                    ${product.price} $
+                    ${product.price}
                     {product.inStock && (
                       <Button
                         onClick={() => handleAddToCart(product)}
