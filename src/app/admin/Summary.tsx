@@ -38,15 +38,23 @@ export default function Summary({ products }: SummaryType) {
   const inStockCount = products.filter((product) => product.inStock).length;
   const outOfStockCount = products.length - inStockCount;
 
-  // Data for the bar chart
+  // Data for the stacked bar chart
   const chartData = {
     labels: products.map((product) => product.name),
     datasets: [
       {
-        label: "Price",
-        data: products.map((product) => product.price),
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
+        label: "In Stock",
+        data: products.map((product) => (product.inStock ? product.price : 0)),
+        backgroundColor: "rgba(255, 205, 86, 0.2)",
+
+        borderColor: "rgb(255, 205, 86)",
+        borderWidth: 1,
+      },
+      {
+        label: "Out of Stock",
+        data: products.map((product) => (!product.inStock ? product.price : 0)),
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
       },
     ],
@@ -57,6 +65,10 @@ export default function Summary({ products }: SummaryType) {
       y: {
         beginAtZero: true,
         precision: 1,
+        stacked: true,
+      },
+      x: {
+        stacked: true,
       },
     },
   };
