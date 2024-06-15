@@ -1,8 +1,11 @@
 import AccesDenied from "@/components/ui/AccesDenied";
 import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
+import getProducts from "@/pages/api/auth/getProducts";
+import Summary from "./Summary";
 
 export default async function page() {
   const currentUser = await getCurrentUser();
+  const products = await getProducts();
 
   // Check if the current user is not authenticated or is not an admin
   if (!currentUser || currentUser.role !== "ADMIN") {
@@ -10,9 +13,7 @@ export default async function page() {
   }
   return (
     <div>
-      <h1 className="text-3xl lg:text-4xl pt-10 max-sm:text-[1.7rem]">
-        Admin page
-      </h1>
+      <Summary products={products} />
     </div>
   );
 }
