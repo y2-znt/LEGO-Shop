@@ -84,7 +84,7 @@ export default function ManageProductsClient({
       await axios.put(`/api/product/${id}`, {
         id,
         name: editValues.name,
-        price: parseFloat(editValues.price),
+        price: parseFloat(editValues.price).toFixed(2),
       });
 
       toast.success("LEGO updated successfully!");
