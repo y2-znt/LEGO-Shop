@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/shadcn/card";
-import { addToCart } from "../../lib/redux/features/cartSlice";
-import { removeFromFav } from "../../lib/redux/features/favSlice";
+import { addToCart } from "../redux/features/cartSlice";
+import { removeFromFav } from "../redux/features/favSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";

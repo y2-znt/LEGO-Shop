@@ -13,7 +13,7 @@ import {
   getTotals,
   increaseCart,
   removeFromCart,
-} from "../../lib/redux/features/cartSlice";
+} from "../redux/features/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";

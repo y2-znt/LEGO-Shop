@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "../../components/ui/shadcn/button";
 import {
   Card,
@@ -8,7 +9,6 @@ import {
 } from "../../components/ui/shadcn/card";
 import { Input } from "../../components/ui/shadcn/input";
 import { Label } from "../../components/ui/shadcn/label";
-import Image from "next/image";
 
 export default function Contact() {
   return (
