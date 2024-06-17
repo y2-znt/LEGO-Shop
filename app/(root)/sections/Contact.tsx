@@ -1,14 +1,14 @@
 import Image from "next/image";
-import { Button } from "../../components/ui/shadcn/button";
+import { Button } from "../../../components/ui/shadcn/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../components/ui/shadcn/card";
-import { Input } from "../../components/ui/shadcn/input";
-import { Label } from "../../components/ui/shadcn/label";
+} from "../../../components/ui/shadcn/card";
+import { Input } from "../../../components/ui/shadcn/input";
+import { Label } from "../../../components/ui/shadcn/label";
 
 export default function Contact() {
   return (
