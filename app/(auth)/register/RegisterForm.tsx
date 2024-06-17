@@ -43,20 +43,12 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
   // Register function
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
+    toast("Creating an account, please wait...");
     console.log("form data: ", data);
 
     axios
       .post("/api/register", data)
       .then(() => {
-        const promise = (): Promise<void> =>
-          new Promise((resolve) => setTimeout(() => resolve(), 2000));
-        setIsLoading(true);
-
-        toast.promise(promise(), {
-          loading: "Loading...",
-          error: "Error",
-        });
-
         signIn("credentials", {
           email: data.email,
           password: data.password,
@@ -69,7 +61,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
             router.refresh();
           }
           if (callback?.error) {
-            toast.error(callback.error);
+            toast.error("Error creating account");
           }
         });
       })

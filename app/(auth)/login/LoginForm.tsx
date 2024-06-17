@@ -41,14 +41,8 @@ export default function LoginForm({ currentUser }: LoginFormType) {
 
   // Login function
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const promise = (): Promise<void> =>
-      new Promise((resolve) => setTimeout(() => resolve(), 2000));
     setIsLoading(true);
-    toast.promise(promise(), {
-      loading: "Loading...",
-      error: "Error",
-    });
-
+    toast("Login to account, please wait...");
     // SignIn
     signIn("credentials", {
       ...data,
@@ -61,7 +55,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
         router.refresh();
       }
       if (callback?.error) {
-        toast.error(callback.error);
+        toast.error("Error login");
       }
     });
   };
