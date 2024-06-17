@@ -30,7 +30,7 @@ export default function SelectImage({
         handleFileChange(file);
       }
     },
-    [handleFileChange]
+    [handleFileChange],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -49,7 +49,7 @@ export default function SelectImage({
   return (
     <div
       {...getRootProps()}
-      className="border-2 border-dashed border-slate-400 cursor-pointer text-sm font-normal text-slate-400 flex items-center justify-center rounded-lg p-10 text-center"
+      className="flex cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-slate-400 p-10 text-center text-sm font-normal text-slate-400"
     >
       <input {...getInputProps()} />
       {isDragActive ? (
@@ -61,11 +61,11 @@ export default function SelectImage({
             alt="Aperçu"
             width={200}
             height={200}
-            className="my-2 mx-auto h-28 w-auto"
+            className="mx-auto my-2 h-28 w-auto"
           />
           <p>{file.name}</p>
           <Button
-            className="bg-transparent text-gray-700 hover:text-black mt-2"
+            className="mt-2 bg-transparent text-gray-700 hover:text-black"
             onClick={handleCancel}
           >
             Cancel

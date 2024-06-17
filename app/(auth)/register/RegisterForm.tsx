@@ -89,9 +89,9 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
 
   return (
     <div>
-      <main className="max-w-6xl text-black mx-auto max-xl:px-8 font-bold">
+      <main className="mx-auto max-w-6xl font-bold text-black max-xl:px-8">
         <div className="pt-24"></div>
-        <div className="w-3/4 max-sm:w-full m-auto"></div>
+        <div className="m-auto w-3/4 max-sm:w-full"></div>
         <Card className="mx-auto max-w-sm">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">
@@ -140,21 +140,21 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
                 },
               }}
             />
-            <Button className="w-full mt-4" onClick={handleSubmit(onSubmit)}>
+            <Button className="mt-4 w-full" onClick={handleSubmit(onSubmit)}>
               {isLoading ? (
                 <>
-                  <AiOutlineLoading className="animate-spin inline-block mr-2" />
+                  <AiOutlineLoading className="mr-2 inline-block animate-spin" />
                   Signing up...
                 </>
               ) : (
                 "Sign Up"
               )}
             </Button>
-            <div className="text-center text-gray-600 p-6  text-xs">
+            <div className="p-6 text-center text-xs text-gray-600">
               OR CONTINUE WITH
             </div>
             <Button
-              className="w-full bg-transparent px-7 gap-3 border"
+              className="w-full gap-3 border bg-transparent px-7"
               onClick={() => signIn("google")}
             >
               <span>
@@ -168,7 +168,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               Google
             </Button>
             <Button
-              className="w-full bg-transparent px-7 mt-4 gap-3 border"
+              className="mt-4 w-full gap-3 border bg-transparent px-7"
               onClick={() => signIn("github")}
             >
               <span>
@@ -176,7 +176,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               </span>
               Github
             </Button>
-            <p className="text-sm font-semibold text-center pt-4">
+            <p className="pt-4 text-center text-sm font-semibold">
               Already a account?{" "}
               <Link href="/login" className="underline">
                 Log in

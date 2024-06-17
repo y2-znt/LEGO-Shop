@@ -30,7 +30,7 @@ export default function Collection({ products }: CollectionType) {
 
   const toggleFavorite = (product: Product) => {
     const isAlreadyFavorite = favItems.some(
-      (item: any) => item.id === product.id
+      (item: any) => item.id === product.id,
     );
     if (isAlreadyFavorite) {
       dispatch(removeFromFav(product));
@@ -41,7 +41,7 @@ export default function Collection({ products }: CollectionType) {
 
   return (
     <div>
-      <h1 className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
+      <h1 className="pt-24 text-3xl font-bold max-sm:text-[1.7rem] lg:text-4xl">
         New Collection
       </h1>
       <div className="pt-16">
@@ -49,13 +49,13 @@ export default function Collection({ products }: CollectionType) {
           {products &&
             products.map((product) => {
               const isFavorite = favItems.some(
-                (item: any) => item.id === product.id
+                (item: any) => item.id === product.id,
               );
               return (
                 <Card className="rounded-lg" key={product.id}>
                   {!product.inStock && (
-                    <div className="flex justify-end items-center">
-                      <div className="bg-red-500 text-white text-sm absolute rounded-lg py-2 px-4 mt-8 -mr-4 font-semibold rotate-[20deg] ">
+                    <div className="flex items-center justify-end">
+                      <div className="absolute -mr-4 mt-8 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
                         Out of stock
                       </div>
                     </div>
@@ -75,7 +75,7 @@ export default function Collection({ products }: CollectionType) {
                       )}
                     </span>
                   </CardHeader>
-                  <figure className="flex justify-center h-40">
+                  <figure className="flex h-40 justify-center">
                     <Image
                       src={product.image}
                       width={2000}
@@ -91,7 +91,7 @@ export default function Collection({ products }: CollectionType) {
                       <Button
                         onClick={() => handleAddToCart(product)}
                         size="default"
-                        className="rounded-xl text-md max-md:text-sm"
+                        className="text-md rounded-xl max-md:text-sm"
                       >
                         Add to cart
                         <IoBag size={25} className="pl-2" />

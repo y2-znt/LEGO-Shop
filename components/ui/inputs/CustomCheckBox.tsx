@@ -16,7 +16,7 @@ export default function CustomCheckBox({
   register,
 }: CustomCheckBoxType) {
   return (
-    <div className="flex w-full flex-row gap-2 items-center py-6">
+    <div className="flex w-full flex-row items-center gap-2 py-6">
       <input
         type="checkbox"
         autoComplete="off"
@@ -26,7 +26,7 @@ export default function CustomCheckBox({
         placeholder=""
         className="cursor-pointer"
       />
-      <label htmlFor={id} className="cursor-pointer font-medium text-sm ">
+      <label htmlFor={id} className="cursor-pointer text-sm font-medium">
         {label}
       </label>
     </div>

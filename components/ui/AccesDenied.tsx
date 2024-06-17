@@ -7,7 +7,7 @@ type NullDataType = {
 export default function NullData({ title }: NullDataType) {
   return (
     <div className="flex flex-col items-center justify-center gap-7">
-      <p className="text-3xl text-center lg:text-4xl pt-20 font-bold max-sm:text-[1.7rem]">
+      <p className="pt-20 text-center text-3xl font-bold max-sm:text-[1.7rem] lg:text-4xl">
         {title}
       </p>
       <Image

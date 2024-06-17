@@ -46,13 +46,13 @@ export default function Cart() {
 
   return (
     <div>
-      <main className="max-w-7xl mx-auto max-xl:px-8 font-bold  text-black">
-        <p className="text-3xl lg:text-4xl font-bold pt-24 max-sm:text-[1.7rem]">
+      <main className="mx-auto max-w-7xl font-bold text-black max-xl:px-8">
+        <p className="pt-24 text-3xl font-bold max-sm:text-[1.7rem] lg:text-4xl">
           Shopping Cart
         </p>
         {cart.cartItems.length === 0 ? (
           <div>
-            <div className="flex flex-col m-12 items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
+            <div className="m-12 flex flex-col items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
               <Image
                 src="/assets/cart-empty.jpg"
                 alt=""
@@ -75,7 +75,7 @@ export default function Cart() {
           </div>
         ) : (
           <div className="mx-8 space-y-10">
-            <ul className="grid-cols-4 grid pt-12 max-sm:hidden ">
+            <ul className="grid grid-cols-4 pt-12 max-sm:hidden">
               <li>PRODUCT</li>
               <li className="pl-32 max-lg:pl-12">PRICE</li>
               <li className="pl-32 max-lg:pl-12">QUANTITY</li>
@@ -85,15 +85,15 @@ export default function Cart() {
               {cart.cartItems.map((cartItem: any, index: number) => (
                 <div
                   key={index}
-                  className="grid-cols-4 my-4 grid items-center max-sm:grid-cols-1"
+                  className="my-4 grid grid-cols-4 items-center max-sm:grid-cols-1"
                 >
                   <div>
                     <Card className="rounded-xl">
-                      <CardTitle className="text-xl pl-5 pt-5 font-bold">
+                      <CardTitle className="pl-5 pt-5 text-xl font-bold">
                         <p>{cartItem.name}</p>
                       </CardTitle>
                       <CardHeader>
-                        <figure className="flex justify-center h-32">
+                        <figure className="flex h-32 justify-center">
                           <Image
                             className="w-24"
                             src={cartItem.image}
@@ -117,10 +117,10 @@ export default function Cart() {
                       </CardFooter>
                     </Card>
                   </div>
-                  <div className="pl-32 max-lg:pl-12 max-sm:pl-0 max-sm:mt-14 max-sm:ml-6 max-sm:absolute">
+                  <div className="pl-32 max-lg:pl-12 max-sm:absolute max-sm:ml-6 max-sm:mt-14 max-sm:pl-0">
                     ${cartItem.price.toFixed(2)}
                   </div>
-                  <div className="flex items-start justify-center w-40 max-w-full rounded-lg bg-[#FFD300] py-2 ml-32 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
+                  <div className="ml-32 flex w-40 max-w-full items-start justify-center rounded-lg bg-[#FFD300] py-2 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
                     <button
                       onClick={() => handleDecreaseCart(cartItem)}
                       className="px-8"
@@ -143,10 +143,10 @@ export default function Cart() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-between items-start border-t pt-8 pl-2 max-sm:justify-center max-sm:flex-col max-sm:items-center">
+            <div className="flex items-start justify-between border-t pl-2 pt-8 max-sm:flex-col max-sm:items-center max-sm:justify-center">
               <Button
                 onClick={() => handleClearCart()}
-                className="border px-8 py-5 text-gray-700 bg-transparent hover:text-black max-sm:px-5 max-sm:py-2 max-sm:w-full"
+                className="border bg-transparent px-8 py-5 text-gray-700 hover:text-black max-sm:w-full max-sm:px-5 max-sm:py-2"
               >
                 Clear Cart
               </Button>
@@ -155,12 +155,12 @@ export default function Cart() {
                   <span>SUBTOTAL</span>
                   <span>${cart.cartTotalAmount.toFixed(2)}</span>
                 </div>
-                <p className="text-sm pt-4 text-gray-700 font-medium">
+                <p className="pt-4 text-sm font-medium text-gray-700">
                   Taxes and shipping calculated at checkout
                 </p>
-                <Button className="w-full py-5 mt-3">Checkout</Button>
+                <Button className="mt-3 w-full py-5">Checkout</Button>
                 <Link href="/">
-                  <div className="flex pt-4 mb-24">
+                  <div className="mb-24 flex pt-4">
                     <span className="translate-y-1 pr-2">
                       <BsArrowLeft />
                     </span>

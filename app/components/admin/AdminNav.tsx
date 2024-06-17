@@ -7,8 +7,8 @@ import AdminNavItem from "./AdminNavItem";
 export default function AdminNav() {
   const pathname = usePathname(); // Get the current path "/admin"
   return (
-    <div className="w-full shadow-sm top-20 border-b-[1px] pt-24 bg-white">
-      <div className="flex flex-row items-center justify-between md:justify-center md:gap-12 gap-4 overflow-x-auto flex-nowrap px-4 md:px-0">
+    <div className="top-20 w-full border-b-[1px] bg-white pt-24 shadow-sm">
+      <div className="flex flex-row flex-nowrap items-center justify-between gap-4 overflow-x-auto px-4 md:justify-center md:gap-12 md:px-0">
         <Link href="/admin">
           <AdminNavItem
             label="Summary"

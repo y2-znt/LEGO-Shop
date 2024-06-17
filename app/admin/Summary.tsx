@@ -27,7 +27,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 type SummaryType = {
@@ -75,22 +75,22 @@ export default function Summary({ products }: SummaryType) {
 
   return (
     <div>
-      <h1 className="text-4xl max-md:text-3xl pt-10 max-sm:text-[1.7rem]">
+      <h1 className="pt-10 text-4xl max-md:text-3xl max-sm:text-[1.7rem]">
         Summary
       </h1>
-      <div className="mt-10 grid grid-cols-2 max-sm:grid-cols-1 gap-4">
-        <div className="p-8 border rounded-lg text-center hover:bg-gray-100 transition-all">
+      <div className="mt-10 grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
             {products.length} <br /> Total LEGO
           </h2>
         </div>
-        <div className="p-8 border rounded-lg text-center hover:bg-gray-100 transition-all">
+        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
             {inStockCount}
             <br /> LEGO in Stock
           </h2>
         </div>
-        <div className="p-8 border rounded-lg text-center hover:bg-gray-100 transition-all">
+        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
             {outOfStockCount}
             <br /> LEGO out of Stock
@@ -99,13 +99,13 @@ export default function Summary({ products }: SummaryType) {
       </div>
       <div className="mt-20">
         <h2 className="text-2xl">LEGO Overview</h2>
-        <div className="p-8 mt-10 border rounded-lg">
+        <div className="mt-10 rounded-lg border p-8">
           <Bar data={chartData} options={chartOptions} />
         </div>
       </div>
       <div className="mt-20">
         <h2 className="text-2xl">Recently Updated LEGO</h2>
-        <div className="overflow-auto ">
+        <div className="overflow-auto">
           <Table className="my-10">
             <TableHeader>
               <TableRow>
@@ -122,7 +122,7 @@ export default function Summary({ products }: SummaryType) {
                     <Image
                       src={product.image}
                       alt={product.name}
-                      className="w-12 h-16 rounded-lg border p-1 object-cover"
+                      className="h-16 w-12 rounded-lg border object-cover p-1"
                       width={50}
                       height={50}
                     />

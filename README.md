@@ -8,20 +8,24 @@ The website will allow users to browse a collection of LEGO, add them to their c
 ## Technologies Used 🔪
 
 ### Frontend
+
 - **TailwindCSS**: A utility-first CSS framework for quickly styling web applications.
 - **Redux Toolkit**: A set of tools and best practices for managing application state in Redux
 - **React Hook Form**: A library for easy and efficient form management in React applications.
 
 ### Backend
+
 - **Next.JS**: A React framework that enables server-side rendering, static site generation, and routing for building fast and SEO-friendly web applications.
 - **Next-Auth** : An authentication library for Next.JS applications, providing features like session management, OAuth authentication, and custom authentication strategies.
 - **Axios**: A promise-based HTTP client for making requests to the backend API.
 
 ### Database
+
 - **PostgreSQL** (with Vercel): Relational database management system used for storing user data, product information, and order details.
 - **Prisma**: ORM (Object-Relational Mapping) tool to facilitate interaction with PostgreSQL database and generate SQL queries more efficiently.
 
 ### Payment integration
+
 - **Stripe**: Payment processing platform for handling online transactions securely.
 
 ## Project Goals 🚀

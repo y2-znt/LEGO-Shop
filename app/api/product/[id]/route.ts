@@ -4,7 +4,7 @@ import prisma from "../../../../prisma/prismadb";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } },
 ) {
   const currentUser = await getCurrentUser();
 

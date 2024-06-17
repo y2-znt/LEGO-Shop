@@ -94,7 +94,7 @@ export default function AddProductForm() {
                   console.log("Error getting the download URL : ", error);
                   reject(error);
                 });
-            }
+            },
           );
         });
 
@@ -125,7 +125,7 @@ export default function AddProductForm() {
       .catch((error) => {
         toast.error(
           "Something went wrong when saving the product to db",
-          error
+          error,
         );
       })
       .finally(() => {
@@ -136,7 +136,7 @@ export default function AddProductForm() {
   return (
     <div>
       <div className="pt-20"></div>
-      <div className="w-full max-sm:w-full m-auto"></div>
+      <div className="m-auto w-full max-sm:w-full"></div>
       <Card className="mx-auto max-w-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Add a LEGO</CardTitle>
@@ -172,10 +172,10 @@ export default function AddProductForm() {
             handleFileChange={handleFileChange}
             resetFlag={resetFlag}
           />
-          <Button className="w-full my-4" onClick={handleSubmit(onSubmit)}>
+          <Button className="my-4 w-full" onClick={handleSubmit(onSubmit)}>
             {isLoading ? (
               <>
-                <AiOutlineLoading className="animate-spin inline-block mr-2" />
+                <AiOutlineLoading className="mr-2 inline-block animate-spin" />
                 Adding LEGO...
               </>
             ) : (

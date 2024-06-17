@@ -102,7 +102,7 @@ export default function ManageProductsClient({
 
   return (
     <div>
-      <h1 className="text-3xl lg:text-4xl pt-10 max-sm:text-[1.7rem]">
+      <h1 className="pt-10 text-3xl max-sm:text-[1.7rem] lg:text-4xl">
         Manage Products
       </h1>
       <Table className="mt-10">
@@ -124,7 +124,7 @@ export default function ManageProductsClient({
                 <Image
                   src={product.image}
                   alt={product.name}
-                  className="w-12 h-16 rounded-lg border p-1 object-cover"
+                  className="h-16 w-12 rounded-lg border object-cover p-1"
                   width={50}
                   height={50}
                 />

@@ -33,7 +33,7 @@ const favSlice = createSlice({
     removeFromFav: (state, action) => {
       const { id } = action.payload;
       const itemIndex = state.favItems.findIndex(
-        (favItem) => favItem.id === id
+        (favItem) => favItem.id === id,
       );
 
       if (itemIndex !== -1) {

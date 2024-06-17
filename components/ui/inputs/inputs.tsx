@@ -35,7 +35,7 @@ const Inputs: React.FC<inputType> = ({
   };
 
   return (
-    <div className="m-auto relative py-2 font">
+    <div className="font relative m-auto py-2">
       <Label htmlFor={id}>{label}</Label>
       <Input
         autoComplete="off"
@@ -60,7 +60,7 @@ const Inputs: React.FC<inputType> = ({
         </button>
       )}
       {errors[id] && (
-        <p className="text-xs font-semibold text-red-500 mt-1">
+        <p className="mt-1 text-xs font-semibold text-red-500">
           {errors[id]?.message?.toString() || "This field is required"}
         </p>
       )}

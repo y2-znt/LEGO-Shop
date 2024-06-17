@@ -76,7 +76,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
 
   return (
     <div>
-      <main className="max-w-6xl text-black mx-auto max-xl:px-8 font-bold">
+      <main className="mx-auto max-w-6xl font-bold text-black max-xl:px-8">
         <div className="pt-24"></div>
         <Card className="mx-auto max-w-sm">
           <CardHeader className="space-y-1">
@@ -104,21 +104,21 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               required
               type="password"
             />
-            <Button onClick={handleSubmit(onSubmit)} className="w-full mt-4 ">
+            <Button onClick={handleSubmit(onSubmit)} className="mt-4 w-full">
               {isLoading ? (
                 <>
-                  <AiOutlineLoading className="animate-spin inline-block mr-2" />
+                  <AiOutlineLoading className="mr-2 inline-block animate-spin" />
                   Logged in...
                 </>
               ) : (
                 "Login"
               )}
             </Button>
-            <div className="text-center text-gray-600 p-6 font-semibold text-xs">
+            <div className="p-6 text-center text-xs font-semibold text-gray-600">
               OR CONTINUE WITH
             </div>
             <Button
-              className="w-full text-sm bg-transparent border"
+              className="w-full border bg-transparent text-sm"
               onClick={() => signIn("google")}
             >
               <span className="pr-2">
@@ -132,7 +132,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               Google
             </Button>
             <Button
-              className="w-full text-black bg-transparent px-7 mt-4 gap-3 font-semibold border"
+              className="mt-4 w-full gap-3 border bg-transparent px-7 font-semibold text-black"
               onClick={() => signIn("github")}
             >
               <span>
@@ -140,7 +140,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
               </span>
               Github
             </Button>
-            <p className="text-sm font-semibold text-center pt-4">
+            <p className="pt-4 text-center text-sm font-semibold">
               Do not have an account?{" "}
               <Link href="/register" className="underline">
                 Sign Up

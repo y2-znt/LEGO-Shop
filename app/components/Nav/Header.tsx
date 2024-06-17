@@ -12,8 +12,8 @@ export default async function Header() {
   console.log("Current user: ", currentUser);
 
   return (
-    <div className="bg-[#FFD300] text-black py-1 fixed w-full z-10">
-      <nav className="max-w-7xl mx-auto max-xl:px-8 flex justify-between items-center">
+    <div className="fixed z-10 w-full bg-[#FFD300] py-1 text-black">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between max-xl:px-8">
         <Link href="/">
           <Image
             src="/assets/LEGO_logo.png"
@@ -26,13 +26,13 @@ export default async function Header() {
         <div className="flex items-center gap-5 max-sm:gap-3">
           <Link
             href="/favorites"
-            className="hover:bg-amber-200 transition-all p-2 rounded-full"
+            className="rounded-full p-2 transition-all hover:bg-amber-200"
           >
             <FaRegHeart size={22} />
           </Link>
           <Link
             href="/cart"
-            className="relative hover:bg-amber-200 transition-all p-2 rounded-full"
+            className="relative rounded-full p-2 transition-all hover:bg-amber-200"
           >
             <FiShoppingCart size={25} />
             <CartQuantity />

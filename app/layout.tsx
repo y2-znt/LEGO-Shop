@@ -27,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={clsx(inter.className, "bg-background overflow-x-hidden")}
+        className={clsx(inter.className, "overflow-x-hidden bg-background")}
       >
         <StoreProvider>
           <ThemeProvider attribute="class" defaultTheme="light">

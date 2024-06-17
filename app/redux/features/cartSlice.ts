@@ -43,7 +43,7 @@ const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       const { id } = action.payload;
       const itemIndex = state.cartItems.findIndex(
-        (cartItem) => cartItem.id === id
+        (cartItem) => cartItem.id === id,
       );
 
       if (itemIndex !== -1) {
@@ -58,7 +58,7 @@ const cartSlice = createSlice({
     decreaseCart: (state, action) => {
       const itemId = action.payload.id;
       const itemIndex = state.cartItems.findIndex(
-        (cartItem) => cartItem.id === itemId
+        (cartItem) => cartItem.id === itemId,
       );
 
       if (itemIndex !== -1) {
@@ -76,7 +76,7 @@ const cartSlice = createSlice({
     increaseCart: (state, action) => {
       const itemId = action.payload.id;
       const itemIndex = state.cartItems.findIndex(
-        (cartItem) => cartItem.id === itemId
+        (cartItem) => cartItem.id === itemId,
       );
 
       if (itemIndex !== -1) {
@@ -102,7 +102,7 @@ const cartSlice = createSlice({
           quantity: acc.quantity + cartQuantity,
         }),
         // Initial values for the accumulator
-        { total: 0, quantity: 0 }
+        { total: 0, quantity: 0 },
       );
 
       // Update the state values

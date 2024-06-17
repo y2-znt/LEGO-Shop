@@ -8,7 +8,7 @@ export default function CartQuantity() {
   return (
     <div>
       {cartTotalQuantity > 0 && (
-        <span className="absolute top-4 right-5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+        <span className="absolute right-5 top-4 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs text-white">
           {cartTotalQuantity}
         </span>
       )}

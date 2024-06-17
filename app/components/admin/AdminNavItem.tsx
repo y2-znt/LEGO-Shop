@@ -13,14 +13,14 @@ export default function AdminNavItem({
 }: AdminNavItemType) {
   return (
     <div
-      className={`flex items-center justify-center text-center gap-1 p-2 border-b-2 hover:text-black transition cursor-pointer ${
+      className={`flex cursor-pointer items-center justify-center gap-1 border-b-2 p-2 text-center transition hover:text-black ${
         selected
           ? "border-b-slate-800 text-black" // Styles for selected item
           : "border-transparent text-gray-500" // Styles for unselected item
       }`}
     >
       {Icon && <Icon size={20} />}
-      <div className="text-base text-center break-normal">{label}</div>
+      <div className="break-normal text-center text-base">{label}</div>
     </div>
   );
 }

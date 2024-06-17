@@ -13,7 +13,7 @@ export default function AdminLayout({
 }>) {
   return (
     <div>
-      <div className="max-w-6xl mx-auto max-xl:px-8 font-bold text-black">
+      <div className="mx-auto max-w-6xl font-bold text-black max-xl:px-8">
         <AdminNav />
         {children}
       </div>

@@ -3,14 +3,14 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section>
-      <div className="min-h-[60vh] flex flex-col lg:gap-0 items-start pt-36">
+      <div className="flex min-h-[60vh] flex-col items-start pt-36 lg:gap-0">
         <div className="lg:text-left">
-          <h1 className="text-3xl lg:text-4xl font-bold max-lg:pt-0 max-sm:text-[1.7rem]">
+          <h1 className="text-3xl font-bold max-lg:pt-0 max-sm:text-[1.7rem] lg:text-4xl">
             LEGO Shop
           </h1>
         </div>
-        <div className="bg-[#FFD300] mt-12 min-h-[40vh] w-full rounded-xl flex justify-between max-lg:flex-col max-lg:items-center max-lg:pb-12">
-          <p className="text-4xl text-black lg:text-5xl font-bold p-12">
+        <div className="mt-12 flex min-h-[40vh] w-full justify-between rounded-xl bg-[#FFD300] max-lg:flex-col max-lg:items-center max-lg:pb-12">
+          <p className="p-12 text-4xl font-bold text-black lg:text-5xl">
             You never get too old <br />
             to play,
             <span className="text-red-700"> Right?</span>
@@ -21,7 +21,7 @@ export default function Hero() {
             width={2000}
             height={2000}
             alt=""
-            className="relative w-2/6 -pr-2 rounded- max-lg:rounded-3xl max-lg:w-1/3 max-sm:w-1/2 max-lg:mr-14"
+            className="-pr-2 rounded- relative w-2/6 max-lg:mr-14 max-lg:w-1/3 max-lg:rounded-3xl max-sm:w-1/2"
           ></Image>
         </div>
       </div>

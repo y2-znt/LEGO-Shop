@@ -8,7 +8,12 @@ import { useEffect } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
 import { SafeUser } from "../../types";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../../components/ui/shadcn/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../../components/ui/shadcn/dropdown-menu";
 
 type currentUserType = {
   currentUser: SafeUser | null;
@@ -48,7 +53,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger className="py-2 pr-6 pl-2 hover:bg-amber-200 transition-all flex rounded-2xl border-none outline-none">
+        <DropdownMenuTrigger className="flex rounded-2xl border-none py-2 pl-2 pr-6 outline-none transition-all hover:bg-amber-200">
           {currentUser && currentUser.image ? (
             <Image
               alt=""

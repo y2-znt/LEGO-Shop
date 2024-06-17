@@ -66,7 +66,7 @@ export default function Footer() {
                     href={href}
                     rel="noreferrer"
                     target="_blank"
-                    className="transition hover:opacity-75 "
+                    className="transition hover:opacity-75"
                   >
                     <span className="sr-only">{label}</span>
                     <Icon size={25} />

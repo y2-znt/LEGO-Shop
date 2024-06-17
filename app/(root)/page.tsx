@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <div>
-      <div className="max-w-6xl mx-auto max-xl:px-8  text-black">
+      <div className="mx-auto max-w-6xl text-black max-xl:px-8">
         <Hero />
         <Collection products={products} />
         <Contact />
