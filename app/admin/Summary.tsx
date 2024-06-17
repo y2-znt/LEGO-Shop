@@ -1,12 +1,4 @@
 "use client";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../components/ui/shadcn/table";
 import { Product } from "@prisma/client";
 import {
   BarElement,
@@ -19,6 +11,14 @@ import {
 } from "chart.js";
 import Image from "next/image";
 import { Bar } from "react-chartjs-2";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/shadcn/table";
 
 // Register the necessary components for Chart.js
 ChartJS.register(

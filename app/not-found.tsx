@@ -1,7 +1,7 @@
-import { Button } from "../components/ui/shadcn/button";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
+import { Button } from "../components/ui/shadcn/button";
 
 export default function notfound() {
   return (

@@ -1,5 +1,5 @@
-import { getCurrentUser } from "../../../pages/api/auth/getCurrentUser";
 import { NextResponse } from "next/server";
+import { getCurrentUser } from "../../../pages/api/auth/getCurrentUser";
 import prisma from "../../../prisma/prismadb";
 
 export async function POST(req: Request) {

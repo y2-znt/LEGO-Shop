@@ -1,8 +1,8 @@
-import { Input } from "../../../components/ui/shadcn/input";
-import { Label } from "../../../components/ui/shadcn/label";
 import { useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Input } from "../../../components/ui/shadcn/input";
+import { Label } from "../../../components/ui/shadcn/label";
 
 type inputType = {
   id: string;

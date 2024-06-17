@@ -7,13 +7,13 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
-import { SafeUser } from "../../types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../../../components/ui/shadcn/dropdown-menu";
+import { SafeUser } from "../../types";
 
 type currentUserType = {
   currentUser: SafeUser | null;

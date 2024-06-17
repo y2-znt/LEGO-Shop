@@ -1,15 +1,4 @@
 "use client";
-import CustomCheckBox from "../../../../components/ui/inputs/CustomCheckBox";
-import Inputs from "../../../../components/ui/inputs/inputs";
-import SelectImage from "../../../../components/ui/inputs/SelectImage";
-import { Button } from "../../../../components/ui/shadcn/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../../../components/ui/shadcn/card";
 import axios from "axios";
 import {
   getDownloadURL,
@@ -21,6 +10,17 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
+import CustomCheckBox from "../../../../components/ui/inputs/CustomCheckBox";
+import Inputs from "../../../../components/ui/inputs/inputs";
+import SelectImage from "../../../../components/ui/inputs/SelectImage";
+import { Button } from "../../../../components/ui/shadcn/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../../../components/ui/shadcn/card";
 import firebaseApp from "../../../../prisma/firebase";
 
 export default function AddProductForm() {

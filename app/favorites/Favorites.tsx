@@ -1,5 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { BsArrowLeft } from "react-icons/bs";
+import { IoIosHeart } from "react-icons/io";
+import { IoBag } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../components/ui/shadcn/button";
 import {
   Card,
@@ -10,12 +16,6 @@ import {
 } from "../../components/ui/shadcn/card";
 import { addToCart } from "../redux/features/cartSlice";
 import { removeFromFav } from "../redux/features/favSlice";
-import Image from "next/image";
-import Link from "next/link";
-import { BsArrowLeft } from "react-icons/bs";
-import { IoIosHeart } from "react-icons/io";
-import { IoBag } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function Favorites() {
   const favorite = useSelector((state: any) => state.favorite);

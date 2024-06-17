@@ -1,8 +1,8 @@
 import getProducts from "../../pages/api/auth/getProducts";
-import Footer from "./sections/Footer";
-import Hero from "./sections/Hero";
 import Collection from "./sections/Collection";
 import Contact from "./sections/Contact";
+import Footer from "./sections/Footer";
+import Hero from "./sections/Hero";
 
 export const revalidate = 0;
 

@@ -1,4 +1,10 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
+import { BsArrowLeft } from "react-icons/bs";
+import { GoTrash } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../components/ui/shadcn/button";
 import {
   Card,
@@ -14,12 +20,6 @@ import {
   increaseCart,
   removeFromCart,
 } from "../redux/features/cartSlice";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect } from "react";
-import { BsArrowLeft } from "react-icons/bs";
-import { GoTrash } from "react-icons/go";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);

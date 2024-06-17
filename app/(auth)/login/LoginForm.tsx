@@ -1,12 +1,4 @@
 "use client";
-import { Button } from "../../../components/ui/shadcn/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../../components/ui/shadcn/card";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +9,14 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
 import Inputs from "../../../components/ui/inputs/inputs";
+import { Button } from "../../../components/ui/shadcn/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../../components/ui/shadcn/card";
 import { SafeUser } from "../../types";
 
 type LoginFormType = {
