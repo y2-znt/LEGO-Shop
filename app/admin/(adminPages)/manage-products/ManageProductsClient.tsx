@@ -95,11 +95,6 @@ export default function ManageProductsClient({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditValues(() => ({ ...editValues, [name]: value }));
-  };
-
   return (
     <div>
       <h1 className="pt-10 text-3xl max-sm:text-[1.7rem] lg:text-4xl">
@@ -135,8 +130,10 @@ export default function ManageProductsClient({
                     type="text"
                     name="name"
                     value={editValues.name}
-                    onChange={handleChange}
                     className="border p-1"
+                    onChange={(e) =>
+                      setEditValues({ ...editValues, name: e.target.value })
+                    }
                   />
                 ) : (
                   product.name
@@ -148,8 +145,10 @@ export default function ManageProductsClient({
                     type="number"
                     name="price"
                     value={editValues.price}
-                    onChange={handleChange}
                     className="border p-1"
+                    onChange={(e) =>
+                      setEditValues({ ...editValues, price: e.target.value })
+                    }
                   />
                 ) : (
                   `$${product.price}`
