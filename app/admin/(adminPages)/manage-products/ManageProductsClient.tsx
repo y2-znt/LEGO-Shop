@@ -160,9 +160,9 @@ export default function ManageProductsClient({
               </TableCell>
               <TableCell>
                 {product.inStock ? (
-                  <Status text="Yes" color="bg-green-500" />
+                  <Status text="Yes" color="bg-green-500" width="w-16" />
                 ) : (
-                  <Status text="No" color="bg-red-500" />
+                  <Status text="No" color="bg-red-500" width="w-16" />
                 )}
               </TableCell>
               <TableCell className="flex gap-4 pt-5">

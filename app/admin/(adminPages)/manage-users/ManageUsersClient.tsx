@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../../../components/ui/shadcn/table";
+import Status from "../../../../components/ui/Status";
 
 type ManageUsersClientType = {
   allUsers: User[];
@@ -82,11 +83,6 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditValues(() => ({ ...editValues, [name]: value }));
-  };
-
   return (
     <div>
       <Table className="mt-10">
@@ -135,7 +131,13 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
                   {new Date(user.updatedAt).toLocaleDateString()} -
                   {new Date(user.updatedAt).toLocaleTimeString()}
                 </TableCell>
-                <TableCell>{user.role}</TableCell>
+                <TableCell>
+                {user.role === "ADMIN" ? (
+                    <Status text="Admin" color="bg-blue-500" width="w-20" />
+                  ) : (
+                    <Status text="Client" color="bg-yellow-500" width="w-20"/>
+                  )}
+                </TableCell>
                 <TableCell className="flex gap-4 py-4">
                   <ActionBtn
                     icon={MdCached}

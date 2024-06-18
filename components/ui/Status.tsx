@@ -1,12 +1,13 @@
 type StatusType = {
   text: string;
   color: string;
+  width: string;
 };
 
-export default function Status({ text, color }: StatusType) {
+export default function Status({ text, color, width }: StatusType) {
   return (
     <div
-      className={`flex w-16 items-center justify-center gap-2 rounded-lg bg-gray-200 p-1 py-0.5`}
+      className={`flex ${width} items-center justify-center gap-2 rounded-lg bg-gray-200 px-1 py-0.5`}
     >
       <span className="relative flex h-3 w-3">
         <span
