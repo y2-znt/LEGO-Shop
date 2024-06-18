@@ -27,6 +27,8 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
   const [editValues, setEditValues] = useState({ name: "", email: "" });
 
   const handleToggleRole = async (id: string, currentRole: Role) => {
+    toast("Update user role, please wait...");
+
     try {
       let newRole;
       if (currentRole === "USER") {
@@ -68,6 +70,8 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
   };
 
   const handleSaveClick = async (id: string) => {
+    toast("Update user, please wait...");
+
     try {
       await axios.put(`/api/user/${id}`, {
         id,
@@ -75,7 +79,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
         email: editValues.email,
       });
 
-      toast.success("Username updated successfully!");
+      toast.success("User updated successfully!");
       setEditingId("");
       router.refresh();
     } catch (error) {
