@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdDashboard, MdDns, MdLibraryAdd } from "react-icons/md";
 import AdminNavItem from "./AdminNavItem";
+import { FaUsersCog } from "react-icons/fa";
 
 export default function AdminNav() {
   const pathname = usePathname(); // Get the current path "/admin"
@@ -28,6 +29,13 @@ export default function AdminNav() {
             label="ManageProducts"
             icon={MdDns}
             selected={pathname === "/admin/manage-products"}
+          />
+        </Link>
+        <Link href="/admin/manage-users">
+          <AdminNavItem
+            label="ManageUsers"
+            icon={FaUsersCog}
+            selected={pathname === "/admin/manage-users"}
           />
         </Link>
       </div>
