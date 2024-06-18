@@ -34,6 +34,8 @@ export default function ManageProductsClient({
   const [editValues, setEditValues] = useState({ name: "", price: "" });
 
   const handleToggleStock = async (id: string, inStock: boolean) => {
+    toast("Update LEGO stock status, please wait...");
+
     try {
       await axios.put("/api/product", {
         id,
@@ -80,6 +82,7 @@ export default function ManageProductsClient({
   };
 
   const handleSaveClick = async (id: string) => {
+    toast("Update LEGO, please wait...");
     try {
       await axios.put(`/api/product/${id}`, {
         id,
