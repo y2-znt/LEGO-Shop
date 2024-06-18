@@ -42,12 +42,12 @@ export async function PUT(req: Request) {
   }
 
   const body = await req.json();
-  const { id, name } = body;
+  const { id, name, email } = body;
 
   // Update the name of the user (stock or out of stock)
-  const user = await prisma.product.update({
+  const user = await prisma.user.update({
     where: { id: id },
-    data: { name: name },
+    data: { name: name, email: email },
   });
 
   // Return a JSON response with the newly created user object
