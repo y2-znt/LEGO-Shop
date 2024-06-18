@@ -2,7 +2,7 @@
 import { Role, User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { MdCached } from "react-icons/md";
+import { MdCached, MdDelete } from "react-icons/md";
 import { toast } from "sonner";
 import ActionBtn from "../../../../components/ui/ActionBtn";
 import {
@@ -41,6 +41,22 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
       toast.error("Oops! Something went wrong");
     }
   };
+
+  const handleDeleteUser = async (id: string) => {
+    toast("Deleting user, please wait...");
+
+    axios
+      .delete(`/api/user/${id}`)
+      .then((res) => {
+        toast.success("User deleted successfully");
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error("Error deleting user");
+        console.log("Error deleting user", error);
+      });
+  };
+
   return (
     <div>
       <Table className="mt-10">
@@ -81,13 +97,13 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
                         handleEditClick(user.id, user.name)
                       }
                     />
-                  )}
+                  )} */}
                   <ActionBtn
                     icon={MdDelete}
                     onClick={() => {
                       handleDeleteUser(user.id);
-                    }} */}
-                  {/* /> */}
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}
