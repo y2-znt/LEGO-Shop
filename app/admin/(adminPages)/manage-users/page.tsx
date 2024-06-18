@@ -1,9 +1,12 @@
 import AccesDenied from "../../../../components/ui/AccesDenied";
+import getAllUsers from "../../../../pages/api/auth/getAllUsers";
 import { getCurrentUser } from "../../../../pages/api/auth/getCurrentUser";
+import ManageUsersClient from "./ManageUsersClient";
 export const revalidate = 0;
 
 export default async function page() {
   const currentUser = await getCurrentUser();
+  const allUsers = await getAllUsers();
 
   // Check if the current user is not authenticated or is not an admin
   if (!currentUser || currentUser.role !== "ADMIN") {
@@ -14,6 +17,7 @@ export default async function page() {
       <h1 className="pt-10 text-3xl max-sm:text-[1.7rem] lg:text-4xl">
         Manage Users
       </h1>
+      <ManageUsersClient allUsers={allUsers} />
     </div>
   );
 }
