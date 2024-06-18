@@ -2,7 +2,8 @@
 import { Role, User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { MdCached, MdDelete } from "react-icons/md";
+import { useState } from "react";
+import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "sonner";
 import ActionBtn from "../../../../components/ui/ActionBtn";
 import {
@@ -21,6 +22,8 @@ type ManageUsersClientType = {
 
 export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
   const router = useRouter();
+  const [editingId, setEditingId] = useState("");
+  const [editValues, setEditValues] = useState({ name: "", email: "" });
 
   const handleToggleRole = async (id: string, currentRole: Role) => {
     try {
@@ -57,10 +60,37 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
       });
   };
 
+  const handleEditClick = (id: string, name: string | null, email: string) => {
+    setEditingId(id);
+    // Pre-filling fields with current product values
+    setEditValues({ name: name ?? "", email });
+  };
+
+  const handleSaveClick = async (id: string) => {
+    try {
+      await axios.put(`/api/user/${id}`, {
+        id,
+        name: editValues.name,
+        email: editValues.email,
+      });
+
+      toast.success("Username updated successfully!");
+      setEditingId("");
+      router.refresh();
+    } catch (error) {
+      toast.error("Oops! Something went wrong");
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditValues(() => ({ ...editValues, [name]: value }));
+  };
+
   return (
     <div>
       <Table className="mt-10">
-        <TableCaption>A list of your products.</TableCaption>
+        <TableCaption>A list of your users.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
@@ -73,19 +103,45 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
           {allUsers &&
             allUsers.map((user) => (
               <TableRow key={user.id}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  {editingId === user.id ? (
+                    <input
+                      type="text"
+                      value={editValues.name}
+                      className="border p-1"
+                      onChange={(e) =>
+                        setEditValues({ ...editValues, name: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.name
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editingId === user.id ? (
+                    <input
+                      type="text"
+                      value={editValues.email}
+                      className="border p-1"
+                      onChange={(e) =>
+                        setEditValues({ ...editValues, name: e.target.value })
+                      }
+                    />
+                  ) : (
+                    user.email
+                  )}
+                </TableCell>
                 <TableCell>
                   {new Date(user.updatedAt).toLocaleDateString()} -
                   {new Date(user.updatedAt).toLocaleTimeString()}
                 </TableCell>
                 <TableCell>{user.role}</TableCell>
-                <TableCell className="flex gap-4 pt-5">
+                <TableCell className="flex gap-4 py-4">
                   <ActionBtn
                     icon={MdCached}
                     onClick={() => handleToggleRole(user.id, user.role)}
                   />
-                  {/* {editingId === user.id ? (
+                  {editingId === user.id ? (
                     <ActionBtn
                       icon={MdCheck}
                       onClick={() => handleSaveClick(user.id)}
@@ -94,10 +150,10 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
                     <ActionBtn
                       icon={MdEdit}
                       onClick={() =>
-                        handleEditClick(user.id, user.name)
+                        handleEditClick(user.id, user.name, user.email)
                       }
                     />
-                  )} */}
+                  )}
                   <ActionBtn
                     icon={MdDelete}
                     onClick={() => {
