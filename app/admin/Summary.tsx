@@ -93,7 +93,7 @@ export default function Summary({ products }: SummaryType) {
                 Stock
               </div>
               <div className="flex flex-row items-center gap-2 text-center text-sm text-muted-foreground">
-                <span className="h-4 w-10 rounded-sm bg-[#ff6384]"></span>In
+                <span className="h-4 w-10 rounded-sm bg-[#ff6384]"></span>Out of
                 Stock
               </div>
             </div>
