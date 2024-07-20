@@ -1,16 +1,22 @@
 "use client";
+
 import { Product } from "@prisma/client";
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from "chart.js";
 import Image from "next/image";
-import { Bar } from "react-chartjs-2";
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/shadcn/card";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "../../components/ui/shadcn/chart";
 import {
   Table,
   TableBody,
@@ -20,58 +26,32 @@ import {
   TableRow,
 } from "../../components/ui/shadcn/table";
 
-// Register the necessary components for Chart.js
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+const transformData = (products: Product[]) => {
+  return products.map((product) => ({
+    name: product.name,
+    price: product.price,
+    stockStatus: product.inStock ? "inStock" : "outOfStock",
+  }));
+};
 
 type SummaryType = {
   products: Product[];
 };
 
 export default function Summary({ products }: SummaryType) {
-  const inStockCount = products.filter((product) => product.inStock).length;
-  const outOfStockCount = products.length - inStockCount;
+  const chartData = transformData(products);
 
-  // Data for the stacked bar chart
-  const chartData = {
-    labels: products.map((product) => product.name),
-    datasets: [
-      {
-        label: "In Stock",
-        data: products.map((product) => (product.inStock ? product.price : 0)),
-        backgroundColor: "rgba(255, 205, 86, 0.2)",
-
-        borderColor: "rgb(255, 205, 86)",
-        borderWidth: 1,
-      },
-      {
-        label: "Out of Stock",
-        data: products.map((product) => (!product.inStock ? product.price : 0)),
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true,
-        precision: 1,
-        stacked: true,
-      },
-      x: {
-        stacked: true,
-      },
+  // Define the chart configuration
+  const chartConfig = {
+    inStock: {
+      label: "In Stock",
+      color: "rgb(255, 205, 86)",
     },
-  };
+    outOfStock: {
+      label: "Out of Stock",
+      color: "rgba(255, 99, 132, 1)",
+    },
+  } satisfies ChartConfig;
 
   return (
     <div>
@@ -86,22 +66,64 @@ export default function Summary({ products }: SummaryType) {
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {inStockCount}
+            {products.filter((product) => product.inStock).length}
             <br /> LEGO in Stock
           </h2>
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {outOfStockCount}
+            {products.length -
+              products.filter((product) => product.inStock).length}
             <br /> LEGO out of Stock
           </h2>
         </div>
       </div>
       <div className="mt-20">
-        <h2 className="text-2xl">LEGO Overview</h2>
-        <div className="mt-10 rounded-lg border p-8">
-          <Bar data={chartData} options={chartOptions} />
-        </div>
+        <Card>
+          <CardHeader className="md:pl-8">
+            <CardTitle className="font-bold md:text-2xl">
+              LEGO Overview
+            </CardTitle>
+            <CardDescription className="md:text-lg">
+              overview for each LEGO
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig}>
+              <BarChart data={chartData} accessibilityLayer>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                />
+                <YAxis tickLine={false} axisLine={false} />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent />}
+                />
+                <Bar dataKey="price" radius={8}>
+                  {chartData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={
+                        entry.stockStatus === "inStock"
+                          ? chartConfig.inStock.color
+                          : chartConfig.outOfStock.color
+                      }
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+          <CardFooter className="flex-col items-start gap-2 text-sm">
+            <div className="leading-none text-muted-foreground">
+              Showing overview of LEGO
+            </div>
+          </CardFooter>
+        </Card>
       </div>
       <div className="mt-20">
         <h2 className="text-2xl">Recently Updated LEGO</h2>
@@ -116,21 +138,21 @@ export default function Summary({ products }: SummaryType) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.slice(0, 5).map((product, index) => (
-                <TableRow key={index}>
+              {products.slice(0, 5).map((product) => (
+                <TableRow key={product.id}>
                   <TableCell>
                     <Image
                       src={product.image}
-                      alt={product.name}
-                      className="h-16 w-12 rounded-lg border object-cover p-1"
+                      alt={`Image of ${product.name}`}
+                      className="h-16 w-12 rounded-lg border object-cover"
                       width={50}
                       height={50}
                     />
                   </TableCell>
                   <TableCell>{product.name}</TableCell>
-                  <TableCell>$ {product.price}</TableCell>
+                  <TableCell>${product.price}</TableCell>
                   <TableCell>
-                    {new Date(product.updatedAt).toLocaleDateString()} -
+                    {new Date(product.updatedAt).toLocaleDateString()} -{" "}
                     {new Date(product.updatedAt).toLocaleTimeString()}
                   </TableCell>
                 </TableRow>
