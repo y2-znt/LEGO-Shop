@@ -45,11 +45,11 @@ export default function Summary({ products }: SummaryType) {
   const chartConfig = {
     inStock: {
       label: "In Stock",
-      color: "rgb(255, 205, 86)",
+      color: "#ffcd56",
     },
     outOfStock: {
       label: "Out of Stock",
-      color: "rgba(255, 99, 132, 1)",
+      color: "#ff6384",
     },
   } satisfies ChartConfig;
 
@@ -87,6 +87,16 @@ export default function Summary({ products }: SummaryType) {
             <CardDescription className="md:text-lg">
               overview for each LEGO
             </CardDescription>
+            <div className="flex items-center justify-center gap-5">
+              <div className="flex flex-row items-center gap-2 text-center text-sm text-muted-foreground">
+                <span className="h-4 w-10 rounded-sm bg-[#ffcd56]"></span>In
+                Stock
+              </div>
+              <div className="flex flex-row items-center gap-2 text-center text-sm text-muted-foreground">
+                <span className="h-4 w-10 rounded-sm bg-[#ff6384]"></span>In
+                Stock
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig}>
