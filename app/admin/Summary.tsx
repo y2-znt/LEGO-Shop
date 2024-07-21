@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@prisma/client";
+import { Product, User } from "@prisma/client";
 import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 import {
@@ -36,9 +36,10 @@ const transformData = (products: Product[]) => {
 
 type SummaryType = {
   products: Product[];
+  allUsers: User[];
 };
 
-export default function Summary({ products }: SummaryType) {
+export default function Summary({ products, allUsers }: SummaryType) {
   const chartData = transformData(products);
 
   // Define the chart configuration
@@ -62,6 +63,12 @@ export default function Summary({ products }: SummaryType) {
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
             {products.length} <br /> Total LEGO
+          </h2>
+        </div>
+        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
+          <h2 className="text-2xl">
+            {allUsers.length}
+            <br /> Total Users
           </h2>
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">

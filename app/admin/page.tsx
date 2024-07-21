@@ -1,10 +1,12 @@
 import AccesDenied from "../../components/ui/AccesDenied";
+import getAllUsers from "../../pages/api/auth/getAllUsers";
 import { getCurrentUser } from "../../pages/api/auth/getCurrentUser";
 import getProducts from "../../pages/api/auth/getProducts";
 import Summary from "./Summary";
 
 export default async function page() {
   const currentUser = await getCurrentUser();
+  const allUsers = await getAllUsers();
   const products = await getProducts();
 
   // Check if the current user is not authenticated or is not an admin
@@ -13,7 +15,7 @@ export default async function page() {
   }
   return (
     <div>
-      <Summary products={products} />
+      <Summary products={products} allUsers={allUsers} />
     </div>
   );
 }
