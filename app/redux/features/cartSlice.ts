@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 
-type CartType = {
+export type CartType = {
   cartItems: any[];
   cartTotalQuantity: number;
   cartTotalAmount: number;
