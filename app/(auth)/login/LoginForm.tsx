@@ -43,21 +43,26 @@ export default function LoginForm({ currentUser }: LoginFormType) {
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     setIsLoading(true);
-    toast("Login to account, please wait...");
+    toast("Logging in, please wait...");
 
-    signIn("credentials", {
+    const result = await signIn("credentials", {
       ...data,
       redirect: false,
-    }).then((callback) => {
-      setIsLoading(false);
-      if (callback?.ok) {
-        toast.success("Logged In Successfully");
-        router.push("/");
-        router.refresh();
-      } else if (callback?.error) {
-        toast.error("Error login");
-      }
     });
+
+    setIsLoading(false);
+
+    if (result?.ok) {
+      toast.success("Logged in successfully");
+      router.push("/");
+      router.refresh();
+    } else if (result?.error) {
+      if (result.error.includes("Invalid email or password")) {
+        toast.error("Incorrect email or password. Please try again.");
+      } else {
+        toast.error("An unexpected error occurred. Please try again.");
+      }
+    }
   };
 
   useEffect(() => {
