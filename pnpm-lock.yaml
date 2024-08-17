@@ -42,7 +42,7 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2
       axios:
-        specifier: ^1.6.8
+        specifier: ^1.7.4
         version: 1.7.4
       bcrypt:
         specifier: ^5.1.1
