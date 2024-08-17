@@ -1,14 +1,16 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
+
 import Inputs from "../../../components/ui/inputs/inputs";
 import { Button } from "../../../components/ui/shadcn/button";
 import {
@@ -18,13 +20,17 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/shadcn/card";
+import {
+  RegisterFormData,
+  RegisterFormSchema,
+} from "../../schemas/auth.schema";
 import { SafeUser } from "../../types";
 
-type LoginFormType = {
+type RegisterFormType = {
   currentUser: SafeUser | null;
 };
 
-export default function RegisterForm({ currentUser }: LoginFormType) {
+export default function RegisterForm({ currentUser }: RegisterFormType) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -32,7 +38,8 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
       email: "",
       name: "",
@@ -41,7 +48,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
   });
 
   // Register function
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     setIsLoading(true);
     toast("Creating an account, please wait...");
     console.log("form data: ", data);
@@ -110,12 +117,6 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               errors={errors}
               required
               type="email"
-              validation={{
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: "Please enter a valid email address.",
-                },
-              }}
             />
             <Inputs
               id="password"
@@ -123,14 +124,7 @@ export default function RegisterForm({ currentUser }: LoginFormType) {
               label="Password"
               register={register}
               errors={errors}
-              required
               type="password"
-              validation={{
-                minLength: {
-                  value: 8,
-                  message: "Password must have at least 8 characters",
-                },
-              }}
             />
             <Button className="mt-4 w-full" onClick={handleSubmit(onSubmit)}>
               {isLoading ? (
