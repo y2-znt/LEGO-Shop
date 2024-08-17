@@ -53,29 +53,27 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
     toast("Creating an account, please wait...");
     console.log("form data: ", data);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        signIn("credentials", {
-          email: data.email,
-          password: data.password,
-          redirect: false,
-        }).then((callback) => {
-          setIsLoading(false);
-          if (callback?.ok) {
-            toast.success("Account successfully created");
-            router.push("/");
-            router.refresh();
-          }
-          if (callback?.error) {
-            toast.error("Error creating account");
-          }
-        });
-      })
-      .catch(() => toast.error("Something went wrong"))
-      .finally(() => {
-        setIsLoading(false);
+    try {
+      await axios.post("/api/register", data);
+
+      const callback = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
       });
+
+      if (callback?.ok) {
+        toast.success("Account successfully created");
+        router.push("/");
+        router.refresh();
+      } else if (callback?.error) {
+        toast.error("Error creating account");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Redirection to home page when user is logged
