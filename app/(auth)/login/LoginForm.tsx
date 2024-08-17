@@ -1,10 +1,11 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
@@ -17,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/shadcn/card";
+import { LoginFormData, LoginFormSchema } from "../../schemas/auth.schema";
 import { SafeUser } from "../../types";
 
 type LoginFormType = {
@@ -31,19 +33,18 @@ export default function LoginForm({ currentUser }: LoginFormType) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(LoginFormSchema),
     defaultValues: {
       email: "",
-      name: "",
       password: "",
     },
   });
 
-  // Login function
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     setIsLoading(true);
     toast("Login to account, please wait...");
-    // SignIn
+
     signIn("credentials", {
       ...data,
       redirect: false,
@@ -53,14 +54,12 @@ export default function LoginForm({ currentUser }: LoginFormType) {
         toast.success("Logged In Successfully");
         router.push("/");
         router.refresh();
-      }
-      if (callback?.error) {
+      } else if (callback?.error) {
         toast.error("Error login");
       }
     });
   };
 
-  // Redirection to home page when user is logged
   useEffect(() => {
     if (currentUser) {
       router.push("/");
