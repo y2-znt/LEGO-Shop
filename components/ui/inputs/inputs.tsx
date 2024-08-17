@@ -4,18 +4,17 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Input } from "../../../components/ui/shadcn/input";
 import { Label } from "../../../components/ui/shadcn/label";
 
-type inputType = {
-  id: string;
+type InputType<T extends FieldValues> = {
+  id: keyof T;
   label: string;
   type?: string;
   disabled?: boolean;
   required?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
-  validation?: object;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
 };
 
-const Inputs: React.FC<inputType> = ({
+const Inputs = <T extends FieldValues>({
   id,
   label,
   type,
@@ -23,8 +22,7 @@ const Inputs: React.FC<inputType> = ({
   required,
   register,
   errors,
-  validation = {},
-}) => {
+}: InputType<T>) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const getInputType = () => {
@@ -36,12 +34,13 @@ const Inputs: React.FC<inputType> = ({
 
   return (
     <div className="font relative m-auto py-2">
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id as string}>{label}</Label>
       <Input
         autoComplete="off"
-        id={id}
+        id={id as string}
         disabled={disabled}
-        {...register(id, { required, ...validation })}
+        // @ts-ignore
+        {...register(id as string)}
         placeholder=""
         type={getInputType()}
         className={`w-full ${
@@ -61,7 +60,7 @@ const Inputs: React.FC<inputType> = ({
       )}
       {errors[id] && (
         <p className="mt-1 text-xs font-semibold text-red-500">
-          {errors[id]?.message?.toString() || "This field is required"}
+          {errors[id]?.message as string}
         </p>
       )}
     </div>
