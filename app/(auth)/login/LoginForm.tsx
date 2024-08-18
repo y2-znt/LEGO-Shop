@@ -1,3 +1,4 @@
+"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -104,7 +105,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
             {isLoading ? (
               <>
                 <AiOutlineLoading className="mr-2 inline-block animate-spin" />
-                Logging in...
+                Logged in...
               </>
             ) : (
               "Login"
@@ -123,7 +124,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
                 width={20}
                 height={20}
                 alt="google icon"
-              />
+              ></Image>
             </span>
             Google
           </Button>

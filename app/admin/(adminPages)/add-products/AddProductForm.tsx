@@ -47,7 +47,8 @@ export default function AddProductForm() {
     setValue("image", file);
   };
 
-  const onSubmit: SubmitHandler = async (data) => {
+  // prettier-ignore
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
 
     if (!data.image) {
