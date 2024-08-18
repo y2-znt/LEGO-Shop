@@ -24,5 +24,7 @@ export const RegisterFormSchema = z.object({
     ),
 });
 
+// prettier-ignore
 export type LoginFormData = z.infer<typeof LoginFormSchema>;
+// prettier-ignore
 export type RegisterFormData = z.infer<typeof RegisterFormSchema>;

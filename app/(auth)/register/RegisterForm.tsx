@@ -47,8 +47,8 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
     },
   });
 
-  // Register function
-  const onSubmit: SubmitHandler = async (data) => {
+  // prettier-ignore
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     setIsLoading(true);
     toast("Creating an account, please wait...");
     console.log("form data: ", data);
