@@ -26,15 +26,6 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { items, payment_intent_id } = body;
   const total = calculateOrderAmount(items) * 100;
-  const orderData = {
-    user: { connect: { id: currentUser.id } },
-    amount: total,
-    currency: "usd",
-    status: "pending",
-    deliveryStatus: "pending",
-    paymentIntentId: payment_intent_id,
-    products: items,
-  };
 
   if (!payment_intent_id) {
     // Create a new payment intent with the calculated total amount
@@ -43,11 +34,41 @@ export async function POST(request: Request) {
       currency: "usd",
       automatic_payment_methods: { enabled: true },
     });
-    // Associate the new payment intent ID with the order data
-    orderData.paymentIntentId = paymentIntent.id;
 
     // Create a new order record in the database
-    await prisma.order.create({ data: orderData });
+    const newOrder = await prisma.order.create({
+      data: {
+        user: { connect: { id: currentUser.id } },
+        amount: total,
+        currency: "usd",
+        status: "pending",
+        deliveryStatus: "pending",
+        paymentIntentId: paymentIntent.id,
+      },
+    });
+
+    await Promise.all(
+      items.map(async (item: any) => {
+        await prisma.product.upsert({
+          where: { id: item.id },
+          update: {
+            name: item.name,
+            price: item.price,
+            inStock: item.inStock,
+            image: item.image,
+            order: { connect: { id: newOrder.id } },
+          },
+          create: {
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            inStock: item.inStock,
+            image: item.image,
+            order: { connect: { id: newOrder.id } },
+          },
+        });
+      }),
+    );
 
     return NextResponse.json({ paymentIntent });
   } else {
@@ -63,26 +84,42 @@ export async function POST(request: Request) {
       );
 
       // Update the corresponding order record in the database
-      const [existing_order, update_order] = await Promise.all([
-        prisma.order.findFirst({
-          where: { paymentIntentId: payment_intent_id },
-        }),
-        prisma.order.update({
-          where: { paymentIntentId: payment_intent_id },
-          data: {
-            amount: total,
-            products: items,
-          },
-        }),
-      ]);
+      const existing_order = await prisma.order.update({
+        where: { paymentIntentId: payment_intent_id },
+        data: {
+          amount: total,
+        },
+      });
 
-      if (!existing_order) {
-        return NextResponse.json(
-          { error: "Invalid Payment Intent" },
-          { status: 400 },
-        );
-      }
+      await Promise.all(
+        items.map(async (item: any) => {
+          await prisma.product.upsert({
+            where: { id: item.id },
+            update: {
+              name: item.name,
+              price: item.price,
+              inStock: item.inStock,
+              image: item.image,
+              order: { connect: { id: existing_order.id } },
+            },
+            create: {
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              inStock: item.inStock,
+              image: item.image,
+              order: { connect: { id: existing_order.id } },
+            },
+          });
+        }),
+      );
+
       return NextResponse.json({ paymentIntent: updated_intent });
     }
   }
+
+  return NextResponse.json(
+    { error: "Payment Intent not found" },
+    { status: 404 },
+  );
 }
