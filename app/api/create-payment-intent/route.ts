@@ -1,19 +1,19 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import prisma from "../../../prisma/prismadb";
 import { getCurrentUser } from "../../../pages/api/auth/getCurrentUser";
-import { CartType } from "../../redux/features/cartSlice";
+import prisma from "../../../prisma/prismadb";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-06-20",
 });
 
-const calculateOrderAmount = (items: CartType[]) => {
-  const totalPrice = items.reduce((acc, item) => {
-    const itemTotal = item.cartTotalAmount * item.cartTotalQuantity;
+const calculateOrderAmount = (
+  items: { price: number; cartQuantity: number }[],
+) => {
+  return items.reduce((acc, item) => {
+    const itemTotal = item.price * item.cartQuantity;
     return acc + itemTotal;
   }, 0);
-  return totalPrice;
 };
 
 export async function POST(request: Request) {
@@ -36,18 +36,33 @@ export async function POST(request: Request) {
     products: items,
   };
 
-  if (payment_intent_id) {
+  if (!payment_intent_id) {
+    // Create a new payment intent with the calculated total amount
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: total,
+      currency: "usd",
+      automatic_payment_methods: { enabled: true },
+    });
+    // Associate the new payment intent ID with the order data
+    orderData.paymentIntentId = paymentIntent.id;
+
+    // Create a new order record in the database
+    await prisma.order.create({ data: orderData });
+
+    return NextResponse.json({ paymentIntent });
+  } else {
+    // Retrieve the existing payment intent using the provided ID
     const current_intent =
       await stripe.paymentIntents.retrieve(payment_intent_id);
 
     if (current_intent) {
+      // Update the existing payment intent with the new total amount
       const updated_intent = await stripe.paymentIntents.update(
         payment_intent_id,
         { amount: total },
       );
 
-      // update the order
-
+      // Update the corresponding order record in the database
       const [existing_order, update_order] = await Promise.all([
         prisma.order.findFirst({
           where: { paymentIntentId: payment_intent_id },
@@ -69,17 +84,5 @@ export async function POST(request: Request) {
       }
       return NextResponse.json({ paymentIntent: updated_intent });
     }
-  } else {
-    // create the payment intent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: total,
-      currency: "usd",
-      automatic_payment_methods: { enabled: true },
-    });
-    // create the order
-    orderData.payment_intent_id = paymentIntent.id;
-
-    await prisma.order.create({ data: orderData });
-    return NextResponse.json({ paymentIntent });
   }
 }
