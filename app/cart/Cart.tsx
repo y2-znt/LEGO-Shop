@@ -55,8 +55,6 @@ export default function Cart({ currentUser }: userType) {
       const cartItems = cart.cartItems;
       const paymentIntentId = "";
 
-      if (!currentUser) router.push("/login");
-
       // Send data to backend
       const response = await fetch("/api/create-payment-intent", {
         method: "POST",
@@ -78,6 +76,11 @@ export default function Cart({ currentUser }: userType) {
       console.log("Checkout successful:", response);
     } catch (error) {
       console.error("Checkout error:", error);
+
+      if (!currentUser) {
+        router.push("/login");
+        return;
+      }
     }
   };
 
