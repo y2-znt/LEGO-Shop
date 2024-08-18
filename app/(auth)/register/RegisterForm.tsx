@@ -48,7 +48,7 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
   });
 
   // Register function
-  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
+  const onSubmit: SubmitHandler = async (data) => {
     setIsLoading(true);
     toast("Creating an account, please wait...");
     console.log("form data: ", data);
@@ -85,90 +85,86 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
   }, [currentUser, router]);
 
   return (
-    <div>
-      <main className="mx-auto max-w-6xl font-bold text-black max-xl:px-8">
-        <div className="pt-24"></div>
-        <div className="m-auto w-3/4 max-sm:w-full"></div>
-        <Card className="mx-auto max-w-sm">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">
-              Create an account
-            </CardTitle>
-            <CardDescription>
-              Enter your name, email and password to register your account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Inputs
-              id="name"
-              label="Name"
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-            />
-            <Inputs
-              id="email"
-              label="Email"
-              disabled={isLoading}
-              register={register}
-              errors={errors}
-              required
-              type="email"
-            />
-            <Inputs
-              id="password"
-              disabled={isLoading}
-              label="Password"
-              register={register}
-              errors={errors}
-              type="password"
-            />
-            <Button className="mt-4 w-full" onClick={handleSubmit(onSubmit)}>
-              {isLoading ? (
-                <>
-                  <AiOutlineLoading className="mr-2 inline-block animate-spin" />
-                  Signing up...
-                </>
-              ) : (
-                "Sign Up"
-              )}
-            </Button>
-            <div className="p-6 text-center text-xs text-gray-600">
-              OR CONTINUE WITH
-            </div>
-            <Button
-              className="w-full gap-3 border bg-transparent px-7"
-              onClick={() => signIn("google")}
-            >
-              <span>
-                <Image
-                  src="/assets/GOOGLE-icon.png"
-                  width={20}
-                  height={20}
-                  alt="google icon"
-                ></Image>{" "}
-              </span>
-              Google
-            </Button>
-            <Button
-              className="mt-4 w-full gap-3 border bg-transparent px-7"
-              onClick={() => signIn("github")}
-            >
-              <span>
-                <BsGithub size={20} />
-              </span>
-              Github
-            </Button>
-            <p className="pt-4 text-center text-sm font-semibold">
-              Already a account?{" "}
-              <Link href="/login" className="underline">
-                Log in
-              </Link>
-            </p>
-          </CardContent>
-        </Card>
-      </main>
+    <div className="pt-6">
+      <Card className="mx-auto max-w-sm">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold">
+            Create an account
+          </CardTitle>
+          <CardDescription>
+            Enter your name, email and password to register your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Inputs
+            id="name"
+            label="Name"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <Inputs
+            id="email"
+            label="Email"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            type="email"
+          />
+          <Inputs
+            id="password"
+            disabled={isLoading}
+            label="Password"
+            register={register}
+            errors={errors}
+            type="password"
+          />
+          <Button className="mt-4 w-full" onClick={handleSubmit(onSubmit)}>
+            {isLoading ? (
+              <>
+                <AiOutlineLoading className="mr-2 inline-block animate-spin" />
+                Signing up...
+              </>
+            ) : (
+              "Sign Up"
+            )}
+          </Button>
+          <div className="p-6 text-center text-xs text-gray-600">
+            OR CONTINUE WITH
+          </div>
+          <Button
+            className="w-full gap-3 border bg-transparent px-7"
+            onClick={() => signIn("google")}
+          >
+            <span>
+              <Image
+                src="/assets/GOOGLE-icon.png"
+                width={20}
+                height={20}
+                alt="google icon"
+              ></Image>{" "}
+            </span>
+            Google
+          </Button>
+          <Button
+            className="mt-4 w-full gap-3 border bg-transparent px-7"
+            onClick={() => signIn("github")}
+          >
+            <span>
+              <BsGithub size={20} />
+            </span>
+            Github
+          </Button>
+          <p className="pt-4 text-center text-sm font-semibold">
+            Already a account?{" "}
+            <Link href="/login" className="underline">
+              Log in
+            </Link>
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

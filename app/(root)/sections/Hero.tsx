@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section>
-      <div className="flex min-h-[60vh] flex-col items-start pt-36 lg:gap-0">
+      <div className="flex min-h-[60vh] flex-col items-start pt-16 lg:gap-0">
         <div className="lg:text-left">
           <h1 className="text-3xl font-bold max-lg:pt-0 max-sm:text-[1.7rem] lg:text-4xl">
             LEGO Shop
