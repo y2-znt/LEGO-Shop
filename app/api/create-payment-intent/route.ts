@@ -83,35 +83,6 @@ export async function POST(request: Request) {
         { amount: total },
       );
 
-      // Update the corresponding order record in the database
-      const existing_order = await prisma.order.update({
-        where: { paymentIntentId: payment_intent_id },
-        data: {
-          amount: total,
-        },
-      });
-
-      // Delete old products from the existing order
-      await prisma.product.deleteMany({
-        where: { orderId: existing_order.id },
-      });
-
-      // Add the new products to the updated order
-      await Promise.all(
-        items.map(async (item: any) => {
-          await prisma.product.create({
-            data: {
-              id: item.id,
-              name: item.name,
-              price: item.price,
-              inStock: item.inStock,
-              image: item.image,
-              order: { connect: { id: existing_order.id } },
-            },
-          });
-        }),
-      );
-
       return NextResponse.json({ paymentIntent: updated_intent });
     }
   }
