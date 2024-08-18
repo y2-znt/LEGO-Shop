@@ -64,8 +64,8 @@ model Product {
   image         String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  orderId       String
-  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId       String?
+  order         Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 // addressId         String?         @unique
