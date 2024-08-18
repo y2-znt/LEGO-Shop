@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { GoTrash } from "react-icons/go";
@@ -24,6 +25,7 @@ import {
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleRemoveFromCart = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));
@@ -43,6 +45,35 @@ export default function Cart() {
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
+
+  const handleCheckout = async () => {
+    try {
+      const cartItems = cart.cartItems;
+      const paymentIntentId = "";
+
+      // Envoyer les données au backend
+      const response = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: cartItems,
+          payment_intent_id: paymentIntentId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "An error occurred");
+      }
+
+      console.log("Checkout successful:", data);
+    } catch (error) {
+      console.error("Checkout error:", error);
+    }
+  };
 
   return (
     <div>
@@ -158,7 +189,9 @@ export default function Cart() {
                 <p className="pt-4 text-sm font-medium text-gray-700">
                   Taxes and shipping calculated at checkout
                 </p>
-                <Button className="mt-3 w-full py-5">Checkout</Button>
+                <Button onClick={handleCheckout} className="mt-3 w-full py-5">
+                  Checkout
+                </Button>
                 <Link href="/">
                   <div className="mb-24 flex pt-4">
                     <span className="translate-y-1 pr-2">
