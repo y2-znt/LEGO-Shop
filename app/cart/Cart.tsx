@@ -21,8 +21,12 @@ import {
   increaseCart,
   removeFromCart,
 } from "../redux/features/cartSlice";
+import { SafeUser } from "../types";
 
-export default function Cart() {
+type userType = {
+  currentUser: SafeUser | null;
+};
+export default function Cart({ currentUser }: userType) {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -51,7 +55,9 @@ export default function Cart() {
       const cartItems = cart.cartItems;
       const paymentIntentId = "";
 
-      // Envoyer les données au backend
+      if (!currentUser) router.push("/login");
+
+      // Send data to backend
       const response = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: {
@@ -69,7 +75,7 @@ export default function Cart() {
         throw new Error(data.error || "An error occurred");
       }
 
-      alert("Checkout successful:");
+      console.log("Checkout successful:", response);
     } catch (error) {
       console.error("Checkout error:", error);
     }
