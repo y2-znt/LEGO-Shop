@@ -62,7 +62,7 @@ export default function Collection({ products }: CollectionType) {
                   )}
                   <CardHeader className="flex flex-row justify-between p-8">
                     <CardTitle className="text-xl font-bold">
-                      {product.name}
+                      {product.name.toUpperCase()}
                     </CardTitle>
                     <span
                       className="cursor-pointer"
