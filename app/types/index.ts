@@ -1,10 +1,10 @@
-import { User } from "@prisma/client";
-
-export type SafeUser = Omit<
-  User,
-  "createdAt" | "updatedAt" | "emailVerified"
-> & {
+export type SafeUser = {
   createdAt: string;
   updatedAt: string;
   emailVerified: string | null;
+};
+
+export type LayoutProps = {
+  children: React.ReactNode;
+  padding?: boolean;
 };
