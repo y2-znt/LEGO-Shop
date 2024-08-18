@@ -69,7 +69,7 @@ export default function Cart() {
         throw new Error(data.error || "An error occurred");
       }
 
-      console.log("Checkout successful:", data);
+      alert("Checkout successful:");
     } catch (error) {
       console.error("Checkout error:", error);
     }

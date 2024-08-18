@@ -65,7 +65,7 @@ model Product {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   orderId       String?
-  order         Order?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order         Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
 }
 
 // addressId         String?         @unique
