@@ -27,36 +27,10 @@ model Order {
   currency          String
   status            String
   deliveryStatus    String?
-  createDate        DateTime        @default(now())
   paymentIntentId   String          @unique
-  products          CartProduct[]
-  address           Address?        @relation(fields: [addressId], references: [id])
-  addressId         String?         @unique
+  createDate        DateTime        @default(now())
+  products          Product[]
   user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model CartProduct {
-  id          String  @id @default(cuid())
-  name        String
-  description String
-  category    String
-  image       String
-  quantity    Int
-  price       Float
-  orderId     String
-  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-}
-
-model Address {
-  id          String  @id @default(cuid())
-  city        String
-  country     String
-  line1       String
-  line2       String?
-  postalCode  String
-  state       String
-  order       Order?  @relation
-  orderId     String? @unique
 }
 
 enum Role {
@@ -69,7 +43,7 @@ model Account {
   type              String
   provider          String
   providerAccountId String
- refresh_token     String?
+  refresh_token     String?
   access_token      String?
   expires_at        Int?
   token_type        String?
@@ -90,4 +64,21 @@ model Product {
   image         String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  orderId       String
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
+
+// addressId         String?         @unique
+// address           Address?        @relation(fields: [addressId], references: [id])
+
+// model Address {
+//   id          String  @id @default(cuid())
+//   city        String
+//   country     String
+//   line1       String
+//   line2       String?
+//   postalCode  String
+//   state       String
+//   order       Order?  @relation
+//   orderId     String? @unique
+// }
