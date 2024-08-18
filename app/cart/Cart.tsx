@@ -67,6 +67,11 @@ export default function Cart({ currentUser }: userType) {
         }),
       });
 
+      if (response.status === 401) {
+        router.push("/login");
+        return;
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -76,11 +81,6 @@ export default function Cart({ currentUser }: userType) {
       console.log("Checkout successful:", response);
     } catch (error) {
       console.error("Checkout error:", error);
-
-      if (!currentUser) {
-        router.push("/login");
-        return;
-      }
     }
   };
 
