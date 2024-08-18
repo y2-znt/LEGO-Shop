@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaUsersCog } from "react-icons/fa";
 import { MdDashboard, MdDns, MdLibraryAdd } from "react-icons/md";
 import AdminNavItem from "./AdminNavItem";
-import { FaUsersCog } from "react-icons/fa";
 
 export default function AdminNav() {
   const pathname = usePathname(); // Get the current path "/admin"

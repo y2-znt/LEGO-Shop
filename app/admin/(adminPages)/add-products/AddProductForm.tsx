@@ -47,7 +47,7 @@ export default function AddProductForm() {
     setValue("image", file);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler = async (data) => {
     setIsLoading(true);
 
     if (!data.image) {

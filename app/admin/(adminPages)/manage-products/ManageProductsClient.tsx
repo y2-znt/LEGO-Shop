@@ -100,7 +100,7 @@ export default function ManageProductsClient({
 
   return (
     <div>
-      <h1 className="pt-10 text-3xl max-sm:text-[1.7rem] lg:text-4xl">
+      <h1 className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">
         Manage Products
       </h1>
       <Table className="mt-10">
