@@ -6,5 +6,4 @@ export type SafeUser = {
 
 export type LayoutProps = {
   children: React.ReactNode;
-  padding?: boolean;
 };

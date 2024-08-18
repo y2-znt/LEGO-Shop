@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 0;
 
-export default function RootLayout({ children, padding = true }: LayoutProps) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <body className={clsx(inter.className)}>
