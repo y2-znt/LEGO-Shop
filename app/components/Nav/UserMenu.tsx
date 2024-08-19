@@ -26,7 +26,9 @@ export default function UserMenu({ currentUser }: currentUserType) {
     try {
       await signOut();
 
-      const promise = (): Promise<void> =>
+      //@ts-ignore
+      const promise = (): Promise =>
+        //@ts-ignore
         new Promise((resolve) => setTimeout(() => resolve(), 2000));
 
       await toast.promise(promise(), {
@@ -53,7 +55,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex rounded-2xl border-none py-2 pl-2 pr-6 outline-none transition-all hover:bg-amber-200">
+        <DropdownMenuTrigger className="flex items-center rounded-2xl border-none py-2 pl-2 pr-6 outline-none transition-all hover:bg-amber-200">
           {currentUser && currentUser.image ? (
             <Image
               alt=""
@@ -70,7 +72,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
               alt=""
             ></Image>
           )}
-          <GoTriangleDown className="translate-x-4 translate-y-1" />
+          <GoTriangleDown className="translate-x-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           {currentUser ? (
