@@ -6,7 +6,7 @@ type CustomCheckBoxType = {
   id: string;
   label: string;
   disabled?: boolean;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister;
 };
 
 export default function CustomCheckBox({

@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "../shadcn/button";
 
 type ImageType = {
-  item?: File;
+  item: File | null;
   handleFileChange: (value: File) => void;
   resetFlag: boolean;
 };

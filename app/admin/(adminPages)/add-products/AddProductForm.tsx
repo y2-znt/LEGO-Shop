@@ -1,4 +1,5 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import {
   getDownloadURL,
@@ -7,7 +8,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
 import CustomCheckBox from "../../../../components/ui/inputs/CustomCheckBox";
@@ -22,6 +23,10 @@ import {
   CardTitle,
 } from "../../../../components/ui/shadcn/card";
 import firebaseApp from "../../../../prisma/firebase";
+import {
+  AddProductFormData,
+  AddProductFormSchema,
+} from "../../../schemas/add.schema";
 
 export default function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +39,8 @@ export default function AddProductForm() {
     watch,
     reset,
     formState: { errors },
-  } = useForm<FieldValues>({
+  } = useForm<AddProductFormData>({
+    resolver: zodResolver(AddProductFormSchema),
     defaultValues: {
       name: "",
       price: "",
@@ -48,23 +54,26 @@ export default function AddProductForm() {
   };
 
   // prettier-ignore
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<AddProductFormData> = async (data) => {
     setIsLoading(true);
-
+    
     if (!data.image) {
       setIsLoading(false);
       return toast.error("No selected image!");
     }
 
+
+
     const handleImageUpload = async () => {
       toast("Creating LEGO, please wait...");
       try {
+       
         const item = data.image;
-        const filename = new Date().getTime() + "-" + item.name;
+        //@ts-ignore
+        const filename = new Date().getTime() + "-" + item.name ;
         const storage = getStorage(firebaseApp);
         const storageRef = ref(storage, `product/${filename}`);
-        const uploadTask = uploadBytesResumable(storageRef, item);
-
+        const uploadTask = uploadBytesResumable(storageRef, item as File);
         const downloadURL = await new Promise<string>((resolve, reject) => {
           uploadTask.on(
             "state_changed",
@@ -116,7 +125,7 @@ export default function AddProductForm() {
       .post("/api/product", productData)
       .then(() => {
         toast.success("LEGO created successfully");
-        setValue("image", null);
+        setValue("image", new File([], ""));
         reset();
         setResetFlag(false); // Reset to initial state
         setTimeout(() => {
@@ -137,7 +146,6 @@ export default function AddProductForm() {
   return (
     <div>
       <div className="pt-20"></div>
-      <div className="m-auto w-full max-sm:w-full"></div>
       <Card className="mx-auto max-w-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Add a LEGO</CardTitle>
