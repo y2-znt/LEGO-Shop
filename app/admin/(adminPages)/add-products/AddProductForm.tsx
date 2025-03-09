@@ -11,9 +11,9 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
-import CustomCheckBox from "../../../../components/ui/inputs/CustomCheckBox";
-import Inputs from "../../../../components/ui/inputs/inputs";
-import SelectImage from "../../../../components/ui/inputs/SelectImage";
+import CustomCheckBox from "../../../../components/shared/inputs/CustomCheckBox";
+import Inputs from "../../../../components/shared/inputs/inputs";
+import SelectImage from "../../../../components/shared/inputs/SelectImage";
 import { Button } from "../../../../components/ui/shadcn/button";
 import {
   Card,
@@ -26,7 +26,7 @@ import firebaseApp from "../../../../prisma/firebase";
 import {
   AddProductFormData,
   AddProductFormSchema,
-} from "../../../schemas/add.schema";
+} from "../../../../schemas/add.schema";
 
 export default function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);

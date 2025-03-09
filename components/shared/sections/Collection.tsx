@@ -13,8 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/shadcn/card";
-import { addToCart } from "../../redux/features/cartSlice";
-import { addToFav, removeFromFav } from "../../redux/features/favSlice";
+import { addToCart } from "../../../redux/features/cartSlice";
+import { addToFav, removeFromFav } from "../../../redux/features/favSlice";
 
 type CollectionType = {
   products: Product[];

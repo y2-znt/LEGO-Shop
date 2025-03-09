@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import Footer from "./(root)/sections/Footer";
-import Header from "./components/Nav/Header";
+import Header from "../components/shared/Nav/Header";
+import Footer from "../components/shared/sections/Footer";
+import { LayoutProps } from "../types";
 import "./globals.css";
-import { StoreProvider } from "./StoreProvider";
-import { LayoutProps } from "./types";
+import { StoreProvider } from "../providers/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

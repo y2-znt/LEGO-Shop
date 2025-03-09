@@ -14,8 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/shadcn/card";
-import { addToCart } from "../redux/features/cartSlice";
-import { removeFromFav } from "../redux/features/favSlice";
+import { addToCart } from "../../redux/features/cartSlice";
+import { removeFromFav } from "../../redux/features/favSlice";
 
 export default function Favorites() {
   const favorite = useSelector((state: any) => state.favorite);

@@ -11,7 +11,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
 
-import Inputs from "../../../components/ui/inputs/inputs";
+import Inputs from "../../../components/shared/inputs/inputs";
 import { Button } from "../../../components/ui/shadcn/button";
 import {
   Card,
@@ -23,8 +23,8 @@ import {
 import {
   RegisterFormData,
   RegisterFormSchema,
-} from "../../schemas/auth.schema";
-import { SafeUser } from "../../types";
+} from "../../../schemas/auth.schema";
+import { SafeUser } from "../../../types";
 
 type RegisterFormType = {
   currentUser: SafeUser | null;

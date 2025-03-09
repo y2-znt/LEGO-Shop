@@ -20,8 +20,7 @@ import {
   getTotals,
   increaseCart,
   removeFromCart,
-} from "../redux/features/cartSlice";
-import { SafeUser } from "../types";
+} from "../../redux/features/cartSlice";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);
