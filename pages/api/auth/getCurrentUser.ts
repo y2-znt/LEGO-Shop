@@ -33,9 +33,11 @@ export async function getCurrentUser() {
       return null;
     }
 
+    const { hashedPassword, ...userWithoutPassword } = currentUser;
+
     return {
       // Convert dates createdAt and updatedAt in ISOString format to be compatible with JSON format
-      ...currentUser,
+      ...userWithoutPassword,
       createdAt: currentUser.createdAt.toISOString(),
       updatedAt: currentUser.updatedAt.toISOString(),
       emailVerified: currentUser.emailVerified?.toString() || null,
