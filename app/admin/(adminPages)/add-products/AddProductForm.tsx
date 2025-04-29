@@ -119,7 +119,7 @@ export default function AddProductForm() {
     console.log("productData:", productData);
 
     axios
-      .post("/api/product", productData)
+      .post("/api/products", productData)
       .then(() => {
         toast.success("LEGO created successfully");
         setValue("image", new File([], ""));

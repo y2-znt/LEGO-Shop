@@ -1,7 +1,7 @@
 import Collection from "@/components/shared/sections/Collection";
 import Contact from "@/components/shared/sections/Contact";
 import Hero from "@/components/shared/sections/Hero";
-import getProducts from "@/pages/api/auth/getProducts";
+import { getProducts } from "@/services/product.service";
 
 export const revalidate = 0;
 
