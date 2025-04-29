@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
+import { getCurrentUser } from "@/services/user.service";
 import LoginForm from "./LoginForm";
 
 export default async function Login() {

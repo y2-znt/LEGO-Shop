@@ -1,5 +1,5 @@
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
 import { createProduct } from "@/services/product.service";
+import { getCurrentUser } from "@/services/user.service";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -14,6 +14,9 @@ export async function POST(req: Request) {
     const product = await createProduct(body);
     return NextResponse.json(product);
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }

@@ -1,5 +1,8 @@
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
-import { deleteUser, updateUser } from "@/services/user.service";
+import {
+  deleteUser,
+  getCurrentUser,
+  updateUser,
+} from "@/services/user.service";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
