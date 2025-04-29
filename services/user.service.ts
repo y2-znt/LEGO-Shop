@@ -10,15 +10,14 @@ export default async function getAllUsers() {
 
 export const updateUser = async (
   id: string,
-  data: { name?: string; email?: string; role?: "USER" | "ADMIN" },
+  data: { name?: string; role?: "USER" | "ADMIN" },
 ) => {
-  const { name, email, role } = data;
+  const { name, role } = data;
 
   return prisma.user.update({
     where: { id },
     data: {
       name,
-      email,
       role,
     },
   });
