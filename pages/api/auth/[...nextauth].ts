@@ -1,10 +1,10 @@
+import prisma from "@/prisma/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import prisma from "../../../prisma/prismadb";
 
 export const authOptions: AuthOptions = {
   // Use PrismaAdapter to manage user sessions with Prisma

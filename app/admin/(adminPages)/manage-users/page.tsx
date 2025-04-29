@@ -1,6 +1,6 @@
-import AccesDenied from "../../../../components/ui/AccesDenied";
-import getAllUsers from "../../../../pages/api/auth/getAllUsers";
-import { getCurrentUser } from "../../../../pages/api/auth/getCurrentUser";
+import AccesDenied from "@/components/ui/AccesDenied";
+import getAllUsers from "@/pages/api/auth/getAllUsers";
+import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
 import ManageUsersClient from "./ManageUsersClient";
 export const revalidate = 0;
 

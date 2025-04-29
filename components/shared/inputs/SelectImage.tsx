@@ -1,7 +1,7 @@
+import { Button } from "@/components/ui/shadcn/button";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Button } from "../../ui/shadcn/button";
 
 type ImageType = {
   item: File | null;

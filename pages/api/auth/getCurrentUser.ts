@@ -1,5 +1,5 @@
+import prisma from "@/prisma/prismadb";
 import { getServerSession } from "next-auth";
-import prisma from "../../../prisma/prismadb";
 import { authOptions } from "./[...nextauth]";
 
 // Get the user session from server side

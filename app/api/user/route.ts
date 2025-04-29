@@ -1,6 +1,6 @@
+import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
+import prisma from "@/prisma/prismadb";
 import { NextResponse } from "next/server";
-import { getCurrentUser } from "../../../pages/api/auth/getCurrentUser";
-import prisma from "../../../prisma/prismadb";
 
 export async function PUT(req: Request) {
   const currentUser = await getCurrentUser();

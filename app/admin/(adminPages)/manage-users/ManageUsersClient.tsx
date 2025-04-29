@@ -1,11 +1,5 @@
 "use client";
-import { Role, User } from "@prisma/client";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
-import { toast } from "sonner";
-import ActionBtn from "../../../../components/ui/ActionBtn";
+import ActionBtn from "@/components/ui/ActionBtn";
 import {
   Table,
   TableBody,
@@ -14,8 +8,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../../../components/ui/shadcn/table";
-import Status from "../../../../components/ui/Status";
+} from "@/components/ui/shadcn/table";
+import Status from "@/components/ui/Status";
+import { Role, User } from "@prisma/client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
+import { toast } from "sonner";
 
 type ManageUsersClientType = {
   allUsers: User[];
@@ -136,10 +136,10 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
                   {new Date(user.updatedAt).toLocaleTimeString()}
                 </TableCell>
                 <TableCell>
-                {user.role === "ADMIN" ? (
+                  {user.role === "ADMIN" ? (
                     <Status text="Admin" color="bg-blue-500" width="w-20" />
                   ) : (
-                    <Status text="Client" color="bg-yellow-500" width="w-20"/>
+                    <Status text="Client" color="bg-yellow-500" width="w-20" />
                   )}
                 </TableCell>
                 <TableCell className="flex gap-4 py-4">
