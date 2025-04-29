@@ -1,18 +1,10 @@
 import { deleteProduct, updateProduct } from "@/services/product.service";
-import { getCurrentUser } from "@/services/user.service";
-
 import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { id: string } },
 ) {
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser || currentUser.role !== "ADMIN") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const { id } = params;
 
   try {
@@ -31,12 +23,6 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } },
 ) {
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser || currentUser.role !== "ADMIN") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
   const { id } = params;
 
   try {
