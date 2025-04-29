@@ -36,7 +36,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
       } else {
         newRole = "USER";
       }
-      await axios.put("/api/user", {
+      await axios.put("/api/users", {
         id,
         role: newRole,
       });
@@ -52,7 +52,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
     toast("Deleting user, please wait...");
 
     axios
-      .delete(`/api/user/${id}`)
+      .delete(`/api/users/${id}`)
       .then((res) => {
         toast.success("User deleted successfully");
         router.refresh();
@@ -73,7 +73,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
     toast("Update user, please wait...");
 
     try {
-      await axios.put(`/api/user/${id}`, {
+      await axios.put(`/api/users/${id}`, {
         id,
         name: editValues.name,
         email: editValues.email,
