@@ -2,6 +2,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import prisma from "@/prisma/prismadb";
 import {
   LoginFormData,
+  LoginFormSchema,
   RegisterFormData,
   RegisterFormSchema,
 } from "@/schemas/auth.schema";
@@ -37,14 +38,16 @@ export const register = async (data: RegisterFormData) => {
   return userWithoutPassword;
 };
 
-export const authenticate = async (credentials: LoginFormData) => {
-  if (!credentials.email || !credentials.password) {
+export const login = async (data: LoginFormData) => {
+  const { email, password } = LoginFormSchema.parse(data);
+
+  if (!email || !password) {
     throw new Error("Invalid email or password");
   }
 
   const user = await prisma.user.findUnique({
     where: {
-      email: credentials.email,
+      email,
     },
   });
 
@@ -52,14 +55,13 @@ export const authenticate = async (credentials: LoginFormData) => {
     throw new Error("Invalid email or password");
   }
 
-  const isCorrectPassword = await bcrypt.compare(
-    credentials.password,
-    user.hashedPassword,
-  );
+  const isCorrectPassword = await bcrypt.compare(password, user.hashedPassword);
 
   if (!isCorrectPassword) {
     throw new Error("Invalid email or password");
   }
 
-  return user;
+  const { hashedPassword: _, ...userWithoutPassword } = user;
+
+  return userWithoutPassword;
 };

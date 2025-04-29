@@ -1,6 +1,6 @@
 import prisma from "@/prisma/prismadb";
 import { LoginFormData } from "@/schemas/auth.schema";
-import { authenticate } from "@/services/auth.service";
+import { login } from "@/services/auth.service";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -36,7 +36,7 @@ export const authOptions: AuthOptions = {
       // Authorize function to validate credentials
       async authorize(credentials) {
         try {
-          return await authenticate(credentials as LoginFormData);
+          return await login(credentials as LoginFormData);
         } catch (error) {
           return null;
         }
