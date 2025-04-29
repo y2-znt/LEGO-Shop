@@ -24,7 +24,7 @@ type ManageUsersClientType = {
 export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
   const router = useRouter();
   const [editingId, setEditingId] = useState("");
-  const [editValues, setEditValues] = useState({ name: "", email: "" });
+  const [editValues, setEditValues] = useState({ name: "" });
 
   const handleToggleRole = async (id: string, currentRole: Role) => {
     toast("Update user role, please wait...");
@@ -36,8 +36,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
       } else {
         newRole = "USER";
       }
-      await axios.put("/api/user", {
-        id,
+      await axios.patch(`/api/users/${id}`, {
         role: newRole,
       });
 
@@ -52,7 +51,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
     toast("Deleting user, please wait...");
 
     axios
-      .delete(`/api/user/${id}`)
+      .delete(`/api/users/${id}`)
       .then((res) => {
         toast.success("User deleted successfully");
         router.refresh();
@@ -63,20 +62,18 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
       });
   };
 
-  const handleEditClick = (id: string, name: string | null, email: string) => {
+  const handleEditClick = (id: string, name: string | null) => {
     setEditingId(id);
     // Pre-filling fields with current product values
-    setEditValues({ name: name ?? "", email });
+    setEditValues({ name: name ?? "" });
   };
 
   const handleSaveClick = async (id: string) => {
     toast("Update user, please wait...");
 
     try {
-      await axios.put(`/api/user/${id}`, {
-        id,
+      await axios.patch(`/api/users/${id}`, {
         name: editValues.name,
-        email: editValues.email,
       });
 
       toast.success("User updated successfully!");
@@ -117,20 +114,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
                     user.name
                   )}
                 </TableCell>
-                <TableCell>
-                  {editingId === user.id ? (
-                    <input
-                      type="text"
-                      value={editValues.email}
-                      className="border p-1"
-                      onChange={(e) =>
-                        setEditValues({ ...editValues, name: e.target.value })
-                      }
-                    />
-                  ) : (
-                    user.email
-                  )}
-                </TableCell>
+                <TableCell>{user.email}</TableCell>
                 <TableCell>
                   {new Date(user.updatedAt).toLocaleDateString()} -
                   {new Date(user.updatedAt).toLocaleTimeString()}
@@ -155,9 +139,7 @@ export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
                   ) : (
                     <ActionBtn
                       icon={MdEdit}
-                      onClick={() =>
-                        handleEditClick(user.id, user.name, user.email)
-                      }
+                      onClick={() => handleEditClick(user.id, user.name)}
                     />
                   )}
                   <ActionBtn

@@ -1,5 +1,5 @@
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
 import prisma from "@/prisma/prismadb";
+import { getCurrentUser } from "@/services/user.service";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {

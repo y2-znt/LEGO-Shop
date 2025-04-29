@@ -1,5 +1,5 @@
 import AccesDenied from "@/components/ui/AccesDenied";
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
+import { getCurrentUser } from "@/services/user.service";
 import AddProductForm from "./AddProductForm";
 
 export default async function AddProducts() {

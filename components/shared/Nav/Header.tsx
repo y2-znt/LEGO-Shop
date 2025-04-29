@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
+import { getCurrentUser } from "@/services/user.service";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";

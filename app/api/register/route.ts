@@ -1,17 +1,24 @@
-import prisma from "@/prisma/prismadb";
-import bcrypt from "bcrypt";
+import { register } from "@/services/auth.service";
 import { NextResponse } from "next/server";
+import { ZodError } from "zod";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { name, email, password } = body;
-  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const body = await req.json();
+    const user = await register(body);
+    return NextResponse.json(user);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: "Invalid data", details: error.errors },
+        { status: 400 },
+      );
+    }
 
-  // Create a new user in the database using PrismaClient
-  const user = await prisma.user.create({
-    data: { name, email, hashedPassword },
-  });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
 
-  // Return a JSON response with the newly created user object
-  return NextResponse.json(user);
+    return NextResponse.json({ error: "Error creating user" }, { status: 500 });
+  }
 }

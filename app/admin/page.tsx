@@ -1,7 +1,6 @@
 import AccesDenied from "@/components/ui/AccesDenied";
-import getAllUsers from "@/pages/api/auth/getAllUsers";
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
-import getProducts from "@/pages/api/auth/getProducts";
+import { getProducts } from "@/services/product.service";
+import { getAllUsers, getCurrentUser } from "@/services/user.service";
 import Summary from "./Summary";
 
 export default async function page() {

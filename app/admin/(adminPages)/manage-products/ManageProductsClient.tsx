@@ -1,15 +1,6 @@
 "use client";
 
 import ActionBtn from "@/components/ui/ActionBtn";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/shadcn/table";
 import Status from "@/components/ui/Status";
 import firebaseApp from "@/prisma/firebase";
 import { Product } from "@prisma/client";
@@ -20,6 +11,15 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "sonner";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../../../components/ui/shadcn/table";
 
 type ManageProductsClientType = {
   products: Product[];
@@ -37,7 +37,7 @@ export default function ManageProductsClient({
     toast("Update LEGO stock status, please wait...");
 
     try {
-      await axios.put("/api/product", {
+      await axios.patch(`/api/products/${id}`, {
         id,
         inStock: !inStock,
       });
@@ -64,7 +64,7 @@ export default function ManageProductsClient({
     await handleDeleteImage();
 
     axios
-      .delete(`/api/product/${id}`)
+      .delete(`/api/products/${id}`)
       .then((res) => {
         toast.success("LEGO deleted successfully");
         router.refresh();
@@ -84,7 +84,7 @@ export default function ManageProductsClient({
   const handleSaveClick = async (id: string) => {
     toast("Update LEGO, please wait...");
     try {
-      await axios.put(`/api/product/${id}`, {
+      await axios.patch(`/api/products/${id}`, {
         id,
         name: editValues.name,
         price: parseFloat(editValues.price).toFixed(2),

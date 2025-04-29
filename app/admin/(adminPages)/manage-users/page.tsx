@@ -1,6 +1,5 @@
 import AccesDenied from "@/components/ui/AccesDenied";
-import getAllUsers from "@/pages/api/auth/getAllUsers";
-import { getCurrentUser } from "@/pages/api/auth/getCurrentUser";
+import { getAllUsers, getCurrentUser } from "@/services/user.service";
 import ManageUsersClient from "./ManageUsersClient";
 export const revalidate = 0;
 
