@@ -55,7 +55,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center rounded-2xl border-none py-2 pl-2 pr-6 outline-none transition-all hover:bg-amber-200">
+        <DropdownMenuTrigger className="flex items-center rounded-2xl border-none py-2 pl-2 pr-6 outline-hidden transition-all hover:bg-amber-200">
           {currentUser && currentUser.image ? (
             <Image
               alt=""
