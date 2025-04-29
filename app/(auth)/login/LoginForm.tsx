@@ -41,7 +41,6 @@ export default function LoginForm({ currentUser }: LoginFormType) {
     },
   });
 
-  // prettier-ignore
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     setIsLoading(true);
     toast("Logging in, please wait...");

@@ -22,29 +22,14 @@ type currentUserType = {
 export default function UserMenu({ currentUser }: currentUserType) {
   const router = useRouter();
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-
-      //@ts-ignore
-      const promise = (): Promise =>
-        //@ts-ignore
-        new Promise((resolve) => setTimeout(() => resolve(), 2000));
-
-      await toast.promise(promise(), {
-        loading: "Logging out...",
-        success: "Logged Out Successfully",
-        error: "Error",
-      });
-
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      toast.error("Error signing out");
-    }
+  const handleSignOut = () => {
+    toast.promise(signOut({ callbackUrl: "/" }), {
+      loading: "Logging out...",
+      success: "Logged Out Successfully",
+      error: "Error signing out",
+    });
   };
 
-  // Redirection to home page
   useEffect(() => {
     if (!currentUser) {
       router.push("/");
@@ -55,7 +40,7 @@ export default function UserMenu({ currentUser }: currentUserType) {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex items-center rounded-2xl border-none py-2 pl-2 pr-6 outline-hidden transition-all hover:bg-amber-200">
+        <DropdownMenuTrigger className="flex items-center rounded-2xl border-none py-2 pr-6 pl-2 outline-hidden transition-all hover:bg-amber-200">
           {currentUser && currentUser.image ? (
             <Image
               alt=""
@@ -80,9 +65,11 @@ export default function UserMenu({ currentUser }: currentUserType) {
               <Link href="/orders">
                 <DropdownMenuItem>Your orders</DropdownMenuItem>
               </Link>
-              <Link href="/admin">
-                <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
-              </Link>
+              {currentUser.role === "ADMIN" && (
+                <Link href="/admin">
+                  <DropdownMenuItem>Admin Dashboard</DropdownMenuItem>
+                </Link>
+              )}
               <DropdownMenuItem onClick={() => handleSignOut()}>
                 Logout
               </DropdownMenuItem>

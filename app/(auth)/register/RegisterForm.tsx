@@ -44,7 +44,6 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
     },
   });
 
-  // prettier-ignore
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
     setIsLoading(true);
     toast("Creating an account, please wait...");
@@ -73,7 +72,6 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
     }
   };
 
-  // Redirection to home page when user is logged
   useEffect(() => {
     if (currentUser) {
       router.push("/");
