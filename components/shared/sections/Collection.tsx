@@ -1,20 +1,20 @@
 "use client";
 
-import { Product } from "@prisma/client";
-import Image from "next/image";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { IoBag } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import { Button } from "../../../components/ui/shadcn/button";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../../components/ui/shadcn/card";
-import { addToCart } from "../../../redux/features/cartSlice";
-import { addToFav, removeFromFav } from "../../../redux/features/favSlice";
+} from "@/components/ui/shadcn/card";
+import { addToCart } from "@/redux/features/cartSlice";
+import { addToFav, removeFromFav } from "@/redux/features/favSlice";
+import { Product } from "@prisma/client";
+import Image from "next/image";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { IoBag } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 
 type CollectionType = {
   products: Product[];

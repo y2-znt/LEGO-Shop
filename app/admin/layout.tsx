@@ -1,5 +1,5 @@
-import AdminNav from "../../components/shared/admin/AdminNav";
-import { LayoutProps } from "../../types";
+import AdminNav from "@/components/shared/admin/AdminNav";
+import { LayoutProps } from "@/types";
 
 export const metadata = {
   title: "LEGO Shop Admin",

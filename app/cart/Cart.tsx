@@ -1,4 +1,19 @@
 "use client";
+import { Button } from "@/components/ui/shadcn/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/shadcn/card";
+import {
+  clearCart,
+  decreaseCart,
+  getTotals,
+  increaseCart,
+  removeFromCart,
+} from "@/redux/features/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -6,21 +21,6 @@ import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "../../components/ui/shadcn/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/shadcn/card";
-import {
-  clearCart,
-  decreaseCart,
-  getTotals,
-  increaseCart,
-  removeFromCart,
-} from "../../redux/features/cartSlice";
 
 export default function Cart() {
   const cart = useSelector((state: any) => state.cart);

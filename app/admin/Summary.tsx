@@ -1,8 +1,5 @@
 "use client";
 
-import { Product, User } from "@prisma/client";
-import Image from "next/image";
-import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
@@ -10,13 +7,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../components/ui/shadcn/card";
+} from "@/components/ui/shadcn/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "../../components/ui/shadcn/chart";
+} from "@/components/ui/shadcn/chart";
 import {
   Table,
   TableBody,
@@ -24,7 +21,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../components/ui/shadcn/table";
+} from "@/components/ui/shadcn/table";
+import { Product, User } from "@prisma/client";
+import Image from "next/image";
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 
 const transformData = (products: Product[]) => {
   return products.map((product) => ({
@@ -42,7 +42,6 @@ type SummaryType = {
 export default function Summary({ products, allUsers }: SummaryType) {
   const chartData = transformData(products);
 
-  // Define the chart configuration
   const chartConfig = {
     inStock: {
       label: "In Stock",

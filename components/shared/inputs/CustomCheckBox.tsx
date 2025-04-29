@@ -1,7 +1,7 @@
 "use client";
 
+import { AddProductFormData } from "@/schemas/add.schema";
 import { UseFormRegister } from "react-hook-form";
-import { AddProductFormData } from "../../../schemas/add.schema";
 
 type CustomCheckBoxType = {
   id: string;

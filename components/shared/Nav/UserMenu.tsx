@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/shadcn/dropdown-menu";
+import { SafeUser } from "@/types";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,13 +14,6 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
-import { SafeUser } from "../../../types";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../../ui/shadcn/dropdown-menu";
 
 type currentUserType = {
   currentUser: SafeUser | null;

@@ -1,13 +1,13 @@
+import Header from "@/components/shared/Nav/Header";
+import Footer from "@/components/shared/sections/Footer";
+import { StoreProvider } from "@/providers/StoreProvider";
+import { LayoutProps } from "@/types";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import Header from "../components/shared/Nav/Header";
-import Footer from "../components/shared/sections/Footer";
-import { LayoutProps } from "../types";
 import "./globals.css";
-import { StoreProvider } from "../providers/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
