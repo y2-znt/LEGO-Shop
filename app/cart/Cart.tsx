@@ -14,6 +14,7 @@ import {
   increaseCart,
   removeFromCart,
 } from "@/redux/features/cartSlice";
+import { SafeUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,11 @@ import { BsArrowLeft } from "react-icons/bs";
 import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Cart() {
+interface CartProps {
+  currentUser: SafeUser | null;
+}
+
+export default function Cart({ currentUser }: CartProps) {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -47,38 +52,19 @@ export default function Cart() {
   }, [cart, dispatch]);
 
   const handleCheckout = async () => {
-    try {
-      const cartItems = cart.cartItems;
-      const paymentIntentId = "";
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      body: JSON.stringify({
+        email: currentUser?.email,
+        items: cart.cartItems,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      // Send data to backend
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          items: cartItems,
-          payment_intent_id: paymentIntentId,
-        }),
-      });
-
-      if (response.status === 401) {
-        router.push("/login");
-        return;
-      }
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "An error occurred");
-      }
-
-      console.log("Checkout successful:", response);
-      router.push("/checkout");
-    } catch (error) {
-      console.error("Checkout error:", error);
-    }
+    const { url } = await res.json();
+    window.location.href = url;
   };
 
   return (
@@ -125,7 +111,7 @@ export default function Cart() {
               >
                 <div>
                   <Card className="rounded-xl">
-                    <CardTitle className="pl-5 pt-5 text-xl font-bold">
+                    <CardTitle className="pt-5 pl-5 text-xl font-bold">
                       <p>{cartItem.name}</p>
                     </CardTitle>
                     <CardHeader>
@@ -153,7 +139,7 @@ export default function Cart() {
                     </CardFooter>
                   </Card>
                 </div>
-                <div className="pl-32 max-lg:pl-12 max-sm:absolute max-sm:ml-6 max-sm:mt-14 max-sm:pl-0">
+                <div className="pl-32 max-lg:pl-12 max-sm:absolute max-sm:mt-14 max-sm:ml-6 max-sm:pl-0">
                   ${cartItem.price.toFixed(2)}
                 </div>
                 <div className="ml-32 flex w-40 max-w-full items-start justify-center rounded-lg bg-[#FFD300] py-2 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
@@ -179,7 +165,7 @@ export default function Cart() {
               </div>
             ))}
           </div>
-          <div className="flex items-start justify-between border-t pl-2 pt-8 max-sm:flex-col max-sm:items-center max-sm:justify-center">
+          <div className="flex items-start justify-between border-t pt-8 pl-2 max-sm:flex-col max-sm:items-center max-sm:justify-center">
             <Button
               onClick={() => handleClearCart()}
               className="border bg-transparent px-8 py-5 text-gray-700 hover:text-black max-sm:w-full max-sm:px-5 max-sm:py-2"
