@@ -107,3 +107,15 @@ export const clearCart = async (userId: string) => {
     where: { cartId: cart.id },
   });
 };
+
+// Get total quantity of items in cart
+export const getCartItemCount = async (userId: string) => {
+  const cart = await prisma.cart.findUnique({
+    where: { userId },
+    include: {
+      items: true,
+    },
+  });
+
+  return cart?.items.reduce((total, item) => total + item.quantity, 0) || 0;
+};
