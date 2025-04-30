@@ -13,9 +13,11 @@ import { addToFav, removeFromFav } from "@/redux/features/favSlice";
 import { SafeUser } from "@/types";
 import { Product } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { IoBag } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 type CollectionType = {
   products: Product[];
@@ -26,8 +28,14 @@ export default function Collection({ products, currentUser }: CollectionType) {
   const favItems = useSelector((state: any) => state.favorite.favItems);
   const { addToCart } = useCart(currentUser?.id || "");
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleAddToCart = (product: Product) => {
+    if (!currentUser?.id) {
+      router.push("/login");
+      toast.error("Please login to add to cart");
+      return;
+    }
     addToCart.mutate({ productId: product.id, quantity: 1 });
   };
 
