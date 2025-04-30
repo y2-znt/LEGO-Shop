@@ -1,9 +1,11 @@
+import { getCurrentUser } from "@/services/user.service";
 import Cart from "./Cart";
 
-export default function page() {
+export default async function page() {
+  const currentUser = await getCurrentUser();
   return (
     <div>
-      <Cart />
+      <Cart currentUser={currentUser} />
     </div>
   );
 }
