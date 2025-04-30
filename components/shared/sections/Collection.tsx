@@ -8,8 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { addToCart } from "@/redux/features/cartSlice";
+import { useCart } from "@/hooks/useCart";
 import { addToFav, removeFromFav } from "@/redux/features/favSlice";
+import { SafeUser } from "@/types";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
@@ -18,14 +19,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 type CollectionType = {
   products: Product[];
+  currentUser: SafeUser | null;
 };
 
-export default function Collection({ products }: CollectionType) {
+export default function Collection({ products, currentUser }: CollectionType) {
   const favItems = useSelector((state: any) => state.favorite.favItems);
+  const { addToCart } = useCart(currentUser?.id || "");
   const dispatch = useDispatch();
 
   const handleAddToCart = (product: Product) => {
-    dispatch(addToCart(product));
+    addToCart.mutate({ productId: product.id, quantity: 1 });
   };
 
   const toggleFavorite = (product: Product) => {
@@ -55,7 +58,7 @@ export default function Collection({ products }: CollectionType) {
                 <Card className="rounded-lg" key={product.id}>
                   {!product.inStock && (
                     <div className="flex items-center justify-end">
-                      <div className="absolute -mr-4 mt-8 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
+                      <div className="absolute mt-8 -mr-4 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
                         Out of stock
                       </div>
                     </div>
