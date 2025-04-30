@@ -35,7 +35,7 @@ export default async function Header() {
             className="relative rounded-full p-2 transition-all hover:bg-amber-200"
           >
             <FiShoppingCart size={25} />
-            <CartQuantity />
+            <CartQuantity userId={currentUser?.id || ""} />
           </Link>
           <UserMenu currentUser={currentUser} />
         </div>
