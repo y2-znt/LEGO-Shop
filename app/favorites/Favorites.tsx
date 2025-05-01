@@ -65,7 +65,7 @@ export default function Favorites() {
                   <Card className="rounded-lg" key={index}>
                     {!favItem.inStock && (
                       <div className="flex items-center justify-end">
-                        <div className="absolute -mr-4 mt-6 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
+                        <div className="absolute mt-6 -mr-4 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
                           Out of stock
                         </div>
                       </div>

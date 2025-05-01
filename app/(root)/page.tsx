@@ -5,11 +5,9 @@ import Hero from "@/components/shared/sections/Hero";
 export default async function Home() {
   return (
     <div>
-      <div>
-        <Hero />
-        <Collection />
-        <Contact />
-      </div>
+      <Hero />
+      <Collection />
+      <Contact />
     </div>
   );
 }
