@@ -1,5 +1,5 @@
+import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
-import prisma from "@/prisma/prismadb";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -8,6 +8,11 @@ import Stripe from "stripe";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/**
+ * @route POST /api/stripe/webhook
+ * @description Handle Stripe webhook events, primarily for processing completed checkout sessions
+ * @returns {object} Confirmation of webhook processing
+ */
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = headers().get("Stripe-Signature");

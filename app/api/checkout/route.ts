@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 /**
  * @route POST /api/checkout
  * @description Create a Stripe checkout session
- * @param request
- * @returns {NextResponse}
+ * @param {Request} request - The request object
+ * @returns {NextResponse} - A response containing the URL of the created Stripe session
  */
 export async function POST(request: Request) {
   try {

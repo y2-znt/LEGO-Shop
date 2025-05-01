@@ -1,6 +1,12 @@
 import { deleteUser, updateUser } from "@/services/user.service";
 import { NextResponse } from "next/server";
 
+/**
+ * @route PATCH /api/users/:id
+ * @description Update a user by ID
+ * @param {string} id - The user ID
+ * @returns {user} The updated user
+ */
 export async function PATCH(
   req: Request,
   { params }: { params: { id: string } },
@@ -23,6 +29,12 @@ export async function PATCH(
   }
 }
 
+/**
+ * @route DELETE /api/users/:id
+ * @description Delete a user by ID
+ * @param {string} id - The user ID
+ * @returns {user} The deleted user
+ */
 export async function DELETE(
   req: Request,
   { params }: { params: { id: string } },

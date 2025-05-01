@@ -2,6 +2,11 @@ import { register } from "@/services/auth.service";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
+/**
+ * @route POST /api/register
+ * @description Register a new user
+ * @returns {user} The registered user
+ */
 export async function POST(req: Request) {
   try {
     const body = await req.json();
