@@ -1,4 +1,5 @@
 import firebaseApp from "@/lib/firebase";
+import { CreateProductData, UpdateProductData } from "@/types";
 import { Product } from "@prisma/client";
 import {
   deleteObject,
@@ -7,19 +8,6 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-
-interface UpdateProductData {
-  name?: string;
-  price?: number;
-  inStock?: boolean;
-}
-
-interface CreateProductData {
-  name: string;
-  price: string | number;
-  inStock: boolean;
-  image: File;
-}
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {

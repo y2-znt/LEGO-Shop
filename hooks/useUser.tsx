@@ -4,14 +4,10 @@ import {
   toggleUserRole,
   updateUser,
 } from "@/lib/api/userApi";
+import { UpdateUserData } from "@/types";
 import { Role } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-
-interface UpdateUserData {
-  name?: string;
-  role?: Role;
-}
 
 export const useUser = () => {
   return useQuery({

@@ -17,7 +17,7 @@ export const getCurrentUser = async (): Promise<User | null> => {
 
 export const registerUser = async (data: RegisterFormData) => {
   try {
-    const response = await fetch("/api/register", {
+    const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

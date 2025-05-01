@@ -6,21 +6,9 @@ import {
   toggleStock,
   updateProduct,
 } from "@/lib/api/productApi";
+import { CreateProductData, UpdateProductData } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-
-interface UpdateProductData {
-  name: string;
-  price: number;
-  inStock?: boolean;
-}
-
-interface CreateProductData {
-  name: string;
-  price: string | number;
-  inStock: boolean;
-  image: File;
-}
 
 export const useProduct = () => {
   return useQuery({
