@@ -1,15 +1,12 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
-import { toast } from "sonner";
 
 import Inputs from "@/components/shared/inputs/inputs";
 import { Button } from "@/components/ui/button";
@@ -20,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useProviderLogin, useRegister } from "@/hooks/useAuth";
 import { RegisterFormData, RegisterFormSchema } from "@/schemas/auth.schema";
 import { SafeUser } from "@/types";
 
@@ -28,8 +26,9 @@ type RegisterFormType = {
 };
 
 export default function RegisterForm({ currentUser }: RegisterFormType) {
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { register: registerUser, isLoading } = useRegister();
+  const { loginWithProvider } = useProviderLogin();
 
   const {
     register,
@@ -44,32 +43,8 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
     },
   });
 
-  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
-    setIsLoading(true);
-    toast("Creating an account, please wait...");
-    console.log("form data: ", data);
-
-    try {
-      await axios.post("/api/register", data);
-
-      const callback = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
-
-      if (callback?.ok) {
-        toast.success("Account successfully created");
-        router.push("/");
-        router.refresh();
-      } else if (callback?.error) {
-        toast.error("Error creating account");
-      }
-    } catch (error) {
-      toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
+  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
+    registerUser(data);
   };
 
   useEffect(() => {
@@ -131,7 +106,7 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
           </div>
           <Button
             className="w-full gap-3 border bg-transparent px-7"
-            onClick={() => signIn("google")}
+            onClick={() => loginWithProvider("google")}
           >
             <span>
               <Image
@@ -145,7 +120,7 @@ export default function RegisterForm({ currentUser }: RegisterFormType) {
           </Button>
           <Button
             className="mt-4 w-full gap-3 border bg-transparent px-7"
-            onClick={() => signIn("github")}
+            onClick={() => loginWithProvider("github")}
           >
             <span>
               <BsGithub size={20} />
