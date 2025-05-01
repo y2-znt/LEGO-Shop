@@ -4,98 +4,60 @@ import ActionBtn from "@/components/shared/admin/ActionBtn";
 import Status from "@/components/shared/admin/Status";
 import {
   Table,
+  TableBody,
   TableCaption,
+  TableCell,
+  TableHead,
   TableHeader,
   TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
 } from "@/components/ui/table";
-import firebaseApp from "@/lib/firebase";
-import { Product } from "@prisma/client";
-import axios from "axios";
-import { deleteObject, getStorage, ref } from "firebase/storage";
+import {
+  useDeleteProduct,
+  useDeleteProductImage,
+  useProduct,
+  useToggleStock,
+  useUpdateProduct,
+} from "@/hooks/useProduct";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
-import { toast } from "sonner";
 
-type ManageProductsClientType = {
-  products: Product[];
-};
-
-export default function ManageProductsClient({
-  products,
-}: ManageProductsClientType) {
+export default function ManageProductsClient() {
   const router = useRouter();
-  const storage = getStorage(firebaseApp);
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "", price: "" });
+  const { data: products } = useProduct();
+  const { deleteProduct } = useDeleteProduct();
+  const { updateProduct } = useUpdateProduct();
+  const { toggleStock } = useToggleStock();
+  const { deleteProductImage } = useDeleteProductImage();
 
-  const handleToggleStock = async (id: string, inStock: boolean) => {
-    toast("Update LEGO stock status, please wait...");
-
-    try {
-      await axios.patch(`/api/products/${id}`, {
-        id,
-        inStock: !inStock,
-      });
-
-      toast.success("LEGO stock status updated successfully!");
-      router.refresh();
-    } catch (error) {
-      toast.error("Oops! Something went wrong");
-    }
+  const handleToggleStock = (id: string, inStock: boolean) => {
+    toggleStock({ id, inStock });
+    router.refresh();
   };
 
-  const handleDeleteProduct = async (id: string, image: string) => {
-    toast("Deleting LEGO, please wait...");
-
-    const handleDeleteImage = async () => {
-      try {
-        const imageRef = ref(storage, image);
-        await deleteObject(imageRef);
-        console.log("Image deleted successfully", image);
-      } catch (error) {
-        console.log("Deleting image error", error);
-      }
-    };
-    await handleDeleteImage();
-
-    axios
-      .delete(`/api/products/${id}`)
-      .then((res) => {
-        toast.success("LEGO deleted successfully");
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error("Error deleting LEGO");
-        console.log("Error deleting product", error);
-      });
+  const handleDeleteProduct = (id: string, image: string) => {
+    deleteProductImage(image);
+    deleteProduct(id);
+    router.refresh();
   };
 
   const handleEditClick = (id: string, name: string, price: number) => {
     setEditingId(id);
-    // Pre-filling fields with current product values
     setEditValues({ name: name, price: price.toString() });
   };
 
-  const handleSaveClick = async (id: string) => {
-    toast("Update LEGO, please wait...");
-    try {
-      await axios.patch(`/api/products/${id}`, {
-        id,
+  const handleSaveClick = (id: string) => {
+    updateProduct({
+      id,
+      data: {
         name: editValues.name,
-        price: parseFloat(editValues.price).toFixed(2),
-      });
-
-      toast.success("LEGO updated successfully!");
-      setEditingId("");
-      router.refresh();
-    } catch (error) {
-      toast.error("Oops! Something went wrong");
-    }
+        price: parseFloat(editValues.price),
+      },
+    });
+    router.refresh();
   };
 
   return (
@@ -116,85 +78,88 @@ export default function ManageProductsClient({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell>
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  className="h-16 w-12 rounded-lg border object-cover p-1"
-                  width={50}
-                  height={50}
-                />
-              </TableCell>
-              <TableCell>
-                {editingId === product.id ? (
-                  <input
-                    type="text"
-                    name="name"
-                    value={editValues.name}
-                    className="border p-1"
-                    onChange={(e) =>
-                      setEditValues({ ...editValues, name: e.target.value })
-                    }
+          {products &&
+            products.map((product) => (
+              <TableRow key={product.id}>
+                <TableCell>
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    className="h-16 w-12 rounded-lg border object-cover p-1"
+                    width={50}
+                    height={50}
                   />
-                ) : (
-                  product.name
-                )}
-              </TableCell>
-              <TableCell>
-                {editingId === product.id ? (
-                  <input
-                    type="number"
-                    name="price"
-                    value={editValues.price}
-                    className="border p-1"
-                    onChange={(e) =>
-                      setEditValues({ ...editValues, price: e.target.value })
-                    }
-                  />
-                ) : (
-                  `$${product.price}`
-                )}
-              </TableCell>
-              <TableCell>
-                {new Date(product.updatedAt).toLocaleDateString()} -
-                {new Date(product.updatedAt).toLocaleTimeString()}
-              </TableCell>
-              <TableCell>
-                {product.inStock ? (
-                  <Status text="Yes" color="bg-green-500" width="w-16" />
-                ) : (
-                  <Status text="No" color="bg-red-500" width="w-16" />
-                )}
-              </TableCell>
-              <TableCell className="flex gap-4 pt-5">
-                <ActionBtn
-                  icon={MdCached}
-                  onClick={() => handleToggleStock(product.id, product.inStock)}
-                />
-                {editingId === product.id ? (
+                </TableCell>
+                <TableCell>
+                  {editingId === product.id ? (
+                    <input
+                      type="text"
+                      name="name"
+                      value={editValues.name}
+                      className="border p-1"
+                      onChange={(e) =>
+                        setEditValues({ ...editValues, name: e.target.value })
+                      }
+                    />
+                  ) : (
+                    product.name
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editingId === product.id ? (
+                    <input
+                      type="number"
+                      name="price"
+                      value={editValues.price}
+                      className="border p-1"
+                      onChange={(e) =>
+                        setEditValues({ ...editValues, price: e.target.value })
+                      }
+                    />
+                  ) : (
+                    `$${product.price}`
+                  )}
+                </TableCell>
+                <TableCell>
+                  {new Date(product.updatedAt).toLocaleDateString()} -
+                  {new Date(product.updatedAt).toLocaleTimeString()}
+                </TableCell>
+                <TableCell>
+                  {product.inStock ? (
+                    <Status text="Yes" color="bg-green-500" width="w-16" />
+                  ) : (
+                    <Status text="No" color="bg-red-500" width="w-16" />
+                  )}
+                </TableCell>
+                <TableCell className="flex gap-4 pt-5">
                   <ActionBtn
-                    icon={MdCheck}
-                    onClick={() => handleSaveClick(product.id)}
-                  />
-                ) : (
-                  <ActionBtn
-                    icon={MdEdit}
+                    icon={MdCached}
                     onClick={() =>
-                      handleEditClick(product.id, product.name, product.price)
+                      handleToggleStock(product.id, product.inStock)
                     }
                   />
-                )}
-                <ActionBtn
-                  icon={MdDelete}
-                  onClick={() => {
-                    handleDeleteProduct(product.id, product.image);
-                  }}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
+                  {editingId === product.id ? (
+                    <ActionBtn
+                      icon={MdCheck}
+                      onClick={() => handleSaveClick(product.id)}
+                    />
+                  ) : (
+                    <ActionBtn
+                      icon={MdEdit}
+                      onClick={() =>
+                        handleEditClick(product.id, product.name, product.price)
+                      }
+                    />
+                  )}
+                  <ActionBtn
+                    icon={MdDelete}
+                    onClick={() => {
+                      handleDeleteProduct(product.id, product.image);
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
 /**
- * @route POST /api/register
+ * @route POST /api/auth/register
  * @description Register a new user
  * @returns {user} The registered user
  */

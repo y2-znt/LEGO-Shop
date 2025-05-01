@@ -8,27 +8,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useCurrentUser, useLogin, useProviderLogin } from "@/hooks/useAuth";
 import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
-import { SafeUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
-import { toast } from "sonner";
 
-type LoginFormType = {
-  currentUser: SafeUser | null;
-};
-
-export default function LoginForm({ currentUser }: LoginFormType) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function LoginForm() {
   const router = useRouter();
-
+  const { login, isLoading } = useLogin();
+  const { loginWithProvider } = useProviderLogin();
+  const { data: currentUser } = useCurrentUser();
   const {
     register,
     handleSubmit,
@@ -41,28 +36,8 @@ export default function LoginForm({ currentUser }: LoginFormType) {
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    setIsLoading(true);
-    toast("Logging in, please wait...");
-
-    const result = await signIn("credentials", {
-      ...data,
-      redirect: false,
-    });
-
-    setIsLoading(false);
-
-    if (result?.ok) {
-      toast.success("Logged in successfully");
-      router.push("/");
-      router.refresh();
-    } else if (result?.error) {
-      if (result.error.includes("Invalid email or password")) {
-        toast.error("Incorrect email or password. Please try again.");
-      } else {
-        toast.error("An unexpected error occurred. Please try again.");
-      }
-    }
+  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
+    login(data);
   };
 
   useEffect(() => {
@@ -104,7 +79,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
             {isLoading ? (
               <>
                 <AiOutlineLoading className="mr-2 inline-block animate-spin" />
-                Logged in...
+                Logging in...
               </>
             ) : (
               "Login"
@@ -115,7 +90,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
           </div>
           <Button
             className="w-full border bg-transparent text-sm"
-            onClick={() => signIn("google")}
+            onClick={() => loginWithProvider("google")}
           >
             <span className="pr-2">
               <Image
@@ -129,7 +104,7 @@ export default function LoginForm({ currentUser }: LoginFormType) {
           </Button>
           <Button
             className="mt-4 w-full gap-3 border bg-transparent px-7 font-semibold text-black"
-            onClick={() => signIn("github")}
+            onClick={() => loginWithProvider("github")}
           >
             <span>
               <BsGithub size={20} />

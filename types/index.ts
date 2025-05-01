@@ -1,14 +1,19 @@
-import { User } from "@prisma/client";
+import { Role } from "@prisma/client";
 
-export type SafeUser = Omit<
-  User,
-  "createdAt" | "updatedAt" | "emailVerified" | "hashedPassword"
-> & {
-  createdAt: string;
-  updatedAt: string;
-  emailVerified: string | null;
-};
+export interface UpdateUserData {
+  name?: string;
+  role?: Role;
+}
 
-export type LayoutProps = {
-  children: React.ReactNode;
-};
+export interface UpdateProductData {
+  name?: string;
+  price?: number;
+  inStock?: boolean;
+}
+
+export interface CreateProductData {
+  name: string;
+  price: string | number;
+  inStock: boolean;
+  image: File;
+}

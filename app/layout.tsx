@@ -1,13 +1,15 @@
 import Header from "@/components/shared/Nav/Header";
 import Footer from "@/components/shared/sections/Footer";
 import { StoreProvider } from "@/providers/StoreProvider";
-import { LayoutProps } from "@/types";
+import TanstackProvider from "@/providers/tanstack-provider";
+
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,20 +21,20 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 0;
-
-export default function RootLayout({ children }: LayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={clsx(inter.className)}>
         <StoreProvider>
           <ThemeProvider attribute="class" defaultTheme="light">
-            <Header />
-            <main className="mx-auto max-w-6xl py-24 font-bold text-black max-xl:px-8">
-              {children}
-            </main>
-            <Footer />
-            <Toaster richColors position="bottom-left" />
+            <TanstackProvider>
+              <Header />
+              <main className="mx-auto max-w-6xl py-24 font-bold text-black max-xl:px-8">
+                {children}
+              </main>
+              <Footer />
+              <Toaster richColors position="bottom-left" />
+            </TanstackProvider>
           </ThemeProvider>
         </StoreProvider>
       </body>

@@ -1,5 +1,15 @@
-import { createProduct } from "@/services/product.service";
+import { createProduct, getProducts } from "@/services/product.service";
 import { NextResponse } from "next/server";
+
+/**
+ * @route GET /api/products
+ * @description Get all products
+ * @returns {product[]} The list of products
+ */
+export async function GET() {
+  const products = await getProducts();
+  return NextResponse.json(products);
+}
 
 /**
  * @route POST /api/products

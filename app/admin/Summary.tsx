@@ -22,7 +22,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Product, User } from "@prisma/client";
+import { useProduct } from "@/hooks/useProduct";
+import { useUser } from "@/hooks/useUser";
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 
@@ -34,13 +36,10 @@ const transformData = (products: Product[]) => {
   }));
 };
 
-type SummaryType = {
-  products: Product[];
-  allUsers: User[];
-};
-
-export default function Summary({ products, allUsers }: SummaryType) {
-  const chartData = transformData(products);
+export default function Summary() {
+  const { data: allUsers } = useUser();
+  const { data: products } = useProduct();
+  const chartData = transformData(products ?? []);
 
   const chartConfig = {
     inStock: {
@@ -59,25 +58,25 @@ export default function Summary({ products, allUsers }: SummaryType) {
       <div className="mt-10 grid grid-cols-2 gap-4 max-sm:grid-cols-1">
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {products.length} <br /> Total LEGO
+            {products?.length ?? 0} <br /> Total LEGO
           </h2>
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {allUsers.length}
+            {allUsers?.length ?? 0}
             <br /> Total Users
           </h2>
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {products.filter((product) => product.inStock).length}
+            {products?.filter((product) => product.inStock).length ?? 0}
             <br /> LEGO in Stock
           </h2>
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {products.length -
-              products.filter((product) => product.inStock).length}
+            {(products?.length ?? 0) -
+              (products?.filter((product) => product.inStock).length ?? 0)}
             <br /> LEGO out of Stock
           </h2>
         </div>
@@ -152,7 +151,7 @@ export default function Summary({ products, allUsers }: SummaryType) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.slice(0, 5).map((product) => (
+              {products?.slice(0, 5).map((product) => (
                 <TableRow key={product.id}>
                   <TableCell>
                     <Image

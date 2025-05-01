@@ -20,7 +20,7 @@ export default function AdminNavItem({
       }`}
     >
       {Icon && <Icon size={20} />}
-      <div className="break-normal text-center text-base">{label}</div>
+      <div className="text-center text-base break-normal">{label}</div>
     </div>
   );
 }
