@@ -4,36 +4,24 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
-// Disable CSRF protection for Stripe webhooks
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+// Route segment configuration
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
+  const body = await req.text();
+  const signature = headers().get("Stripe-Signature");
+
+  if (!signature) {
+    return NextResponse.json({ error: "Missing signature" }, { status: 400 });
+  }
+
   try {
-    const body = await req.text();
-    const signature = headers().get("Stripe-Signature") as string;
-
-    if (!signature)
-      return NextResponse.json({ error: "Missing signature" }, { status: 400 });
-
-    let event: Stripe.Event;
-
-    try {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err) {
-      console.error("Webhook signature verification failed:", err);
-      return NextResponse.json(
-        {
-          error: `Webhook signature verification failed: ${err instanceof Error ? err.message : "Unknown error"}`,
-        },
-        { status: 400 },
-      );
-    }
+    const event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!,
+    );
 
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
@@ -111,19 +99,15 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    console.error("Webhook error:", {
-      type: error instanceof Error ? error.constructor.name : "Unknown",
-      message: error instanceof Error ? error.message : "Unknown error",
-      stack: error instanceof Error ? error.stack : undefined,
-    });
-
+  } catch (err) {
+    console.error("Webhook signature verification failed:", err);
     return NextResponse.json(
       {
-        error: "Internal server error",
-        details: error instanceof Error ? error.message : "Unknown error",
+        error: `Webhook signature verification failed: ${
+          err instanceof Error ? err.message : "Unknown error"
+        }`,
       },
-      { status: 500 },
+      { status: 400 },
     );
   }
 }
