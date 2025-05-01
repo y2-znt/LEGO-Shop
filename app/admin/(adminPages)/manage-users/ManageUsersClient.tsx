@@ -51,6 +51,9 @@ export default function ManageUsersClient() {
 
   return (
     <div>
+      <h1 className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">
+        Manage Users
+      </h1>
       <Table className="mt-10">
         <TableCaption>A list of your users.</TableCaption>
         <TableHeader>

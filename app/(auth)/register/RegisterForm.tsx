@@ -17,18 +17,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useProviderLogin, useRegister } from "@/hooks/useAuth";
+import { useCurrentUser, useProviderLogin, useRegister } from "@/hooks/useAuth";
 import { RegisterFormData, RegisterFormSchema } from "@/schemas/auth.schema";
-import { SafeUser } from "@/types";
 
-type RegisterFormType = {
-  currentUser: SafeUser | null;
-};
-
-export default function RegisterForm({ currentUser }: RegisterFormType) {
+export default function RegisterForm() {
   const router = useRouter();
   const { register: registerUser, isLoading } = useRegister();
   const { loginWithProvider } = useProviderLogin();
+  const { data: currentUser } = useCurrentUser();
 
   const {
     register,

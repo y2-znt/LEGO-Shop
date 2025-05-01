@@ -18,8 +18,6 @@ import {
   useToggleStock,
   useUpdateProduct,
 } from "@/hooks/useProduct";
-import firebaseApp from "@/lib/firebase";
-import { getStorage } from "firebase/storage";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -27,7 +25,6 @@ import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
 export default function ManageProductsClient() {
   const router = useRouter();
-  const storage = getStorage(firebaseApp);
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "", price: "" });
   const { data: products } = useProduct();

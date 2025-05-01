@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useCurrentUser } from "@/hooks/useAuth";
 import {
   clearCart,
   decreaseCart,
@@ -14,7 +15,6 @@ import {
   increaseCart,
   removeFromCart,
 } from "@/redux/features/cartSlice";
-import { SafeUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,15 +25,12 @@ import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 
-interface CartProps {
-  currentUser: SafeUser | null;
-}
-
-export default function Cart({ currentUser }: CartProps) {
+export default function Cart() {
   const [isLoading, setIsLoading] = useState(false);
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { data: currentUser } = useCurrentUser();
 
   const handleRemoveFromCart = (cartItem: any) => {
     dispatch(removeFromCart(cartItem));

@@ -8,9 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useLogin, useProviderLogin } from "@/hooks/useAuth";
+import { useCurrentUser, useLogin, useProviderLogin } from "@/hooks/useAuth";
 import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
-import { SafeUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,15 +19,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 
-type LoginFormType = {
-  currentUser: SafeUser | null;
-};
-
-export default function LoginForm({ currentUser }: LoginFormType) {
+export default function LoginForm() {
   const router = useRouter();
   const { login, isLoading } = useLogin();
   const { loginWithProvider } = useProviderLogin();
-
+  const { data: currentUser } = useCurrentUser();
   const {
     register,
     handleSubmit,

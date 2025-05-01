@@ -1,12 +1,20 @@
 import {
+  getCurrentUser,
   loginWithCredentials,
   loginWithProvider,
   registerUser,
 } from "@/lib/api/authApi";
 import { LoginFormData, RegisterFormData } from "@/schemas/auth.schema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
+export const useCurrentUser = () => {
+  return useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getCurrentUser,
+  });
+};
 
 export const useLogin = () => {
   const router = useRouter();

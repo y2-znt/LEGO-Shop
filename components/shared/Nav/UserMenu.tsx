@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SafeUser } from "@/types";
+import { useCurrentUser } from "@/hooks/useAuth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,12 +15,9 @@ import { useEffect } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
 
-type currentUserType = {
-  currentUser: SafeUser | null;
-};
-
-export default function UserMenu({ currentUser }: currentUserType) {
+export default function UserMenu() {
   const router = useRouter();
+  const { data: currentUser } = useCurrentUser();
 
   const handleSignOut = () => {
     toast.promise(signOut({ callbackUrl: "/" }), {

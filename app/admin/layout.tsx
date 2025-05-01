@@ -1,14 +1,18 @@
 import AccesDenied from "@/components/shared/admin/AccesDenied";
 import AdminNav from "@/components/shared/admin/AdminNav";
-import { getCurrentUser } from "@/services/user.service";
-import { LayoutProps } from "@/types";
+import { getCurrentUser } from "@/services/auth.service";
+import { ReactNode } from "react";
 
 export const metadata = {
   title: "LEGO Shop Admin",
   description: "LEGO Shop Admin dashboard",
 };
 
-export default async function AdminLayout({ children }: LayoutProps) {
+export default async function AdminLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser || currentUser.role !== "ADMIN") {
