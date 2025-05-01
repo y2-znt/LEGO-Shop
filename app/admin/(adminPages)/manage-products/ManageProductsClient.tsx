@@ -13,17 +13,17 @@ import {
 } from "@/components/ui/table";
 import {
   useDeleteProduct,
+  useDeleteProductImage,
   useProduct,
   useToggleStock,
   useUpdateProduct,
 } from "@/hooks/useProduct";
 import firebaseApp from "@/lib/firebase";
-import { deleteObject, getStorage, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
-import { toast } from "sonner";
 
 export default function ManageProductsClient() {
   const router = useRouter();
@@ -34,27 +34,17 @@ export default function ManageProductsClient() {
   const { deleteProduct } = useDeleteProduct();
   const { updateProduct } = useUpdateProduct();
   const { toggleStock } = useToggleStock();
+  const { deleteProductImage } = useDeleteProductImage();
 
   const handleToggleStock = (id: string, inStock: boolean) => {
     toggleStock({ id, inStock });
     router.refresh();
   };
 
-  const handleDeleteProduct = async (id: string, image: string) => {
-    toast("Deleting LEGO, please wait...");
-
-    const handleDeleteImage = async () => {
-      try {
-        const imageRef = ref(storage, image);
-        await deleteObject(imageRef);
-        console.log("Image deleted successfully", image);
-      } catch (error) {
-        console.log("Deleting image error", error);
-      }
-    };
-    await handleDeleteImage();
-
+  const handleDeleteProduct = (id: string, image: string) => {
+    deleteProductImage(image);
     deleteProduct(id);
+    router.refresh();
   };
 
   const handleEditClick = (id: string, name: string, price: number) => {

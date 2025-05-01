@@ -9,7 +9,7 @@ export const getUsers = async (): Promise<User[]> => {
   try {
     const response = await fetch("/api/users");
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Failed to fetch users");
     }
     return await response.json();
   } catch (error) {
@@ -28,7 +28,7 @@ export const updateUser = async (id: string, userData: UpdateUserData) => {
       body: JSON.stringify(userData),
     });
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Failed to update user");
     }
     return await response.json();
   } catch (error) {
@@ -43,7 +43,7 @@ export const deleteUser = async (id: string) => {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Failed to delete user");
     }
     return await response.json();
   } catch (error) {

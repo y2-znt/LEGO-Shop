@@ -1,5 +1,6 @@
 import {
   deleteProduct,
+  deleteProductImage,
   getAllProducts,
   toggleStock,
   updateProduct,
@@ -123,5 +124,17 @@ export const useToggleStock = () => {
 
   return {
     toggleStock: toggleStockMutation.mutate,
+  };
+};
+
+export const useDeleteProductImage = () => {
+  const deleteProductImageMutation = useMutation({
+    mutationFn: async (imageUrl: string) => {
+      return await deleteProductImage(imageUrl);
+    },
+  });
+
+  return {
+    deleteProductImage: deleteProductImageMutation.mutate,
   };
 };
