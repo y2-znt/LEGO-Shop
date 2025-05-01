@@ -1,6 +1,7 @@
 import Header from "@/components/shared/Nav/Header";
 import Footer from "@/components/shared/sections/Footer";
 import { StoreProvider } from "@/providers/StoreProvider";
+import TanstackProvider from "@/providers/tanstack-provider";
 import { LayoutProps } from "@/types";
 import clsx from "clsx";
 import type { Metadata } from "next";
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="light">
             <Header />
             <main className="mx-auto max-w-6xl py-24 font-bold text-black max-xl:px-8">
-              {children}
+              <TanstackProvider>{children}</TanstackProvider>
             </main>
             <Footer />
             <Toaster richColors position="bottom-left" />
