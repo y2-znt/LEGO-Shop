@@ -18,7 +18,6 @@ The website will allow users to browse a collection of LEGO, add them to their c
 
 - **Next.JS**: A React framework that enables server-side rendering, static site generation, and routing for building fast and SEO-friendly web applications.
 - **Next-Auth** : An authentication library for Next.JS applications, providing features like session management, OAuth authentication, and custom authentication strategies.
-- **Axios**: A promise-based HTTP client for making requests to the backend API.
 
 ### Database
 

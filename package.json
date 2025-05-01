@@ -24,7 +24,6 @@
     "@tanstack/react-query-devtools": "^5.75.0",
     "@types/bcrypt": "^5.0.2",
     "@types/canvas-confetti": "^1.9.0",
-    "axios": "^1.7.4",
     "bcrypt": "^5.1.1",
     "canvas-confetti": "^1.9.3",
     "chart.js": "^4.4.3",
