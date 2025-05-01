@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 interface CartProps {
   currentUser: SafeUser | null;
@@ -52,10 +53,16 @@ export default function Cart({ currentUser }: CartProps) {
   }, [cart, dispatch]);
 
   const handleCheckout = async () => {
+    if (!currentUser) {
+      router.push("/login");
+      toast.error("Please login to checkout");
+      return;
+    }
+
     const res = await fetch("/api/checkout", {
       method: "POST",
       body: JSON.stringify({
-        email: currentUser?.email,
+        email: currentUser.email,
         items: cart.cartItems,
       }),
       headers: {
