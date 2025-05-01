@@ -6,19 +6,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCurrentUser } from "@/hooks/useAuth";
+import { Role } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
 
-export default function UserMenu() {
-  const router = useRouter();
-  const { data: currentUser } = useCurrentUser();
+interface UserMenuProps {
+  currentUser: {
+    id: string;
+    name: string | null;
+    email: string;
+    image: string | null;
+    role: Role;
+  } | null;
+}
 
+export default function UserMenu({ currentUser }: UserMenuProps) {
   const handleSignOut = () => {
     toast.promise(signOut({ callbackUrl: "/" }), {
       loading: "Logging out...",
@@ -27,13 +32,6 @@ export default function UserMenu() {
     });
   };
 
-  useEffect(() => {
-    if (!currentUser) {
-      router.push("/");
-      router.refresh();
-    }
-  }, [currentUser, router]);
-
   return (
     <div>
       <DropdownMenu>
@@ -41,7 +39,7 @@ export default function UserMenu() {
           {currentUser && currentUser.image ? (
             <Image
               alt=""
-              src={currentUser?.image}
+              src={currentUser.image}
               width={30}
               height={30}
               className="rounded-full"
