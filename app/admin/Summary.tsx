@@ -22,7 +22,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Product, User } from "@prisma/client";
+import { useUser } from "@/hooks/useUser";
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 
@@ -36,11 +37,11 @@ const transformData = (products: Product[]) => {
 
 type SummaryType = {
   products: Product[];
-  allUsers: User[];
 };
 
-export default function Summary({ products, allUsers }: SummaryType) {
+export default function Summary({ products }: SummaryType) {
   const chartData = transformData(products);
+  const { data: allUsers } = useUser();
 
   const chartConfig = {
     inStock: {
@@ -64,7 +65,7 @@ export default function Summary({ products, allUsers }: SummaryType) {
         </div>
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">
-            {allUsers.length}
+            {allUsers?.length}
             <br /> Total Users
           </h2>
         </div>

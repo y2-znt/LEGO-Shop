@@ -10,78 +10,42 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Role, User } from "@prisma/client";
-import axios from "axios";
+import {
+  useDeleteUser,
+  useToggleUserRole,
+  useUpdateUser,
+  useUser,
+} from "@/hooks/useUser";
+import { Role } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
-import { toast } from "sonner";
 
-type ManageUsersClientType = {
-  allUsers: User[];
-};
-
-export default function ManageUsersClient({ allUsers }: ManageUsersClientType) {
+export default function ManageUsersClient() {
   const router = useRouter();
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "" });
+  const { data: allUsers } = useUser();
+  const { updateUser } = useUpdateUser();
+  const { deleteUser } = useDeleteUser();
+  const { toggleUserRole } = useToggleUserRole();
 
   const handleToggleRole = async (id: string, currentRole: Role) => {
-    toast("Update user role, please wait...");
-
-    try {
-      let newRole;
-      if (currentRole === "USER") {
-        newRole = "ADMIN";
-      } else {
-        newRole = "USER";
-      }
-      await axios.patch(`/api/users/${id}`, {
-        role: newRole,
-      });
-
-      toast.success("User role updated successfully!");
-      router.refresh();
-    } catch (error) {
-      toast.error("Oops! Something went wrong");
-    }
+    toggleUserRole({ id, currentRole });
   };
 
-  const handleDeleteUser = async (id: string) => {
-    toast("Deleting user, please wait...");
-
-    axios
-      .delete(`/api/users/${id}`)
-      .then((res) => {
-        toast.success("User deleted successfully");
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error("Error deleting user");
-        console.log("Error deleting user", error);
-      });
+  const handleDeleteUser = (id: string) => {
+    deleteUser(id);
   };
 
   const handleEditClick = (id: string, name: string | null) => {
     setEditingId(id);
-    // Pre-filling fields with current product values
     setEditValues({ name: name ?? "" });
   };
 
   const handleSaveClick = async (id: string) => {
-    toast("Update user, please wait...");
-
-    try {
-      await axios.patch(`/api/users/${id}`, {
-        name: editValues.name,
-      });
-
-      toast.success("User updated successfully!");
-      setEditingId("");
-      router.refresh();
-    } catch (error) {
-      toast.error("Oops! Something went wrong");
-    }
+    updateUser({ id, data: { name: editValues.name } });
+    router.refresh();
   };
 
   return (
