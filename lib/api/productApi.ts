@@ -78,10 +78,8 @@ export const deleteProductImage = async (imageUrl: string) => {
 
 export const createProduct = async (data: CreateProductData) => {
   try {
-    // Upload de l'image d'abord
     const imageUrl = await uploadProductImage(data.image);
 
-    // Création du produit avec l'URL de l'image
     const response = await fetch("/api/products", {
       method: "POST",
       headers: {
