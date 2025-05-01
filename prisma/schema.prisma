@@ -2,52 +2,68 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 generator client {
   provider = "prisma-client-js"
 }
-model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  hashedPassword String?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  role          Role            @default(USER)
-  accounts      Account[]
-  orders        Order[]
-}
 
-model Order {
-  id                String          @id @default(cuid())
-  userId            String
-  amount            Float
-  currency          String
-  status            String
-  deliveryStatus    String?
-  paymentIntentId   String          @unique
-  createDate        DateTime        @default(now())
-  products          Product[]
-  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String    @unique
+  emailVerified    DateTime?
+  image            String?
+  hashedPassword   String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  role             Role      @default(USER)
+  accounts         Account[]
+  orders           Order[]
 }
 
 model Product {
-  id            String          @id @default(cuid())
-  name          String
-  price         Float
-  inStock       Boolean
-  image         String
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  orderId       String?
-  order         Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  id        String      @id @default(cuid())
+  name      String
+  price     Float
+  inStock   Boolean
+  image     String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  orderItems OrderItem[]
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  userId            String
+  amount            Float
+  currency          String
+  status            OrderStatus @default(PENDING)
+  checkoutSessionId String?     @unique
+  createdAt         DateTime    @default(now())
+  orderItems        OrderItem[]   @relation("OrderToItems")
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade, name: "OrderToItems")
+  product   Product  @relation(fields: [productId], references: [id])
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+  FAILED
 }
 
 model Account {
@@ -65,20 +81,6 @@ model Account {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@id([provider, providerAccountId])
 }
-
-// addressId         String?         @unique
-// address           Address?        @relation(fields: [addressId], references: [id])
-
-// model Address {
-//   id          String  @id @default(cuid())
-//   city        String
-//   country     String
-//   line1       String
-//   line2       String?
-//   postalCode  String
-//   state       String
-//   order       Order?  @relation
-//   orderId     String? @unique
-// }

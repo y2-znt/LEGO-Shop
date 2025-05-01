@@ -89,7 +89,6 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.cartItems = [];
-      toast.error(`Cart cleared`);
       // Update the LocalStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
