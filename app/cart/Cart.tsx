@@ -18,7 +18,8 @@ import { SafeUser } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
 import { GoTrash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +30,7 @@ interface CartProps {
 }
 
 export default function Cart({ currentUser }: CartProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -54,25 +56,35 @@ export default function Cart({ currentUser }: CartProps) {
   }, [cart, dispatch]);
 
   const handleCheckout = async () => {
+    setIsLoading(true);
+    toast.loading("Checking out...");
+
     if (!currentUser) {
+      setIsLoading(false);
       router.push("/login");
       toast.error("Please login to checkout");
       return;
     }
 
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      body: JSON.stringify({
-        email: currentUser.email,
-        items: cart.cartItems,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        body: JSON.stringify({
+          email: currentUser.email,
+          items: cart.cartItems,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    const { url } = await res.json();
-    window.location.href = url;
+      const { url } = await res.json();
+      window.location.href = url;
+    } catch (error) {
+      toast.error("An error occurred during checkout. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -188,8 +200,19 @@ export default function Cart({ currentUser }: CartProps) {
               <p className="pt-4 text-sm font-medium text-gray-700">
                 Taxes and shipping calculated at checkout
               </p>
-              <Button onClick={handleCheckout} className="mt-3 w-full py-5">
-                Checkout
+              <Button
+                onClick={handleCheckout}
+                className="mt-3 w-full py-5"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <AiOutlineLoading className="mr-2 inline-block animate-spin" />
+                    Checking out...
+                  </>
+                ) : (
+                  "Checkout"
+                )}
               </Button>
               <Link href="/">
                 <div className="mb-24 flex pt-4">
