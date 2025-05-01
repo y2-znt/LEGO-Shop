@@ -46,6 +46,7 @@ export default function Cart({ currentUser }: CartProps) {
 
   const handleClearCart = () => {
     dispatch(clearCart());
+    toast.error(`Cart cleared`);
   };
 
   useEffect(() => {
