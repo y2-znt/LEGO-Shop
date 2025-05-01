@@ -57,7 +57,6 @@ export default function Cart({ currentUser }: CartProps) {
 
   const handleCheckout = async () => {
     setIsLoading(true);
-    toast.loading("Checking out...");
 
     if (!currentUser) {
       setIsLoading(false);
