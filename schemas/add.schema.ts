@@ -7,5 +7,4 @@ export const AddProductFormSchema = z.object({
   image: z.instanceof(File, { message: "Une image est requise" }).nullable(),
 });
 
-// prettier-ignore
 export type AddProductFormData = z.infer<typeof AddProductFormSchema>;

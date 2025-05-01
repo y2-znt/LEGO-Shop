@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/shadcn/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { SafeUser } from "@/types";
 import { signOut } from "next-auth/react";
 import Image from "next/image";

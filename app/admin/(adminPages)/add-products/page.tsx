@@ -1,5 +1,3 @@
-import AccesDenied from "@/components/ui/AccesDenied";
-import { getCurrentUser } from "@/services/user.service";
 import AddProductForm from "./AddProductForm";
 
 export default async function AddProducts() {

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";

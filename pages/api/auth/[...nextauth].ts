@@ -1,4 +1,4 @@
-import prisma from "@/prisma/prismadb";
+import prisma from "@/lib/prisma";
 import { LoginFormData } from "@/schemas/auth.schema";
 import { login } from "@/services/auth.service";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";

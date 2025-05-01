@@ -1,13 +1,13 @@
 "use client";
 import Inputs from "@/components/shared/inputs/inputs";
-import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card";
+} from "@/components/ui/card";
 import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
 import { SafeUser } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";

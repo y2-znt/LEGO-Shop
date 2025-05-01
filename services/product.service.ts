@@ -1,4 +1,4 @@
-import prisma from "@/prisma/prismadb";
+import prisma from "@/lib/prisma";
 
 export const getProducts = async () => {
   const products = await prisma.product.findMany({

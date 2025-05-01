@@ -6,7 +6,6 @@ import { UseFormRegister } from "react-hook-form";
 type CustomCheckBoxType = {
   id: string;
   label: string;
-  // prettier-ignore
   register: UseFormRegister<AddProductFormData>;
 };
 

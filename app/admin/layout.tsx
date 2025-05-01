@@ -1,5 +1,5 @@
+import AccesDenied from "@/components/shared/admin/AccesDenied";
 import AdminNav from "@/components/shared/admin/AdminNav";
-import AccesDenied from "@/components/ui/AccesDenied";
 import { getCurrentUser } from "@/services/user.service";
 import { LayoutProps } from "@/types";
 

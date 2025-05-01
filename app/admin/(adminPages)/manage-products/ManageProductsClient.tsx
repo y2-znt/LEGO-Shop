@@ -1,8 +1,17 @@
 "use client";
 
-import ActionBtn from "@/components/ui/ActionBtn";
-import Status from "@/components/ui/Status";
-import firebaseApp from "@/prisma/firebase";
+import ActionBtn from "@/components/shared/admin/ActionBtn";
+import Status from "@/components/shared/admin/Status";
+import {
+  Table,
+  TableCaption,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
+import firebaseApp from "@/lib/firebase";
 import { Product } from "@prisma/client";
 import axios from "axios";
 import { deleteObject, getStorage, ref } from "firebase/storage";
@@ -11,15 +20,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 import { toast } from "sonner";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../../../components/ui/shadcn/table";
 
 type ManageProductsClientType = {
   products: Product[];

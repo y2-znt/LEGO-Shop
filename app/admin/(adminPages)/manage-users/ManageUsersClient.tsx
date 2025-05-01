@@ -1,5 +1,6 @@
 "use client";
-import ActionBtn from "@/components/ui/ActionBtn";
+import ActionBtn from "@/components/shared/admin/ActionBtn";
+import Status from "@/components/shared/admin/Status";
 import {
   Table,
   TableBody,
@@ -8,8 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/shadcn/table";
-import Status from "@/components/ui/Status";
+} from "@/components/ui/table";
 import { Role, User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";

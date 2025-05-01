@@ -2,15 +2,15 @@
 import CustomCheckBox from "@/components/shared/inputs/CustomCheckBox";
 import Inputs from "@/components/shared/inputs/inputs";
 import SelectImage from "@/components/shared/inputs/SelectImage";
-import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card";
-import firebaseApp from "@/prisma/firebase";
+} from "@/components/ui/card";
+import firebaseApp from "@/lib/firebase";
 import { AddProductFormData, AddProductFormSchema } from "@/schemas/add.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -50,24 +50,19 @@ export default function AddProductForm() {
     setValue("image", file);
   };
 
-  // prettier-ignore
   const onSubmit: SubmitHandler<AddProductFormData> = async (data) => {
     setIsLoading(true);
-    
+
     if (!data.image) {
       setIsLoading(false);
       return toast.error("No selected image!");
     }
 
-
-
     const handleImageUpload = async () => {
       toast("Creating LEGO, please wait...");
       try {
-       
         const item = data.image;
-        //@ts-ignore
-        const filename = new Date().getTime() + "-" + item.name ;
+        const filename = new Date().getTime() + "-" + item?.name;
         const storage = getStorage(firebaseApp);
         const storageRef = ref(storage, `product/${filename}`);
         const uploadTask = uploadBytesResumable(storageRef, item as File);

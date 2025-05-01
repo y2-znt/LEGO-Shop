@@ -1,4 +1,4 @@
-import prisma from "@/prisma/prismadb";
+import prisma from "@/lib/prisma";
 import { getSession } from "./auth.service";
 
 export const getAllUsers = async () => {

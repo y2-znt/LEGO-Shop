@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/shadcn/button";
-import { Confetti } from "@/components/ui/shadcn/confetti";
+import { Button } from "@/components/ui/button";
+import { Confetti } from "@/components/ui/confetti";
 import { clearCart } from "@/redux/features/cartSlice";
 import Image from "next/image";
 import Link from "next/link";

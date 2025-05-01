@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/shadcn/input";
-import { Label } from "@/components/ui/shadcn/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -51,7 +51,7 @@ const Inputs = <T extends FieldValues>({
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className={`absolute bottom-[1.2rem] right-0 flex items-center pr-3 text-sm text-gray-500 ${
+          className={`absolute right-0 bottom-[1.2rem] flex items-center pr-3 text-sm text-gray-500 ${
             errors[id] ? "mb-5" : ""
           }`}
         >

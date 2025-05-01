@@ -7,13 +7,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card";
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/shadcn/chart";
+} from "@/components/ui/chart";
 import {
   Table,
   TableBody,
@@ -21,7 +21,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/shadcn/table";
+} from "@/components/ui/table";
 import { Product, User } from "@prisma/client";
 import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
@@ -92,11 +92,11 @@ export default function Summary({ products, allUsers }: SummaryType) {
               overview for each LEGO
             </CardDescription>
             <div className="flex items-center justify-center gap-5">
-              <div className="flex flex-row items-center gap-2 text-center text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex flex-row items-center gap-2 text-center text-sm">
                 <span className="h-4 w-10 rounded-sm bg-[#ffcd56]"></span>In
                 Stock
               </div>
-              <div className="flex flex-row items-center gap-2 text-center text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex flex-row items-center gap-2 text-center text-sm">
                 <span className="h-4 w-10 rounded-sm bg-[#ff6384]"></span>Out of
                 Stock
               </div>
@@ -133,7 +133,7 @@ export default function Summary({ products, allUsers }: SummaryType) {
             </ChartContainer>
           </CardContent>
           <CardFooter className="flex-col items-start gap-2 text-sm">
-            <div className="leading-none text-muted-foreground">
+            <div className="text-muted-foreground leading-none">
               Showing overview of LEGO
             </div>
           </CardFooter>

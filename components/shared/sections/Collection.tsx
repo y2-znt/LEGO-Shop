@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card";
+} from "@/components/ui/card";
 import { addToCart } from "@/redux/features/cartSlice";
 import { addToFav, removeFromFav } from "@/redux/features/favSlice";
 import { Product } from "@prisma/client";
@@ -55,7 +55,7 @@ export default function Collection({ products }: CollectionType) {
                 <Card className="rounded-lg" key={product.id}>
                   {!product.inStock && (
                     <div className="flex items-center justify-end">
-                      <div className="absolute -mr-4 mt-8 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
+                      <div className="absolute mt-8 -mr-4 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
                         Out of stock
                       </div>
                     </div>

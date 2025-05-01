@@ -39,8 +39,8 @@ The website will allow users to browse a collection of LEGO, add them to their c
   - User authentication with credentials, Google, and GitHub accounts ✅
   - Admin dashboard (CRUD) ✅
   - Utilize PostgreSQL to store and manage user data and product information ✅
+  - Integrate Stripe for handling online payments securely ✅
   - Order management ⏳
-  - Integrate Stripe for handling online payments securely ⏳
 - Gain practical experience with Next.js, state management, databases, and other modern web development technologies.
 
 ## Getting Started

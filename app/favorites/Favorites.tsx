@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card";
+} from "@/components/ui/card";
 import { addToCart } from "@/redux/features/cartSlice";
 import { removeFromFav } from "@/redux/features/favSlice";
 import Image from "next/image";

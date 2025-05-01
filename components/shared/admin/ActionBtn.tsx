@@ -1,6 +1,6 @@
 import React from "react";
 import { IconType } from "react-icons/lib";
-import { Button } from "./shadcn/button";
+import { Button } from "../../ui/button";
 
 type ActionBtnType = {
   icon: IconType;

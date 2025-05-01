@@ -12,14 +12,14 @@ import { BsGithub } from "react-icons/bs";
 import { toast } from "sonner";
 
 import Inputs from "@/components/shared/inputs/inputs";
-import { Button } from "@/components/ui/shadcn/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card";
+} from "@/components/ui/card";
 import { RegisterFormData, RegisterFormSchema } from "@/schemas/auth.schema";
 import { SafeUser } from "@/types";
 

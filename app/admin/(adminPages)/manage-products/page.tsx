@@ -1,6 +1,4 @@
-import AccesDenied from "@/components/ui/AccesDenied";
 import { getProducts } from "@/services/product.service";
-import { getCurrentUser } from "@/services/user.service";
 import ManageProductsClient from "./ManageProductsClient";
 
 export const revalidate = 0;

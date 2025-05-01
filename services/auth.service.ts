@@ -1,5 +1,5 @@
+import prisma from "@/lib/prisma";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import prisma from "@/prisma/prismadb";
 import {
   LoginFormData,
   LoginFormSchema,
