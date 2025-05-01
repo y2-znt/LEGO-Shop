@@ -1,11 +1,24 @@
 import firebaseApp from "@/lib/firebase";
 import { Product } from "@prisma/client";
-import { deleteObject, getStorage, ref } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 interface UpdateProductData {
   name?: string;
   price?: number;
   inStock?: boolean;
+}
+
+interface CreateProductData {
+  name: string;
+  price: string | number;
+  inStock: boolean;
+  image: File;
 }
 
 export const getAllProducts = async (): Promise<Product[]> => {
@@ -71,6 +84,68 @@ export const deleteProductImage = async (imageUrl: string) => {
     return true;
   } catch (error) {
     console.error("Error deleting image from Firebase Storage:", error);
+    throw error;
+  }
+};
+
+export const createProduct = async (data: CreateProductData) => {
+  try {
+    // Upload de l'image d'abord
+    const imageUrl = await uploadProductImage(data.image);
+
+    // Création du produit avec l'URL de l'image
+    const response = await fetch("/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+        image: imageUrl,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error creating product");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating product:", error);
+    throw error;
+  }
+};
+
+export const uploadProductImage = async (image: File) => {
+  try {
+    const filename = new Date().getTime() + "-" + image.name;
+    const storage = getStorage(firebaseApp);
+    const storageRef = ref(storage, `product/${filename}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+
+    const downloadURL = await new Promise<string>((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          console.error("Error uploading image:", error);
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then((downloadURL) => resolve(downloadURL))
+            .catch((error) => reject(error));
+        },
+      );
+    });
+
+    return downloadURL;
+  } catch (error) {
+    console.error("Error handling image upload", error);
     throw error;
   }
 };

@@ -10,24 +10,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import firebaseApp from "@/lib/firebase";
+import { useCreateProduct } from "@/hooks/useProduct";
 import { AddProductFormData, AddProductFormSchema } from "@/schemas/add.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
 
 export default function AddProductForm() {
-  const [isLoading, setIsLoading] = useState(false);
   const [resetFlag, setResetFlag] = useState(false);
+  const { createProduct, isLoading } = useCreateProduct();
 
   const {
     register,
@@ -50,89 +43,27 @@ export default function AddProductForm() {
     setValue("image", file);
   };
 
-  const onSubmit: SubmitHandler<AddProductFormData> = async (data) => {
-    setIsLoading(true);
-
+  const onSubmit: SubmitHandler<AddProductFormData> = (data) => {
     if (!data.image) {
-      setIsLoading(false);
       return toast.error("No selected image!");
     }
 
-    const handleImageUpload = async () => {
-      toast("Creating LEGO, please wait...");
-      try {
-        const item = data.image;
-        const filename = new Date().getTime() + "-" + item?.name;
-        const storage = getStorage(firebaseApp);
-        const storageRef = ref(storage, `product/${filename}`);
-        const uploadTask = uploadBytesResumable(storageRef, item as File);
-        const downloadURL = await new Promise<string>((resolve, reject) => {
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("Upload is " + progress + "% done");
-              switch (snapshot.state) {
-                case "paused":
-                  console.log("Upload is paused");
-                  break;
-                case "running":
-                  console.log("Upload is running");
-                  break;
-              }
-            },
-            (error) => {
-              console.log("Error uploading image : ", error);
-              reject(error);
-            },
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref)
-                .then((downloadURL) => {
-                  console.log("File available at :", downloadURL);
-                  resolve(downloadURL);
-                })
-                .catch((error) => {
-                  console.log("Error getting the download URL : ", error);
-                  reject(error);
-                });
-            },
-          );
-        });
-
-        return downloadURL;
-      } catch (error) {
-        setIsLoading(false);
-        console.log("Error handling image upload", error);
-        toast.error("Error handling image upload");
-        throw error;
-      }
-    };
-
-    const imageUrl = await handleImageUpload();
-    const productData = { ...data, image: imageUrl };
-    console.log("productData:", productData);
-
-    axios
-      .post("/api/products", productData)
-      .then(() => {
-        toast.success("LEGO created successfully");
-        setValue("image", new File([], ""));
-        reset();
-        setResetFlag(false); // Reset to initial state
-        setTimeout(() => {
-          setResetFlag(true); // Toggle after a delay
-        }, 0);
-      })
-      .catch((error) => {
-        toast.error(
-          "Something went wrong when saving the product to db",
-          error,
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    createProduct(
+      {
+        name: data.name,
+        price: data.price,
+        inStock: data.inStock,
+        image: data.image,
+      },
+      {
+        onSuccess: () => {
+          setValue("image", new File([], ""));
+          reset();
+          setResetFlag(false);
+          setTimeout(() => setResetFlag(true), 0);
+        },
+      },
+    );
   };
 
   return (
@@ -173,7 +104,11 @@ export default function AddProductForm() {
             handleFileChange={handleFileChange}
             resetFlag={resetFlag}
           />
-          <Button className="my-4 w-full" onClick={handleSubmit(onSubmit)}>
+          <Button
+            className="my-4 w-full"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isLoading}
+          >
             {isLoading ? (
               <>
                 <AiOutlineLoading className="mr-2 inline-block animate-spin" />

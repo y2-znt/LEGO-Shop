@@ -1,4 +1,5 @@
 import {
+  createProduct,
   deleteProduct,
   deleteProductImage,
   getAllProducts,
@@ -14,6 +15,13 @@ interface UpdateProductData {
   inStock?: boolean;
 }
 
+interface CreateProductData {
+  name: string;
+  price: string | number;
+  inStock: boolean;
+  image: File;
+}
+
 export const useProduct = () => {
   return useQuery({
     queryKey: ["products"],
@@ -22,6 +30,39 @@ export const useProduct = () => {
       return products;
     },
   });
+};
+
+export const useCreateProduct = () => {
+  const queryClient = useQueryClient();
+
+  const createProductMutation = useMutation({
+    mutationFn: async (data: CreateProductData) => {
+      return await createProduct(data);
+    },
+    onMutate: () => {
+      const toastId = toast.loading("Creating LEGO, please wait...");
+      return { toastId };
+    },
+    onSuccess: (_, __, context) => {
+      if (context?.toastId) {
+        toast.dismiss(context.toastId);
+      }
+      toast.success("LEGO created successfully");
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+    onError: (error: Error, _, context) => {
+      if (context?.toastId) {
+        toast.dismiss(context.toastId);
+      }
+      toast.error("Error creating LEGO");
+      console.error("Error creating LEGO:", error);
+    },
+  });
+
+  return {
+    createProduct: createProductMutation.mutate,
+    isLoading: createProductMutation.isPending,
+  };
 };
 
 export const useUpdateProduct = () => {
