@@ -8,66 +8,62 @@ generator client {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String    @unique
-  emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  role           Role      @default(USER)
-  accounts       Account[]
-  orders         Order[]
-  cart           Cart?
-}
-
-model Cart {
-  id        String     @id @default(cuid())
-  userId    String     @unique
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     CartItem[]
-}
-
-model CartItem {
-  id        String   @id @default(cuid())
-  cartId    String
-  productId String
-  quantity  Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  @@unique([cartId, productId])
+  id               String    @id @default(cuid())
+  name             String?
+  email            String    @unique
+  emailVerified    DateTime?
+  image            String?
+  hashedPassword   String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  role             Role      @default(USER)
+  accounts         Account[]
+  orders           Order[]
 }
 
 model Product {
-  id        String     @id @default(cuid())
+  id        String      @id @default(cuid())
   name      String
   price     Float
   inStock   Boolean
   image     String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  orderId   String?
-  order     Order?     @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  cartItems CartItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  orderItems OrderItem[]
 }
 
 model Order {
-  id              String    @id @default(cuid())
-  userId          String
-  amount          Float
-  currency        String
-  status          String
-  deliveryStatus  String?
-  paymentIntentId String    @unique
-  createDate      DateTime  @default(now())
-  products        Product[]
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String      @id @default(cuid())
+  userId            String
+  amount            Float
+  currency          String
+  status            OrderStatus @default(PENDING)
+  checkoutSessionId String?     @unique
+  createdAt         DateTime    @default(now())
+  orderItems        OrderItem[]   @relation("OrderToItems")
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade, name: "OrderToItems")
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+  FAILED
 }
 
 model Account {
@@ -87,9 +83,4 @@ model Account {
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
-}
-
-enum Role {
-  USER
-  ADMIN
 }
