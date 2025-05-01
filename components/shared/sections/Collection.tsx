@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useProduct } from "@/hooks/useProduct";
 import { addToCart } from "@/redux/features/cartSlice";
 import { addToFav, removeFromFav } from "@/redux/features/favSlice";
 import { Product } from "@prisma/client";
@@ -16,11 +17,8 @@ import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { IoBag } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 
-type CollectionType = {
-  products: Product[];
-};
-
-export default function Collection({ products }: CollectionType) {
+export default function Collection() {
+  const { data: products } = useProduct();
   const favItems = useSelector((state: any) => state.favorite.favItems);
   const dispatch = useDispatch();
 

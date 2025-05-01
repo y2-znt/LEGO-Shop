@@ -30,8 +30,9 @@ export default function ManageUsersClient() {
   const { deleteUser } = useDeleteUser();
   const { toggleUserRole } = useToggleUserRole();
 
-  const handleToggleRole = async (id: string, currentRole: Role) => {
+  const handleToggleRole = (id: string, currentRole: Role) => {
     toggleUserRole({ id, currentRole });
+    router.refresh();
   };
 
   const handleDeleteUser = (id: string) => {
@@ -43,7 +44,7 @@ export default function ManageUsersClient() {
     setEditValues({ name: name ?? "" });
   };
 
-  const handleSaveClick = async (id: string) => {
+  const handleSaveClick = (id: string) => {
     updateUser({ id, data: { name: editValues.name } });
     router.refresh();
   };
