@@ -1,25 +1,17 @@
 "use client";
-import QuantityButtons from "@/components/shared/QuantityButtons";
+import CartItemCard from "@/components/shared/cart/CartItemCard";
+import PageState from "@/components/shared/PageState";
 import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { useCurrentUser } from "@/hooks/useAuth";
 import { useCartActions } from "@/hooks/useCartActions";
 import { createCheckoutSession } from "@/lib/api/checkoutApi";
 import { CartItem, useCartStore } from "@/stores/CartStore";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
-import { GoTrash } from "react-icons/go";
 import { toast } from "sonner";
 
 export default function Cart() {
@@ -57,28 +49,12 @@ export default function Cart() {
     <div>
       <Title text="Shopping Cart" />
       {items.length === 0 ? (
-        <div>
-          <div className="m-12 flex flex-col items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
-            <Image
-              src="/assets/cart-empty.jpg"
-              alt=""
-              width={1000}
-              height={1000}
-              className="w-1/2 max-sm:w-full"
-            ></Image>
-            Your cart is currently empty.
-            <Link href="/">
-              <div className="flex pt-4">
-                <Button size="lg">
-                  <span className="pr-2">
-                    <BsArrowLeft />
-                  </span>
-                  <p>Continue shopping</p>
-                </Button>
-              </div>
-            </Link>
-          </div>
-        </div>
+        <PageState
+          title="Your cart is currently empty."
+          imagePath="/assets/cart-empty.jpg"
+          buttonText="Continue shopping"
+          showButton={true}
+        />
       ) : (
         <div className="mx-8 space-y-10">
           <ul className="grid grid-cols-4 pt-12 max-sm:hidden">
@@ -88,54 +64,14 @@ export default function Cart() {
             <li className="flex justify-self-end">TOTAL</li>
           </ul>
           <div>
-            {items.map((item: CartItem, index: number) => (
-              <div
-                key={index}
-                className="my-4 grid grid-cols-4 items-center max-sm:grid-cols-1"
-              >
-                <div>
-                  <Card className="rounded-xl">
-                    <CardTitle className="pt-5 pl-5 text-xl font-bold">
-                      <p>{item.name}</p>
-                    </CardTitle>
-                    <CardHeader>
-                      <figure className="flex h-32 justify-center">
-                        <Image
-                          className="w-24"
-                          src={item.image}
-                          alt=""
-                          width={1000}
-                          height={1000}
-                        ></Image>
-                      </figure>
-                      <CardDescription></CardDescription>
-                    </CardHeader>
-                    <CardFooter className="flex justify-end py-8">
-                      <Button
-                        onClick={() => remove(item)}
-                        className="bg-transparent text-gray-700 hover:text-black"
-                      >
-                        Remove
-                        <span className="pl-2">
-                          <GoTrash color="red" />
-                        </span>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </div>
-                <div className="pl-32 max-lg:pl-12 max-sm:absolute max-sm:mt-14 max-sm:ml-6 max-sm:pl-0">
-                  ${item.price.toFixed(2)}
-                </div>
-                <QuantityButtons
-                  quantity={item.quantity}
-                  onIncrease={() => increase(item)}
-                  onDecrease={() => decrease(item)}
-                  className="ml-32 max-lg:ml-12 max-sm:m-6 max-sm:w-52"
-                />
-                <div className="justify-self-end max-sm:p-12 max-sm:pt-0">
-                  <div>${(item.price * item.quantity).toFixed(2)}</div>
-                </div>
-              </div>
+            {items.map((item: CartItem) => (
+              <CartItemCard
+                key={item.id}
+                item={item}
+                onRemove={remove}
+                onIncrease={increase}
+                onDecrease={decrease}
+              />
             ))}
           </div>
           <div className="flex items-start justify-between border-t pt-8 pl-2 max-sm:flex-col max-sm:items-center max-sm:justify-center">
