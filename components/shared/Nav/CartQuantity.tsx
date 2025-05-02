@@ -1,10 +1,9 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useCartStore } from "@/stores/CartStore";
 
 export default function CartQuantity() {
-  const { cartTotalQuantity } = useSelector((state: any) => state.cart);
-
+  const cartTotalQuantity = useCartStore((state) => state.getTotalQuantity());
   return (
     <div>
       {cartTotalQuantity > 0 && (
