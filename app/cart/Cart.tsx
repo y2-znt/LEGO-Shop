@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { useCurrentUser } from "@/hooks/useAuth";
 import { useCartActions } from "@/hooks/useCartActions";
+import { createCheckoutSession } from "@/lib/api/checkoutApi";
 import { CartItem, useCartStore } from "@/stores/CartStore";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,18 +39,10 @@ export default function Cart() {
     }
 
     try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        body: JSON.stringify({
-          email: currentUser.email,
-          items: items,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const { url } = await createCheckoutSession({
+        email: currentUser.email,
+        items: items,
       });
-
-      const { url } = await res.json();
       window.location.href = url;
     } catch (error) {
       toast.error("An error occurred during checkout. Please try again.");
