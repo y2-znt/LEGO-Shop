@@ -1,5 +1,6 @@
 "use client";
 
+import Title from "@/components/shared/Title";
 import {
   Card,
   CardContent,
@@ -54,7 +55,7 @@ export default function Summary() {
 
   return (
     <div>
-      <h1 className="text-4xl max-md:text-3xl max-sm:text-[1.7rem]">Summary</h1>
+      <Title text="Summary" />
       <div className="mt-10 grid grid-cols-2 gap-4 max-sm:grid-cols-1">
         <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
           <h2 className="text-2xl">

@@ -1,5 +1,7 @@
 "use client";
 
+import OutOfStock from "@/components/shared/OutOfStock";
+import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,23 +27,15 @@ export default function Collection() {
 
   return (
     <div>
-      <h1 className="pt-24 text-3xl font-bold max-sm:text-[1.7rem] lg:text-4xl">
-        New Collection
-      </h1>
-      <div className="pt-16">
+      <Title text="New Collection" className="pt-16" />
+      <div className="py-16">
         <div className="grid grid-cols-3 gap-20 max-lg:gap-5 max-md:grid-cols-2 max-sm:grid-cols-1">
           {products &&
             products.map((product) => {
               const isFavorite = items.some((item) => item.id === product.id);
               return (
                 <Card className="rounded-lg" key={product.id}>
-                  {!product.inStock && (
-                    <div className="flex items-center justify-end">
-                      <div className="absolute mt-8 -mr-4 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
-                        Out of stock
-                      </div>
-                    </div>
-                  )}
+                  {!product.inStock && <OutOfStock />}
                   <CardHeader className="flex flex-row justify-between p-8">
                     <CardTitle className="text-xl font-bold">
                       {product.name.toUpperCase()}
@@ -74,11 +68,7 @@ export default function Collection() {
                   <CardFooter className="flex justify-between py-12 font-bold">
                     ${product.price}
                     {product.inStock && (
-                      <Button
-                        onClick={() => addToCart(product)}
-                        size="default"
-                        className="text-md rounded-xl max-md:text-sm"
-                      >
+                      <Button onClick={() => addToCart(product)}>
                         Add to cart
                         <IoBag size={25} className="pl-2" />
                       </Button>

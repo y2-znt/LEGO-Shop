@@ -1,3 +1,4 @@
+import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { BsArrowLeft } from "react-icons/bs";
 export default function notfound() {
   return (
     <div>
-      <p className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">Not Found :/</p>
+      <Title text="Not Found :/" />
       <div className="m-12 flex flex-col items-center text-3xl font-bold text-gray-700 max-sm:text-[1.7rem]">
         <Image
           src="/assets/favorite-empty.webp"
@@ -18,7 +19,7 @@ export default function notfound() {
         Page not found :/
         <Link href="/">
           <div className="flex pt-4">
-            <Button size="lg" className="text-base">
+            <Button size="lg">
               <span className="pr-2">
                 <BsArrowLeft />
               </span>

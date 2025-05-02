@@ -2,6 +2,7 @@
 
 import ActionBtn from "@/components/shared/admin/ActionBtn";
 import Status from "@/components/shared/admin/Status";
+import Title from "@/components/shared/Title";
 import {
   Table,
   TableBody,
@@ -62,9 +63,7 @@ export default function ManageProductsClient() {
 
   return (
     <div>
-      <h1 className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">
-        Manage Products
-      </h1>
+      <Title text="Manage Products" />
       <Table className="mt-10">
         <TableCaption>A list of your products.</TableCaption>
         <TableHeader>

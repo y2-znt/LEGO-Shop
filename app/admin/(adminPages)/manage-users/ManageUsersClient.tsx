@@ -1,6 +1,7 @@
 "use client";
 import ActionBtn from "@/components/shared/admin/ActionBtn";
 import Status from "@/components/shared/admin/Status";
+import Title from "@/components/shared/Title";
 import {
   Table,
   TableBody,
@@ -51,9 +52,7 @@ export default function ManageUsersClient() {
 
   return (
     <div>
-      <h1 className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">
-        Manage Users
-      </h1>
+      <Title text="Manage Users" />
       <Table className="mt-10">
         <TableCaption>A list of your users.</TableCaption>
         <TableHeader>

@@ -1,4 +1,5 @@
 "use client";
+import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -53,9 +54,7 @@ export default function Cart() {
 
   return (
     <div>
-      <p className="text-3xl font-bold max-sm:text-[1.7rem] lg:text-4xl">
-        Shopping Cart
-      </p>
+      <Title text="Shopping Cart" />
       {items.length === 0 ? (
         <div>
           <div className="m-12 flex flex-col items-center text-3xl text-gray-700 max-sm:text-[1.7rem]">
@@ -69,7 +68,7 @@ export default function Cart() {
             Your cart is currently empty.
             <Link href="/">
               <div className="flex pt-4">
-                <Button size="lg" className="text-base font-bold">
+                <Button size="lg">
                   <span className="pr-2">
                     <BsArrowLeft />
                   </span>

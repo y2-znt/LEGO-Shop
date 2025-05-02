@@ -1,5 +1,7 @@
 "use client";
 
+import OutOfStock from "@/components/shared/OutOfStock";
+import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +26,7 @@ export default function Favorites() {
 
   return (
     <div>
-      <p className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">Favorites</p>
+      <Title text="Favorites" />
       <div>
         {items.length === 0 ? (
           <div>
@@ -39,7 +41,7 @@ export default function Favorites() {
               You have not favorites LEGO.
               <Link href="/">
                 <div className="flex pt-4">
-                  <Button size="lg" className="text-base">
+                  <Button size="lg">
                     <span className="pr-2">
                       <BsArrowLeft />
                     </span>
@@ -55,13 +57,7 @@ export default function Favorites() {
               <div key={index}>
                 <div>
                   <Card className="rounded-lg" key={index}>
-                    {!favItem.inStock && (
-                      <div className="flex items-center justify-end">
-                        <div className="absolute mt-6 -mr-4 rotate-[20deg] rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white">
-                          Out of stock
-                        </div>
-                      </div>
-                    )}
+                    {!favItem.inStock && <OutOfStock />}
                     <CardTitle className="flex justify-between p-8 text-xl font-bold">
                       {favItem.name}
                       <span
@@ -86,11 +82,7 @@ export default function Favorites() {
                     <CardFooter className="flex justify-between py-12 font-bold">
                       ${favItem.price}
                       {favItem.inStock && (
-                        <Button
-                          onClick={() => addToCart(favItem)}
-                          size="default"
-                          className="text-md rounded-xl max-md:text-sm"
-                        >
+                        <Button onClick={() => addToCart(favItem)}>
                           Add to cart
                           <IoBag size={25} className="pl-2" />
                         </Button>
