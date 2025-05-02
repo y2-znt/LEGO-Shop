@@ -10,7 +10,7 @@ The website will allow users to browse a collection of LEGO, add them to their c
 ### Frontend
 
 - **TailwindCSS**: A utility-first CSS framework for quickly styling web applications.
-- **Redux Toolkit**: A set of tools and best practices for managing application state in Redux
+- **Zustand**: A state management library for React, providing a simple and efficient way to manage application state.
 - **React Hook Form**: A library for easy and efficient form management in React applications.
 - **Zod**: A TypeScript-first schema declaration and validation library, used for validating and parsing user input.
 
