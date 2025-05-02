@@ -2,19 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { Confetti } from "@/components/ui/confetti";
-import { clearCart } from "@/redux/features/cartSlice";
+import { useCartActions } from "@/hooks/useCartActions";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { useDispatch } from "react-redux";
 
 export default function Success() {
-  const dispatch = useDispatch();
+  const { clearOnSuccess } = useCartActions();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    dispatch(clearCart());
-  }, [dispatch]);
+    clearOnSuccess();
+    setShowConfetti(true);
+  }, []);
 
   return (
     <div>
@@ -29,9 +30,11 @@ export default function Success() {
             width={1000}
             height={1000}
             className="w-1/2 pb-12 max-sm:w-full"
-          ></Image>
+          />
           <p>Thank you for your purchase!</p>
-          <Confetti className="pointer-events-none absolute top-0 left-0 z-0 size-full" />
+          {showConfetti && (
+            <Confetti className="pointer-events-none absolute top-0 left-0 z-0 size-full" />
+          )}
           <Link href="/">
             <div className="flex pt-4">
               <Button size="lg" className="text-base">
