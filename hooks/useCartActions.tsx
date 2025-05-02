@@ -8,9 +8,13 @@ export const useCartActions = () => {
     useCartStore();
 
   return {
-    add: (product: Product | FavoriteItem) => {
+    add: (product: Product) => {
       addToCart({ ...product, quantity: 1 });
       toast.success(`${product.name} added to cart 🧺`);
+    },
+    addFromFavorite: (favoriteItem: FavoriteItem) => {
+      addToCart({ ...favoriteItem, quantity: 1 });
+      toast.success(`${favoriteItem.name} added to cart 🧺`);
     },
     remove: (item: CartItem) => {
       removeFromCart(item.id);

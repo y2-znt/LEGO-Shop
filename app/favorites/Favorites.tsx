@@ -20,7 +20,7 @@ import { IoBag } from "react-icons/io5";
 export default function Favorites() {
   const { items } = useFavoriteStore();
   const { remove: removeFavorite } = useFavoriteActions();
-  const { add: addToCart } = useCartActions();
+  const { addFromFavorite: addToCart } = useCartActions();
 
   return (
     <div>
