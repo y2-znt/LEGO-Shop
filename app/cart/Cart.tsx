@@ -1,4 +1,5 @@
 "use client";
+import QuantityButtons from "@/components/shared/QuantityButtons";
 import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import {
@@ -125,15 +126,12 @@ export default function Cart() {
                 <div className="pl-32 max-lg:pl-12 max-sm:absolute max-sm:mt-14 max-sm:ml-6 max-sm:pl-0">
                   ${item.price.toFixed(2)}
                 </div>
-                <div className="ml-32 flex w-40 max-w-full items-start justify-center rounded-lg bg-[#FFD300] py-2 max-lg:ml-12 max-sm:m-6 max-sm:w-52">
-                  <button onClick={() => decrease(item)} className="px-8">
-                    <span className="rounded-full px-3 py-1 text-xl">-</span>
-                  </button>
-                  <div>{item.quantity}</div>
-                  <button onClick={() => increase(item)} className="px-8">
-                    <span className="rounded-full px-3 py-1 text-xl">+</span>
-                  </button>
-                </div>
+                <QuantityButtons
+                  quantity={item.quantity}
+                  onIncrease={() => increase(item)}
+                  onDecrease={() => decrease(item)}
+                  className="ml-32 max-lg:ml-12 max-sm:m-6 max-sm:w-52"
+                />
                 <div className="justify-self-end max-sm:p-12 max-sm:pt-0">
                   <div>${(item.price * item.quantity).toFixed(2)}</div>
                 </div>

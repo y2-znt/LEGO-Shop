@@ -1,5 +1,6 @@
 "use client";
 
+import StatsCard from "@/components/shared/admin/StatsCard";
 import Title from "@/components/shared/Title";
 import {
   Card,
@@ -57,30 +58,19 @@ export default function Summary() {
     <div>
       <Title text="Summary" />
       <div className="mt-10 grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
-          <h2 className="text-2xl">
-            {products?.length ?? 0} <br /> Total LEGO
-          </h2>
-        </div>
-        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
-          <h2 className="text-2xl">
-            {allUsers?.length ?? 0}
-            <br /> Total Users
-          </h2>
-        </div>
-        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
-          <h2 className="text-2xl">
-            {products?.filter((product) => product.inStock).length ?? 0}
-            <br /> LEGO in Stock
-          </h2>
-        </div>
-        <div className="rounded-lg border p-8 text-center transition-all hover:bg-gray-100">
-          <h2 className="text-2xl">
-            {(products?.length ?? 0) -
-              (products?.filter((product) => product.inStock).length ?? 0)}
-            <br /> LEGO out of Stock
-          </h2>
-        </div>
+        <StatsCard value={products?.length ?? 0} label="Total LEGO" />
+        <StatsCard value={allUsers?.length ?? 0} label="Total Users" />
+        <StatsCard
+          value={products?.filter((product) => product.inStock).length ?? 0}
+          label="LEGO in Stock"
+        />
+        <StatsCard
+          value={
+            (products?.length ?? 0) -
+            (products?.filter((product) => product.inStock).length ?? 0)
+          }
+          label="LEGO out of Stock"
+        />
       </div>
       <div className="mt-20">
         <Card>
