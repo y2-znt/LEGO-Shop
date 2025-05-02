@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     }
 
     const lineItems = items.map((item: any) => {
-      if (!item.name || !item.price || !item.cartQuantity) {
+      if (!item.name || !item.price || !item.quantity) {
         throw new Error("Invalid item data");
       }
       return {
@@ -27,9 +27,9 @@ export async function POST(request: Request) {
             name: item.name,
             images: item.image ? [item.image] : [],
           },
-          unit_amount: Math.round(item.price * 100), // Convert to cents
+          unit_amount: Math.round(item.price * 100),
         },
-        quantity: item.cartQuantity, // Use cartQuantity from Redux store
+        quantity: item.quantity,
       };
     });
 
