@@ -8,33 +8,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { addToCart } from "@/redux/features/cartSlice";
-import { removeFromFav } from "@/redux/features/favSlice";
+import { useCartActions } from "@/hooks/useCartActions";
+import { useFavoriteActions } from "@/hooks/useFavoriteActions";
+import { FavoriteItem, useFavoriteStore } from "@/stores/FavoriteStore";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoIosHeart } from "react-icons/io";
 import { IoBag } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function Favorites() {
-  const favorite = useSelector((state: any) => state.favorite);
-
-  const dispatch = useDispatch();
-
-  const handleAddToCart = (favItem: any) => {
-    dispatch(addToCart(favItem));
-  };
-
-  const handleRemoveFav = (favItem: any) => {
-    dispatch(removeFromFav(favItem));
-  };
+  const { items } = useFavoriteStore();
+  const { remove: removeFavorite } = useFavoriteActions();
+  const { add: addToCart } = useCartActions();
 
   return (
     <div>
       <p className="text-3xl max-sm:text-[1.7rem] lg:text-4xl">Favorites</p>
       <div>
-        {favorite.favItems.length === 0 ? (
+        {items.length === 0 ? (
           <div>
             <div className="m-12 flex flex-col items-center text-3xl font-bold text-gray-700 max-sm:text-[1.7rem]">
               <Image
@@ -59,7 +51,7 @@ export default function Favorites() {
           </div>
         ) : (
           <div className="grid grid-cols-3 gap-20 pt-14 max-lg:gap-5 max-md:grid-cols-2 max-sm:grid-cols-1">
-            {favorite.favItems.map((favItem: any, index: number) => (
+            {items.map((favItem: FavoriteItem, index: number) => (
               <div key={index}>
                 <div>
                   <Card className="rounded-lg" key={index}>
@@ -74,7 +66,7 @@ export default function Favorites() {
                       {favItem.name}
                       <span
                         className="cursor-pointer"
-                        onClick={() => handleRemoveFav(favItem)}
+                        onClick={() => removeFavorite(favItem)}
                       >
                         <IoIosHeart color="red" size={25} />
                       </span>
@@ -95,7 +87,7 @@ export default function Favorites() {
                       ${favItem.price}
                       {favItem.inStock && (
                         <Button
-                          onClick={() => handleAddToCart(favItem)}
+                          onClick={() => addToCart(favItem)}
                           size="default"
                           className="text-md rounded-xl max-md:text-sm"
                         >

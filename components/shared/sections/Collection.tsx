@@ -8,37 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useCartActions } from "@/hooks/useCartActions"; // Updated import
+import { useFavoriteActions } from "@/hooks/useFavoriteActions";
 import { useProduct } from "@/hooks/useProduct";
-import { addToFav, removeFromFav } from "@/redux/features/favSlice";
-import { useCartStore } from "@/stores/CartStore";
-import { Product } from "@prisma/client";
+import { useFavoriteStore } from "@/stores/FavoriteStore";
 import Image from "next/image";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { IoBag } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "sonner";
 
 export default function Collection() {
   const { data: products } = useProduct();
-  const addToCart = useCartStore((state) => state.addToCart);
-  const favItems = useSelector((state: any) => state.favorite.favItems);
-  const dispatch = useDispatch();
 
-  const handleAddToCart = (product: Product) => {
-    addToCart({ ...product, quantity: 1 });
-    toast.success(`${product.name} added to cart 🧺`);
-  };
-
-  const toggleFavorite = (product: Product) => {
-    const isAlreadyFavorite = favItems.some(
-      (item: any) => item.id === product.id,
-    );
-    if (isAlreadyFavorite) {
-      dispatch(removeFromFav(product));
-    } else {
-      dispatch(addToFav(product));
-    }
-  };
+  const { add: addFavorite, remove: removeFavorite } = useFavoriteActions();
+  const { add: addToCart } = useCartActions();
+  const { items } = useFavoriteStore();
 
   return (
     <div>
@@ -49,9 +32,7 @@ export default function Collection() {
         <div className="grid grid-cols-3 gap-20 max-lg:gap-5 max-md:grid-cols-2 max-sm:grid-cols-1">
           {products &&
             products.map((product) => {
-              const isFavorite = favItems.some(
-                (item: any) => item.id === product.id,
-              );
+              const isFavorite = items.some((item) => item.id === product.id);
               return (
                 <Card className="rounded-lg" key={product.id}>
                   {!product.inStock && (
@@ -67,7 +48,11 @@ export default function Collection() {
                     </CardTitle>
                     <span
                       className="cursor-pointer"
-                      onClick={() => toggleFavorite(product)}
+                      onClick={() =>
+                        isFavorite
+                          ? removeFavorite(product)
+                          : addFavorite(product)
+                      }
                     >
                       {isFavorite ? (
                         <IoIosHeart color="red" size={25} />
@@ -90,7 +75,7 @@ export default function Collection() {
                     ${product.price}
                     {product.inStock && (
                       <Button
-                        onClick={() => handleAddToCart(product)}
+                        onClick={() => addToCart(product)}
                         size="default"
                         className="text-md rounded-xl max-md:text-sm"
                       >

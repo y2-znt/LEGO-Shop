@@ -1,4 +1,5 @@
 import { CartItem, useCartStore } from "@/stores/CartStore";
+import { FavoriteItem } from "@/stores/FavoriteStore";
 import { Product } from "@prisma/client";
 import { toast } from "sonner";
 
@@ -7,7 +8,7 @@ export const useCartActions = () => {
     useCartStore();
 
   return {
-    add: (product: Product) => {
+    add: (product: Product | FavoriteItem) => {
       addToCart({ ...product, quantity: 1 });
       toast.success(`${product.name} added to cart 🧺`);
     },
