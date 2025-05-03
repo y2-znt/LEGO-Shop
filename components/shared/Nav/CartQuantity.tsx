@@ -1,9 +1,20 @@
 "use client";
 
 import { useCartStore } from "@/stores/CartStore";
+import { useEffect, useState } from "react";
 
 export default function CartQuantity() {
+  const [mounted, setMounted] = useState(false);
   const cartTotalQuantity = useCartStore((state) => state.getTotalQuantity());
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div>
       {cartTotalQuantity > 0 && (
