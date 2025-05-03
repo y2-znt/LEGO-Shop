@@ -58,7 +58,8 @@ export default function ManageProductsClient() {
         price: parseFloat(editValues.price),
       },
     });
-    router.refresh();
+    setEditingId("");
+    setEditValues({ name: "", price: "" });
   };
 
   return (

@@ -33,7 +33,6 @@ export default function ManageUsersClient() {
 
   const handleToggleRole = (id: string, currentRole: Role) => {
     toggleUserRole({ id, currentRole });
-    router.refresh();
   };
 
   const handleDeleteUser = (id: string) => {
@@ -47,7 +46,8 @@ export default function ManageUsersClient() {
 
   const handleSaveClick = (id: string) => {
     updateUser({ id, data: { name: editValues.name } });
-    router.refresh();
+    setEditingId("");
+    setEditValues({ name: "" });
   };
 
   return (
