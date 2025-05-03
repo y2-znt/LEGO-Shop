@@ -2,8 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
@@ -17,14 +15,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCurrentUser, useProviderLogin, useRegister } from "@/hooks/useAuth";
+import { useProviderLogin, useRegister } from "@/hooks/useAuth";
 import { RegisterFormData, RegisterFormSchema } from "@/schemas/auth.schema";
 
 export default function RegisterForm() {
-  const router = useRouter();
   const { register: registerUser, isLoading } = useRegister();
   const { loginWithProvider } = useProviderLogin();
-  const { data: currentUser } = useCurrentUser();
 
   const {
     register,
@@ -42,13 +38,6 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
     registerUser(data);
   };
-
-  useEffect(() => {
-    if (currentUser) {
-      router.push("/");
-      router.refresh();
-    }
-  }, [currentUser, router]);
 
   return (
     <div className="pt-6">
