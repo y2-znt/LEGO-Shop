@@ -18,12 +18,10 @@ import {
   useUser,
 } from "@/hooks/useUser";
 import { Role } from "@prisma/client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
 export default function ManageUsersClient() {
-  const router = useRouter();
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "" });
   const { data: allUsers } = useUser();

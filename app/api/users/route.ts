@@ -1,4 +1,3 @@
-
 import { getAllUsers } from "@/services/user.service";
 import { NextRequest, NextResponse } from "next/server";
 

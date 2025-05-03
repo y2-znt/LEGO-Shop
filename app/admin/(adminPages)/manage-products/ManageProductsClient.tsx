@@ -20,12 +20,10 @@ import {
   useUpdateProduct,
 } from "@/hooks/useProduct";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
 export default function ManageProductsClient() {
-  const router = useRouter();
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "", price: "" });
   const { data: products } = useProduct();
@@ -36,13 +34,11 @@ export default function ManageProductsClient() {
 
   const handleToggleStock = (id: string, inStock: boolean) => {
     toggleStock({ id, inStock });
-    router.refresh();
   };
 
   const handleDeleteProduct = (id: string, image: string) => {
     deleteProductImage(image);
     deleteProduct(id);
-    router.refresh();
   };
 
   const handleEditClick = (id: string, name: string, price: number) => {
