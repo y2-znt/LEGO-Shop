@@ -5,17 +5,26 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
-
   const pathname = request.nextUrl.pathname;
 
-  // Auth routes
+  // Auth routes - Redirect to home if already logged in
   if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
     if (token) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
 
-  // Admin routes
+  // Protected routes - Require authentication
+  if (
+    pathname.startsWith("/api/checkout") ||
+    pathname.startsWith("/api/stripe")
+  ) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  // Admin only routes
   if (
     pathname.startsWith("/api/users") ||
     pathname.startsWith("/api/products")
@@ -37,7 +46,9 @@ export const config = {
     "/login",
     "/register",
     "/admin/:path*",
-    "/api/users",
-    "/api/products",
+    "/api/users/:path*",
+    "/api/products/:path*",
+    "/api/checkout/:path*",
+    "/api/stripe/:path*",
   ],
 };
