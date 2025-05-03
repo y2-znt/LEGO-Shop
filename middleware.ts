@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const pathname = request.nextUrl.pathname;
+  const method = request.method;
 
   // Auth routes - Redirect to home if already logged in
   if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
@@ -25,10 +26,18 @@ export async function middleware(request: NextRequest) {
   }
 
   // Admin only routes
-  if (
-    pathname.startsWith("/api/users") ||
-    pathname.startsWith("/api/products")
-  ) {
+  if (pathname.startsWith("/api/users")) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    if (token.role !== Role.ADMIN) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  // Admin only routes for non-GET methods on /api/products
+  if (pathname.startsWith("/api/products") && method !== "GET") {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
