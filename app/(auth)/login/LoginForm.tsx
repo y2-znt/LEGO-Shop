@@ -8,22 +8,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCurrentUser, useLogin, useProviderLogin } from "@/hooks/useAuth";
+import { useLogin, useProviderLogin } from "@/hooks/useAuth";
 import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
 
 export default function LoginForm() {
-  const router = useRouter();
   const { login, isLoading } = useLogin();
   const { loginWithProvider } = useProviderLogin();
-  const { data: currentUser } = useCurrentUser();
   const {
     register,
     handleSubmit,
@@ -39,13 +35,6 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
     login(data);
   };
-
-  useEffect(() => {
-    if (currentUser) {
-      router.push("/");
-      router.refresh();
-    }
-  }, [currentUser, router]);
 
   return (
     <div className="pt-6">
