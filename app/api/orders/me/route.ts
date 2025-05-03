@@ -3,7 +3,7 @@ import { getOrdersByCurrentUser } from "@/services/order.service";
 import { NextResponse } from "next/server";
 
 /**
- * @route GET /api/orders
+ * @route GET /api/orders/me
  * @description Get orders for the current user
  * @returns {order[]} The list of orders for the current user
  */
