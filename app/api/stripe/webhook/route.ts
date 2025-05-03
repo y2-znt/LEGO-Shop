@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 // Route segment configuration
@@ -13,9 +13,9 @@ export const dynamic = "force-dynamic";
  * @description Handle Stripe webhook events, primarily for processing completed checkout sessions
  * @returns {object} Confirmation of webhook processing
  */
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.text();
-  const signature = headers().get("Stripe-Signature");
+  const signature = (await headers()).get("Stripe-Signature");
 
   if (!signature) {
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });
