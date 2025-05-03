@@ -1,6 +1,7 @@
-import { getAllOrders } from "@/lib/api/orderApi";
+import { deleteOrderForCurrentUser, getAllOrders } from "@/lib/api/orderApi";
 import { OrderDetails } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export const useOrder = () => {
   return useQuery<OrderDetails[]>({
@@ -10,4 +11,36 @@ export const useOrder = () => {
       return orders;
     },
   });
+};
+
+export const useDeleteOrderForCurrentUser = () => {
+  const queryClient = useQueryClient();
+
+  const deleteOrderMutation = useMutation({
+    mutationFn: async (orderId: string) => {
+      return await deleteOrderForCurrentUser(orderId);
+    },
+    onMutate: () => {
+      const toastId = toast.loading("Deleting order, please wait...");
+      return { toastId };
+    },
+    onSuccess: (_, __, context) => {
+      if (context?.toastId) {
+        toast.dismiss(context.toastId);
+      }
+      toast.success("Order deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["me/orders"] });
+    },
+    onError: (error: Error, _, context) => {
+      if (context?.toastId) {
+        toast.dismiss(context.toastId);
+      }
+      toast.error("Error deleting order");
+      console.error("Error deleting order:", error);
+    },
+  });
+
+  return {
+    deleteOrder: deleteOrderMutation.mutate,
+  };
 };

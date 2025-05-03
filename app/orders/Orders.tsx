@@ -1,5 +1,6 @@
 "use client";
 
+import ActionBtn from "@/components/shared/admin/ActionBtn";
 import PageState from "@/components/shared/PageState";
 import Title from "@/components/shared/Title";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,12 +13,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useCurrentUser } from "@/hooks/useAuth";
-import { useOrder } from "@/hooks/useOrder";
+import { useDeleteOrderForCurrentUser, useOrder } from "@/hooks/useOrder";
 import Image from "next/image";
+import { MdDelete } from "react-icons/md";
 
 export default function Orders() {
   const { data: currentUser } = useCurrentUser();
   const { data: orders, isError } = useOrder();
+  const { deleteOrder } = useDeleteOrderForCurrentUser();
 
   if (!currentUser) {
     return (
@@ -92,7 +95,7 @@ export default function Orders() {
                     {order.orderItems.length === 0 ? (
                       <TableRow>
                         <TableCell
-                          colSpan={3}
+                          colSpan={4}
                           className="text-muted-foreground py-4 text-center"
                         >
                           Products no longer available
@@ -138,6 +141,12 @@ export default function Orders() {
                     <span>Total</span>
                     <span>${order.amount.toFixed(2)}</span>
                   </div>
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <ActionBtn
+                    icon={MdDelete}
+                    onClick={() => deleteOrder(order.id)}
+                  />
                 </div>
               </div>
             </CardContent>
