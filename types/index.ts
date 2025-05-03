@@ -1,4 +1,4 @@
-import { Role } from "@prisma/client";
+import { OrderStatus, Role } from "@prisma/client";
 
 export interface UpdateUserData {
   name?: string;
@@ -16,4 +16,21 @@ export interface CreateProductData {
   price: string | number;
   inStock: boolean;
   image: File;
+}
+
+export interface OrderDetails {
+  id: string;
+  status: OrderStatus;
+  amount: number;
+  createdAt: Date;
+  orderItems: {
+    id: string;
+    quantity: number;
+    product: {
+      id: string;
+      name: string;
+      price: number;
+      image: string;
+    };
+  }[];
 }
