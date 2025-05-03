@@ -1,15 +1,15 @@
 import { stripe } from "@/lib/stripe";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @route POST /api/checkout
  * @description Create a Stripe checkout session
- * @param {Request} request - The request object
+ * @param {NextRequest} req - The request object
  * @returns {NextResponse} - A response containing the URL of the created Stripe session
  */
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await req.json();
     const { items, email } = body;
 
     if (!items || items.length === 0) {

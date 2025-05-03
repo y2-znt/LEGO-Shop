@@ -1,5 +1,5 @@
 import { deleteUser, updateUser } from "@/services/user.service";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * @route PATCH /api/users/:id
@@ -8,10 +8,10 @@ import { NextResponse } from "next/server";
  * @returns {user} The updated user
  */
 export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } },
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return NextResponse.json({ error: "User ID is required" }, { status: 400 });
@@ -36,10 +36,10 @@ export async function PATCH(
  * @returns {user} The deleted user
  */
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } },
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return NextResponse.json({ error: "User ID is required" }, { status: 400 });

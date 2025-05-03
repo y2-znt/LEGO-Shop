@@ -1,13 +1,12 @@
+import { getAllUsers } from "@/services/user.service";
+import { NextRequest, NextResponse } from "next/server";
+
 /**
  * @route GET /api/users
  * @description Get all users
  * @returns {User[]} The list of users
  */
-
-import { getAllUsers } from "@/services/user.service";
-import { NextResponse } from "next/server";
-
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const users = await getAllUsers();
     return NextResponse.json(users);

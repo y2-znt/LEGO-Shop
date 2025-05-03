@@ -18,12 +18,10 @@ import {
   useUser,
 } from "@/hooks/useUser";
 import { Role } from "@prisma/client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
 export default function ManageUsersClient() {
-  const router = useRouter();
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "" });
   const { data: allUsers } = useUser();
@@ -33,7 +31,6 @@ export default function ManageUsersClient() {
 
   const handleToggleRole = (id: string, currentRole: Role) => {
     toggleUserRole({ id, currentRole });
-    router.refresh();
   };
 
   const handleDeleteUser = (id: string) => {
@@ -47,7 +44,8 @@ export default function ManageUsersClient() {
 
   const handleSaveClick = (id: string) => {
     updateUser({ id, data: { name: editValues.name } });
-    router.refresh();
+    setEditingId("");
+    setEditValues({ name: "" });
   };
 
   return (
