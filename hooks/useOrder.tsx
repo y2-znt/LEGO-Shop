@@ -1,13 +1,16 @@
-import { deleteOrderForCurrentUser, getAllOrders } from "@/lib/api/orderApi";
+import {
+  deleteOrderForCurrentUser,
+  getAllOrdersForCurrentUser,
+} from "@/lib/api/orderApi";
 import { OrderDetails } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const useOrder = () => {
+export const useOrderForCurrentUser = () => {
   return useQuery<OrderDetails[]>({
     queryKey: ["me/orders"],
     queryFn: async () => {
-      const orders = await getAllOrders();
+      const orders = await getAllOrdersForCurrentUser();
       return orders;
     },
   });

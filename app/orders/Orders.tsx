@@ -12,27 +12,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useCurrentUser } from "@/hooks/useAuth";
-import { useDeleteOrderForCurrentUser, useOrder } from "@/hooks/useOrder";
+import {
+  useDeleteOrderForCurrentUser,
+  useOrderForCurrentUser,
+} from "@/hooks/useOrder";
 import Image from "next/image";
 import { MdDelete } from "react-icons/md";
 
 export default function Orders() {
-  const { data: currentUser } = useCurrentUser();
-  const { data: orders, isError } = useOrder();
+  const { data: orders } = useOrderForCurrentUser();
   const { deleteOrder } = useDeleteOrderForCurrentUser();
-
-  if (!currentUser) {
-    return (
-      <div>
-        <Title text="My Orders" />
-        <PageState
-          title="Please login to view your orders"
-          imagePath="/assets/favorite-empty.webp"
-        />
-      </div>
-    );
-  }
 
   if (orders?.length === 0) {
     return (
@@ -40,7 +29,8 @@ export default function Orders() {
         <Title text="My Orders" />
         <PageState
           title="No orders found"
-          imagePath="/assets/favorite-empty.webp"
+          imagePath="/assets/no-orders.png"
+          imageWidth="size-1/3"
         />
       </div>
     );
@@ -49,7 +39,7 @@ export default function Orders() {
   return (
     <div className="mx-auto max-w-4xl">
       <Title text="My Orders" />
-      <div className="mt-4 space-y-8">
+      <div className="space-y-8 py-16">
         {orders?.map((order) => (
           <Card key={order.id} className="overflow-hidden">
             <CardContent className="p-6">

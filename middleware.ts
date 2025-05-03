@@ -18,7 +18,8 @@ export async function middleware(request: NextRequest) {
   // Protected routes - Require authentication
   if (
     pathname.startsWith("/api/checkout") ||
-    pathname.startsWith("/api/orders/me")
+    pathname.startsWith("/api/orders/me") ||
+    pathname.startsWith("/orders")
   ) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
@@ -59,5 +60,6 @@ export const config = {
     "/api/products/:path*",
     "/api/checkout/:path*",
     "/api/orders/me/:path*",
+    "/orders",
   ],
 };

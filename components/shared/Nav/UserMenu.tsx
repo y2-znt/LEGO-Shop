@@ -58,7 +58,7 @@ export default function UserMenu({ currentUser }: UserMenuProps) {
           {currentUser ? (
             <>
               <Link href="/orders">
-                <DropdownMenuItem>Your orders</DropdownMenuItem>
+                <DropdownMenuItem>My Orders</DropdownMenuItem>
               </Link>
               {currentUser.role === "ADMIN" && (
                 <Link href="/admin">

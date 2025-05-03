@@ -1,6 +1,6 @@
 import { OrderDetails } from "@/types";
 
-export const getAllOrders = async (): Promise<OrderDetails[]> => {
+export const getAllOrdersForCurrentUser = async (): Promise<OrderDetails[]> => {
   try {
     const response = await fetch("/api/orders/me");
     if (!response.ok) {
