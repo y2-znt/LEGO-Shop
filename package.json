@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write .",
+    "test": "echo \"No tests yet\"",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
