@@ -3,7 +3,7 @@ import CartItemCard from "@/components/shared/cart/CartItemCard";
 import PageState from "@/components/shared/PageState";
 import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/useAuth";
+import { useCurrentUser } from "@/features/auth/hooks/useAuth";
 import { useCartActions } from "@/hooks/useCartActions";
 import { createCheckoutSession } from "@/lib/api/checkoutApi";
 import { CartItem, useCartStore } from "@/stores/CartStore";

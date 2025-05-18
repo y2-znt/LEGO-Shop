@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useProviderLogin, useRegister } from "@/hooks/useAuth";
+import { useProviderLogin, useRegister } from "@/features/auth/hooks/useAuth";
 import { RegisterFormData, RegisterFormSchema } from "@/schemas/auth.schema";
 
 export default function RegisterForm() {

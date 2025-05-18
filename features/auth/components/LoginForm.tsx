@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useLogin, useProviderLogin } from "@/hooks/useAuth";
+import { useLogin, useProviderLogin } from "@/features/auth/hooks/useAuth";
 import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
