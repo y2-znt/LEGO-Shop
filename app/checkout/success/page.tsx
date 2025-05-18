@@ -1,5 +1,5 @@
-import Success from "./Success";
+import SuccessView from "@/features/checkout/views/SuccessView";
 
 export default function PaymentSuccess() {
-  return <Success />;
+  return <SuccessView />;
 }
