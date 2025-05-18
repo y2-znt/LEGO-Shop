@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/features/auth/hooks/useAuth";
 import CartItemCard from "@/features/cart/components/CartItemCard";
 import { useCartActions } from "@/features/cart/hooks/useCartActions";
-import { createCheckoutSession } from "@/lib/api/checkoutApi";
+import { createCheckoutSession } from "@/features/cart/lib/checkoutApi";
 import { CartItem, useCartStore } from "@/stores/CartStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
