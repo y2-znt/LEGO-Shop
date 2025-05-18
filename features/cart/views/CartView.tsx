@@ -1,10 +1,10 @@
 "use client";
-import CartItemCard from "@/components/shared/cart/CartItemCard";
 import PageState from "@/components/shared/PageState";
 import Title from "@/components/shared/Title";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/features/auth/hooks/useAuth";
-import { useCartActions } from "@/hooks/useCartActions";
+import CartItemCard from "@/features/cart/components/CartItemCard";
+import { useCartActions } from "@/features/cart/hooks/useCartActions";
 import { createCheckoutSession } from "@/lib/api/checkoutApi";
 import { CartItem, useCartStore } from "@/stores/CartStore";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import { AiOutlineLoading } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
 import { toast } from "sonner";
 
-export default function Cart() {
+export default function CartView() {
   const [isLoading, setIsLoading] = useState(false);
   const { items, getTotalPrice } = useCartStore();
   const { remove, increase, decrease, clear } = useCartActions();

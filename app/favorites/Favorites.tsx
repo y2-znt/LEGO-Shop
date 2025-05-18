@@ -3,7 +3,7 @@
 import PageState from "@/components/shared/PageState";
 import ProductCard from "@/components/shared/ProductCard";
 import Title from "@/components/shared/Title";
-import { useCartActions } from "@/hooks/useCartActions";
+import { useCartActions } from "@/features/cart/hooks/useCartActions";
 import { useFavoriteActions } from "@/hooks/useFavoriteActions";
 import { FavoriteItem, useFavoriteStore } from "@/stores/FavoriteStore";
 
