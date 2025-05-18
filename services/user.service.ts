@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { getSession } from "./auth.service";
 
 export const getAllUsers = async () => {
   return prisma.user.findMany({

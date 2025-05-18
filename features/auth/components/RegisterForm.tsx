@@ -16,7 +16,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useProviderLogin, useRegister } from "@/features/auth/hooks/useAuth";
-import { RegisterFormData, RegisterFormSchema } from "@/schemas/auth.schema";
+import {
+  RegisterFormData,
+  RegisterFormSchema,
+} from "@/features/auth/schemas/auth.schema";
 
 export default function RegisterForm() {
   const { register: registerUser, isLoading } = useRegister();

@@ -9,7 +9,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useLogin, useProviderLogin } from "@/features/auth/hooks/useAuth";
-import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
+import {
+  LoginFormData,
+  LoginFormSchema,
+} from "@/features/auth/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";

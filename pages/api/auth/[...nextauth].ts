@@ -1,5 +1,5 @@
+import { LoginFormData } from "@/features/auth/schemas/auth.schema";
 import prisma from "@/lib/prisma";
-import { LoginFormData } from "@/schemas/auth.schema";
 import { login } from "@/services/auth.service";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { AuthOptions } from "next-auth";

@@ -4,7 +4,10 @@ import {
   loginWithProvider,
   registerUser,
 } from "@/features/auth/lib/authApi";
-import { LoginFormData, RegisterFormData } from "@/schemas/auth.schema";
+import {
+  LoginFormData,
+  RegisterFormData,
+} from "@/features/auth/schemas/auth.schema";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
