@@ -1,7 +1,7 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import { AddProductFormData } from "@/schemas/add.schema";
+import { AddProductFormData } from "@/features/admin/schemas/product.schema";
 import { UseFormRegister } from "react-hook-form";
 
 export type CustomCheckBoxType = {

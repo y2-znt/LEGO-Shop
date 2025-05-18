@@ -1,6 +1,4 @@
 "use client";
-import ActionBtn from "@/components/shared/admin/ActionBtn";
-import Status from "@/components/shared/admin/Status";
 import Title from "@/components/shared/Title";
 import {
   Table,
@@ -11,17 +9,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import ActionBtn from "@/features/admin/components/ActionBtn";
+import Status from "@/features/admin/components/Status";
 import {
   useDeleteUser,
   useToggleUserRole,
   useUpdateUser,
   useUser,
-} from "@/hooks/useUser";
+} from "@/features/admin/hooks/useUser";
 import { Role } from "@prisma/client";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
-export default function ManageUsersClient() {
+export default function ManageUsersView() {
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "" });
   const { data: allUsers } = useUser();

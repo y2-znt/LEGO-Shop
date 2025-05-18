@@ -5,7 +5,7 @@ import {
   getAllProducts,
   toggleStock,
   updateProduct,
-} from "@/lib/api/productApi";
+} from "@/features/admin/lib/productApi";
 import { CreateProductData, UpdateProductData } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";

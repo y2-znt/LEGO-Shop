@@ -1,7 +1,7 @@
 import {
   deleteOrderForCurrentUser,
   getAllOrdersForCurrentUser,
-} from "@/lib/api/orderApi";
+} from "@/features/orders/lib/orderApi";
 import { OrderDetails } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";

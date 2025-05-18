@@ -1,7 +1,5 @@
 "use client";
 
-import ActionBtn from "@/components/shared/admin/ActionBtn";
-import Status from "@/components/shared/admin/Status";
 import Title from "@/components/shared/Title";
 import {
   Table,
@@ -12,18 +10,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import ActionBtn from "@/features/admin/components/ActionBtn";
+import Status from "@/features/admin/components/Status";
 import {
   useDeleteProduct,
   useDeleteProductImage,
   useProduct,
   useToggleStock,
   useUpdateProduct,
-} from "@/hooks/useProduct";
+} from "@/features/admin/hooks/useProduct";
 import Image from "next/image";
 import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
-export default function ManageProductsClient() {
+export default function ManageProductsView() {
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "", price: "" });
   const { data: products } = useProduct();

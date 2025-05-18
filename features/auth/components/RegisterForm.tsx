@@ -1,4 +1,11 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
+import { BsGithub } from "react-icons/bs";
+
 import Inputs from "@/components/shared/inputs/inputs";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,48 +15,57 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useLogin, useProviderLogin } from "@/hooks/useAuth";
-import { LoginFormData, LoginFormSchema } from "@/schemas/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { AiOutlineLoading } from "react-icons/ai";
-import { BsGithub } from "react-icons/bs";
+import { useProviderLogin, useRegister } from "@/features/auth/hooks/useAuth";
+import {
+  RegisterFormData,
+  RegisterFormSchema,
+} from "@/features/auth/schemas/auth.schema";
 
-export default function LoginForm() {
-  const { login, isLoading } = useLogin();
+export default function RegisterForm() {
+  const { register: registerUser, isLoading } = useRegister();
   const { loginWithProvider } = useProviderLogin();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(LoginFormSchema),
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
       email: "",
+      name: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-    login(data);
+  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
+    registerUser(data);
   };
 
   return (
     <div className="pt-6">
       <Card className="mx-auto max-w-sm">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Login</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            Create an account
+          </CardTitle>
           <CardDescription>
-            Enter your email and password to login to your account
+            Enter your name, email and password to register your account
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Inputs
-            id="email"
+            id="name"
+            label="Name"
             disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <Inputs
+            id="email"
             label="Email"
+            disabled={isLoading}
             register={register}
             errors={errors}
             required
@@ -61,38 +77,37 @@ export default function LoginForm() {
             label="Password"
             register={register}
             errors={errors}
-            required
             type="password"
           />
-          <Button onClick={handleSubmit(onSubmit)} className="mt-4 w-full">
+          <Button className="mt-4 w-full" onClick={handleSubmit(onSubmit)}>
             {isLoading ? (
               <>
                 <AiOutlineLoading className="mr-2 inline-block animate-spin" />
-                Logging in...
+                Signing up...
               </>
             ) : (
-              "Login"
+              "Sign Up"
             )}
           </Button>
-          <div className="p-6 text-center text-xs font-semibold text-gray-600">
+          <div className="p-6 text-center text-xs text-gray-600">
             OR CONTINUE WITH
           </div>
           <Button
-            className="w-full border bg-transparent text-sm"
+            className="w-full gap-3 border bg-transparent px-7"
             onClick={() => loginWithProvider("google")}
           >
-            <span className="pr-2">
+            <span>
               <Image
                 src="/assets/GOOGLE-icon.png"
                 width={20}
                 height={20}
                 alt="google icon"
-              ></Image>
+              ></Image>{" "}
             </span>
             Google
           </Button>
           <Button
-            className="mt-4 w-full gap-3 border bg-transparent px-7 font-semibold text-black"
+            className="mt-4 w-full gap-3 border bg-transparent px-7"
             onClick={() => loginWithProvider("github")}
           >
             <span>
@@ -101,9 +116,9 @@ export default function LoginForm() {
             Github
           </Button>
           <p className="pt-4 text-center text-sm font-semibold">
-            Do not have an account?{" "}
-            <Link href="/register" className="underline">
-              Sign Up
+            Already a account?{" "}
+            <Link href="/login" className="underline">
+              Log in
             </Link>
           </p>
         </CardContent>

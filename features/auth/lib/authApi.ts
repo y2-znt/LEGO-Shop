@@ -1,4 +1,7 @@
-import { LoginFormData, RegisterFormData } from "@/schemas/auth.schema";
+import {
+  LoginFormData,
+  RegisterFormData,
+} from "@/features/auth/schemas/auth.schema";
 import { User } from "@prisma/client";
 import { signIn } from "next-auth/react";
 

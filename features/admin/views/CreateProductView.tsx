@@ -10,15 +10,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCreateProduct } from "@/hooks/useProduct";
-import { AddProductFormData, AddProductFormSchema } from "@/schemas/add.schema";
+import { useCreateProduct } from "@/features/admin/hooks/useProduct";
+import {
+  AddProductFormData,
+  AddProductFormSchema,
+} from "@/features/admin/schemas/product.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
 
-export default function AddProductForm() {
+export default function CreateProductView() {
   const [resetFlag, setResetFlag] = useState(false);
   const { createProduct, isLoading } = useCreateProduct();
 

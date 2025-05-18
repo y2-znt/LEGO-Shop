@@ -1,6 +1,5 @@
 "use client";
 
-import ActionBtn from "@/components/shared/admin/ActionBtn";
 import PageState from "@/components/shared/PageState";
 import Title from "@/components/shared/Title";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,14 +11,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import ActionBtn from "@/features/admin/components/ActionBtn";
 import {
   useDeleteOrderForCurrentUser,
   useOrderForCurrentUser,
-} from "@/hooks/useOrder";
+} from "@/features/orders/hooks/useOrder";
 import Image from "next/image";
 import { MdDelete } from "react-icons/md";
 
-export default function Orders() {
+export default function OrdersView() {
   const { data: orders } = useOrderForCurrentUser();
   const { deleteOrder } = useDeleteOrderForCurrentUser();
 

@@ -3,10 +3,10 @@
 import PageState from "@/components/shared/PageState";
 import Title from "@/components/shared/Title";
 import { Confetti } from "@/components/ui/confetti";
-import { useCartActions } from "@/hooks/useCartActions";
+import { useCartActions } from "@/features/cart/hooks/useCartActions";
 import { useEffect, useState } from "react";
 
-export default function Success() {
+export default function SuccessView() {
   const { clearOnSuccess } = useCartActions();
   const [showConfetti, setShowConfetti] = useState(false);
 

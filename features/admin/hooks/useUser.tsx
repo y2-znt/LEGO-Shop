@@ -3,7 +3,7 @@ import {
   getUsers,
   toggleUserRole,
   updateUser,
-} from "@/lib/api/userApi";
+} from "@/features/admin/lib/userApi";
 import { UpdateUserData } from "@/types";
 import { Role } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

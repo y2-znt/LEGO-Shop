@@ -1,5 +1,5 @@
-import ManageUsersClient from "./ManageUsersClient";
+import ManageUsersView from "@/features/admin/views/ManageUsersView";
 
 export default async function page() {
-  return <ManageUsersClient />;
+  return <ManageUsersView />;
 }
