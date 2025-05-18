@@ -1,6 +1,5 @@
 "use client";
 
-import StatsCard from "@/components/shared/admin/StatsCard";
 import Title from "@/components/shared/Title";
 import {
   Card,
@@ -24,8 +23,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useProduct } from "@/hooks/useProduct";
-import { useUser } from "@/hooks/useUser";
+import StatsCard from "@/features/admin/components/StatsCard";
+import { useProduct } from "@/features/admin/hooks/useProduct";
+import { useUser } from "@/features/admin/hooks/useUser";
 import { Product } from "@prisma/client";
 import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
@@ -38,7 +38,7 @@ const transformData = (products: Product[]) => {
   }));
 };
 
-export default function Summary() {
+export default function SummaryView() {
   const { data: allUsers } = useUser();
   const { data: products } = useProduct();
   const chartData = transformData(products ?? []);

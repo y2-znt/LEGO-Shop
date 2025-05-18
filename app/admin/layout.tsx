@@ -1,5 +1,5 @@
-import AccesDenied from "@/components/shared/admin/AccesDenied";
-import AdminNav from "@/components/shared/admin/AdminNav";
+import AccesDenied from "@/features/admin/components/AccesDenied";
+import AdminNav from "@/features/admin/components/AdminNav";
 import { getCurrentUser } from "@/services/auth.service";
 import { ReactNode } from "react";
 

@@ -1,9 +1,9 @@
-import AddProductForm from "./AddProductForm";
+import CreateProductView from "@/features/admin/views/CreateProductView";
 
 export default async function AddProducts() {
   return (
     <div>
-      <AddProductForm />
+      <CreateProductView />
     </div>
   );
 }
