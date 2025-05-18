@@ -4,10 +4,10 @@ import PageState from "@/components/shared/PageState";
 import ProductCard from "@/components/shared/ProductCard";
 import Title from "@/components/shared/Title";
 import { useCartActions } from "@/features/cart/hooks/useCartActions";
-import { useFavoriteActions } from "@/hooks/useFavoriteActions";
+import { useFavoriteActions } from "@/features/favorites/hooks/useFavoriteActions";
 import { FavoriteItem, useFavoriteStore } from "@/stores/FavoriteStore";
 
-export default function Favorites() {
+export default function FavoritesView() {
   const { items } = useFavoriteStore();
   const { remove: removeFavorite } = useFavoriteActions();
   const { addFromFavorite: addToCart } = useCartActions();

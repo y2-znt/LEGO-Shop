@@ -1,5 +1,5 @@
-import Favorites from "./Favorites";
+import FavoritesView from "../../features/favorites/views/FavoritesView";
 
 export default async function page() {
-  return <Favorites />;
+  return <FavoritesView />;
 }
