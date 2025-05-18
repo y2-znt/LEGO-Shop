@@ -1,5 +1,5 @@
-import Orders from "./Orders";
+import OrdersView from "@/features/orders/views/OrdersView";
 
 export default function OrdersPage() {
-  return <Orders />;
+  return <OrdersView />;
 }

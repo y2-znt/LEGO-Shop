@@ -15,11 +15,11 @@ import ActionBtn from "@/features/admin/components/ActionBtn";
 import {
   useDeleteOrderForCurrentUser,
   useOrderForCurrentUser,
-} from "@/hooks/useOrder";
+} from "@/features/orders/hooks/useOrder";
 import Image from "next/image";
 import { MdDelete } from "react-icons/md";
 
-export default function Orders() {
+export default function OrdersView() {
   const { data: orders } = useOrderForCurrentUser();
   const { deleteOrder } = useDeleteOrderForCurrentUser();
 
