@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Admin only routes
-  if (pathname.startsWith("/api/users")) {
+  if (pathname.startsWith("/api/users") || pathname.startsWith("/api/orders")) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
@@ -58,6 +58,7 @@ export const config = {
     "/admin/:path*",
     "/api/users/:path*",
     "/api/products/:path*",
+    "/api/orders/:path*",
     "/api/checkout/:path*",
     "/api/orders/me/:path*",
     "/orders",
