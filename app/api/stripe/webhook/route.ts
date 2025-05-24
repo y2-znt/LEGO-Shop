@@ -1,8 +1,9 @@
-import prisma from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+
+import prisma from "@/lib/prisma";
+import { stripe } from "@/lib/stripe";
 
 // Route segment configuration
 export const runtime = "nodejs";
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
     const event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!,
+      process.env.STRIPE_WEBHOOK_SECRET!
     );
 
     if (event.type === "checkout.session.completed") {
@@ -33,12 +34,12 @@ export async function POST(req: NextRequest) {
 
       if (!session.customer_email || !session.amount_total) {
         throw new Error(
-          "Missing required session fields: customer_email or amount_total",
+          "Missing required session fields: customer_email or amount_total"
         );
       }
 
       const lineItems = await stripe.checkout.sessions.listLineItems(
-        session.id,
+        session.id
       );
 
       if (!lineItems.data.length) {
@@ -52,7 +53,7 @@ export async function POST(req: NextRequest) {
       if (!user) {
         return NextResponse.json(
           { error: `User not found for email: ${session.customer_email}` },
-          { status: 404 },
+          { status: 404 }
         );
       }
 
@@ -81,7 +82,7 @@ export async function POST(req: NextRequest) {
             productId: product.id,
             quantity: item.quantity || 1,
           };
-        }),
+        })
       );
 
       const order = await prisma.order.create({
@@ -112,7 +113,7 @@ export async function POST(req: NextRequest) {
           err instanceof Error ? err.message : "Unknown error"
         }`,
       },
-      { status: 400 },
+      { status: 400 }
     );
   }
 }

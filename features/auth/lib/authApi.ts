@@ -1,9 +1,10 @@
+import { User } from "@prisma/client";
+import { signIn } from "next-auth/react";
+
 import {
   LoginFormData,
   RegisterFormData,
 } from "@/features/auth/schemas/auth.schema";
-import { User } from "@prisma/client";
-import { signIn } from "next-auth/react";
 
 export const getCurrentUser = async (): Promise<User | null> => {
   try {

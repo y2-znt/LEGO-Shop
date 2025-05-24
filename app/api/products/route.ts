@@ -1,5 +1,6 @@
-import { createProduct, getProducts } from "@/services/product.service";
 import { NextRequest, NextResponse } from "next/server";
+
+import { createProduct, getProducts } from "@/services/product.service";
 
 /**
  * @route GET /api/products
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

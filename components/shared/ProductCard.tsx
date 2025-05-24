@@ -1,3 +1,10 @@
+import { Product } from "@prisma/client";
+import Image from "next/image";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import { IoBag } from "react-icons/io5";
+
+import { FavoriteItem } from "@/stores/FavoriteStore";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,11 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FavoriteItem } from "@/stores/FavoriteStore";
-import { Product } from "@prisma/client";
-import Image from "next/image";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { IoBag } from "react-icons/io5";
+
 import OutOfStock from "./OutOfStock";
 
 type ProductCardProps = {

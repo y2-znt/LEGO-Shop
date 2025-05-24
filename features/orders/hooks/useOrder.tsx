@@ -1,10 +1,11 @@
+import { OrderDetails } from "@/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
 import {
   deleteOrderForCurrentUser,
   getAllOrdersForCurrentUser,
 } from "@/features/orders/lib/orderApi";
-import { OrderDetails } from "@/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 export const useOrderForCurrentUser = () => {
   return useQuery<OrderDetails[]>({

@@ -1,12 +1,13 @@
-import Header from "@/components/shared/Nav/Header";
-import Footer from "@/components/shared/sections/Footer";
 import TanstackProvider from "@/providers/tanstack-provider";
-
 import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
+
+import Header from "@/components/shared/Nav/Header";
+import Footer from "@/components/shared/sections/Footer";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

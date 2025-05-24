@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
+
 import { getCurrentUser } from "@/services/auth.service";
 import { getOrdersByCurrentUser } from "@/services/order.service";
-import { NextResponse } from "next/server";
 
 /**
  * @route GET /api/orders/me
@@ -20,7 +21,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

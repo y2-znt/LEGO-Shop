@@ -1,4 +1,3 @@
-import firebaseApp from "@/lib/firebase";
 import { CreateProductData, UpdateProductData } from "@/types";
 import { Product } from "@prisma/client";
 import {
@@ -8,6 +7,8 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+
+import firebaseApp from "@/lib/firebase";
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
@@ -24,7 +25,7 @@ export const getAllProducts = async (): Promise<Product[]> => {
 
 export const updateProduct = async (
   id: string,
-  productData: UpdateProductData,
+  productData: UpdateProductData
 ) => {
   try {
     const response = await fetch(`/api/products/${id}`, {
@@ -125,7 +126,7 @@ export const uploadProductImage = async (image: File) => {
           getDownloadURL(uploadTask.snapshot.ref)
             .then((downloadURL) => resolve(downloadURL))
             .catch((error) => reject(error));
-        },
+        }
       );
     });
 

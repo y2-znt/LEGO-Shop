@@ -1,5 +1,6 @@
-import { stripe } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
+
+import { stripe } from "@/lib/stripe";
 
 /**
  * @route POST /api/checkout

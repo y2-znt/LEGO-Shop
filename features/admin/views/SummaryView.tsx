@@ -1,5 +1,13 @@
 "use client";
 
+import { Product } from "@prisma/client";
+import Image from "next/image";
+import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
+
+import StatsCard from "@/features/admin/components/StatsCard";
+import { useProduct } from "@/features/admin/hooks/useProduct";
+import { useUser } from "@/features/admin/hooks/useUser";
+
 import Title from "@/components/shared/Title";
 import {
   Card,
@@ -23,12 +31,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import StatsCard from "@/features/admin/components/StatsCard";
-import { useProduct } from "@/features/admin/hooks/useProduct";
-import { useUser } from "@/features/admin/hooks/useUser";
-import { Product } from "@prisma/client";
-import Image from "next/image";
-import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 
 const transformData = (products: Product[]) => {
   return products.map((product) => ({

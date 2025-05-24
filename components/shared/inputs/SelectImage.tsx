@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+
+import { Button } from "@/components/ui/button";
 
 type ImageType = {
   item: File | null;
@@ -30,7 +31,7 @@ export default function SelectImage({
         handleFileChange(file);
       }
     },
-    [handleFileChange],
+    [handleFileChange]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

@@ -1,5 +1,6 @@
-import { getCurrentUser } from "@/services/auth.service";
 import { NextResponse } from "next/server";
+
+import { getCurrentUser } from "@/services/auth.service";
 
 /**
  * @route GET /api/auth/me
@@ -13,7 +14,7 @@ export async function GET(req: Request) {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

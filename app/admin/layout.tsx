@@ -1,7 +1,9 @@
+import { ReactNode } from "react";
+
+import { getCurrentUser } from "@/services/auth.service";
+
 import AccesDenied from "@/features/admin/components/AccesDenied";
 import AdminNav from "@/features/admin/components/AdminNav";
-import { getCurrentUser } from "@/services/auth.service";
-import { ReactNode } from "react";
 
 export const metadata = {
   title: "LEGO Shop Admin",

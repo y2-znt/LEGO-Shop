@@ -1,10 +1,17 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsGithub } from "react-icons/bs";
+
+import { useProviderLogin, useRegister } from "@/features/auth/hooks/useAuth";
+import {
+  RegisterFormData,
+  RegisterFormSchema,
+} from "@/features/auth/schemas/auth.schema";
 
 import Inputs from "@/components/shared/inputs/inputs";
 import { Button } from "@/components/ui/button";
@@ -15,11 +22,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useProviderLogin, useRegister } from "@/features/auth/hooks/useAuth";
-import {
-  RegisterFormData,
-  RegisterFormSchema,
-} from "@/features/auth/schemas/auth.schema";
 
 export default function RegisterForm() {
   const { register: registerUser, isLoading } = useRegister();

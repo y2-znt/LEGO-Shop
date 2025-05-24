@@ -1,3 +1,7 @@
+import { CreateProductData, UpdateProductData } from "@/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
 import {
   createProduct,
   deleteProduct,
@@ -6,9 +10,6 @@ import {
   toggleStock,
   updateProduct,
 } from "@/features/admin/lib/productApi";
-import { CreateProductData, UpdateProductData } from "@/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 export const useProduct = () => {
   return useQuery({

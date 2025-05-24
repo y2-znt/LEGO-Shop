@@ -1,4 +1,18 @@
 "use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
+import { BsGithub } from "react-icons/bs";
+
+import { useLogin, useProviderLogin } from "@/features/auth/hooks/useAuth";
+import {
+  LoginFormData,
+  LoginFormSchema,
+} from "@/features/auth/schemas/auth.schema";
+
 import Inputs from "@/components/shared/inputs/inputs";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,17 +22,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useLogin, useProviderLogin } from "@/features/auth/hooks/useAuth";
-import {
-  LoginFormData,
-  LoginFormSchema,
-} from "@/features/auth/schemas/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
-import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { AiOutlineLoading } from "react-icons/ai";
-import { BsGithub } from "react-icons/bs";
 
 export default function LoginForm() {
   const { login, isLoading } = useLogin();

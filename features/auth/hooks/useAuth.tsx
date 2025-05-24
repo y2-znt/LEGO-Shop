@@ -1,3 +1,7 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 import {
   getCurrentUser,
   loginWithCredentials,
@@ -8,9 +12,6 @@ import {
   LoginFormData,
   RegisterFormData,
 } from "@/features/auth/schemas/auth.schema";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 export const useCurrentUser = () => {
   return useQuery({

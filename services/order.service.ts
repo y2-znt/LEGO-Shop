@@ -23,7 +23,7 @@ export const getOrdersByCurrentUser = async (userId: string) => {
 
 export const deleteOrderForCurrentUser = async (
   orderId: string,
-  userId: string,
+  userId: string
 ) => {
   const order = await prisma.order.findUnique({
     where: { id: orderId },

@@ -1,13 +1,14 @@
+import { UpdateUserData } from "@/types";
+import { Role } from "@prisma/client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
 import {
   deleteUser,
   getUsers,
   toggleUserRole,
   updateUser,
 } from "@/features/admin/lib/userApi";
-import { UpdateUserData } from "@/types";
-import { Role } from "@prisma/client";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 export const useUser = () => {
   return useQuery({

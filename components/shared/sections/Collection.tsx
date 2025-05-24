@@ -1,11 +1,13 @@
 "use client";
 
-import ProductCard from "@/components/shared/ProductCard";
-import Title from "@/components/shared/Title";
+import { useFavoriteStore } from "@/stores/FavoriteStore";
+
 import { useProduct } from "@/features/admin/hooks/useProduct";
 import { useCartActions } from "@/features/cart/hooks/useCartActions";
 import { useFavoriteActions } from "@/features/favorites/hooks/useFavoriteActions";
-import { useFavoriteStore } from "@/stores/FavoriteStore";
+
+import ProductCard from "@/components/shared/ProductCard";
+import Title from "@/components/shared/Title";
 
 export default function Collection() {
   const { data: products } = useProduct();

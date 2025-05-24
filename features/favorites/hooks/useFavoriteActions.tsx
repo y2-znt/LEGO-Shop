@@ -1,6 +1,7 @@
-import { FavoriteItem, useFavoriteStore } from "@/stores/FavoriteStore";
 import { Product } from "@prisma/client";
 import { toast } from "sonner";
+
+import { FavoriteItem, useFavoriteStore } from "@/stores/FavoriteStore";
 
 export const useFavoriteActions = () => {
   const { addToFavorites, removeFromFavorites } = useFavoriteStore();
