@@ -1,4 +1,3 @@
-import { CreateProductData, UpdateProductData } from "@/types";
 import { Product } from "@prisma/client";
 import {
   deleteObject,
@@ -9,6 +8,8 @@ import {
 } from "firebase/storage";
 
 import firebaseApp from "@/lib/firebase";
+
+import { CreateProductData, UpdateProductData } from "../types/adminTypes";
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {

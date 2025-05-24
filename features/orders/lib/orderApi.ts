@@ -1,4 +1,4 @@
-import { OrderDetails } from "@/types";
+import { OrderDetails } from "../types/orderTypes";
 
 export const getAllOrdersForCurrentUser = async (): Promise<OrderDetails[]> => {
   try {

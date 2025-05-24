@@ -1,6 +1,6 @@
 import { Role, User } from "@prisma/client";
 
-import { UpdateUserData } from "@/types/index";
+import { UpdateUserData } from "../types/adminTypes";
 
 export const getUsers = async (): Promise<User[]> => {
   try {
