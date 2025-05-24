@@ -1,3 +1,8 @@
+import Image from "next/image";
+import { GoTrash } from "react-icons/go";
+
+import { CartItem } from "@/stores/CartStore";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,9 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CartItem } from "@/stores/CartStore";
-import Image from "next/image";
-import { GoTrash } from "react-icons/go";
+
 import QuantityButtons from "./QuantityButtons";
 
 interface CartItemCardProps {

@@ -1,5 +1,6 @@
-import { deleteProduct, updateProduct } from "@/services/product.service";
 import { NextRequest, NextResponse } from "next/server";
+
+import { deleteProduct, updateProduct } from "@/services/product.service";
 
 /**
  * @route PATCH /api/products/:id
@@ -9,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -18,9 +19,10 @@ export async function PATCH(
     const product = await updateProduct(id, body);
     return NextResponse.json(product);
   } catch (error) {
+    console.error("Error updating product:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -33,7 +35,7 @@ export async function PATCH(
  */
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -41,9 +43,10 @@ export async function DELETE(
     const product = await deleteProduct(id);
     return NextResponse.json(product);
   } catch (error) {
+    console.error("Error deleting product:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

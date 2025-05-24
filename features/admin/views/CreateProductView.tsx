@@ -1,7 +1,20 @@
 "use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
+import { toast } from "sonner";
+
+import { useCreateProduct } from "@/features/admin/hooks/useProduct";
+import {
+  AddProductFormData,
+  AddProductFormSchema,
+} from "@/features/admin/schemas/product.schema";
+
 import CustomCheckBox from "@/components/shared/inputs/CustomCheckBox";
-import Inputs from "@/components/shared/inputs/inputs";
 import SelectImage from "@/components/shared/inputs/SelectImage";
+import Inputs from "@/components/shared/inputs/inputs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,16 +23,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCreateProduct } from "@/features/admin/hooks/useProduct";
-import {
-  AddProductFormData,
-  AddProductFormSchema,
-} from "@/features/admin/schemas/product.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { AiOutlineLoading } from "react-icons/ai";
-import { toast } from "sonner";
 
 export default function CreateProductView() {
   const [resetFlag, setResetFlag] = useState(false);
@@ -65,7 +68,7 @@ export default function CreateProductView() {
           setResetFlag(false);
           setTimeout(() => setResetFlag(true), 0);
         },
-      },
+      }
     );
   };
 

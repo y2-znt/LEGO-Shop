@@ -1,11 +1,14 @@
-import { LoginFormData } from "@/features/auth/schemas/auth.schema";
-import prisma from "@/lib/prisma";
-import { login } from "@/services/auth.service";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+
+import { prisma } from "@/lib/prisma";
+
+import { login } from "@/services/auth.service";
+
+import { LoginFormData } from "@/features/auth/schemas/auth.schema";
 
 export const authOptions: AuthOptions = {
   // Use PrismaAdapter to manage user sessions with Prisma
@@ -37,7 +40,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         try {
           return await login(credentials as LoginFormData);
-        } catch (error) {
+        } catch {
           return null;
         }
       },

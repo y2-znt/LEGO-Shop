@@ -10,7 +10,7 @@ export default function Title({ text, className }: TitleProps) {
     <h1
       className={cn(
         "text-3xl font-bold max-sm:text-[1.7rem] lg:text-4xl",
-        className,
+        className
       )}
     >
       {text}

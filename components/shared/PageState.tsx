@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowLeft } from "react-icons/bs";
+
+import { Button } from "@/components/ui/button";
 
 interface PageStateProps {
   title: string;

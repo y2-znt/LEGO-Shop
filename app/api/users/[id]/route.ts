@@ -1,5 +1,6 @@
-import { deleteUser, updateUser } from "@/services/user.service";
 import { NextRequest, NextResponse } from "next/server";
+
+import { deleteUser, updateUser } from "@/services/user.service";
 
 /**
  * @route PATCH /api/users/:id
@@ -9,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -22,9 +23,10 @@ export async function PATCH(
     const user = await updateUser(id, body);
     return NextResponse.json(user);
   } catch (error) {
+    console.error("Error updating user:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -37,7 +39,7 @@ export async function PATCH(
  */
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -49,9 +51,10 @@ export async function DELETE(
     const user = await deleteUser(id);
     return NextResponse.json(user);
   } catch (error) {
+    console.error("Error deleting user:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

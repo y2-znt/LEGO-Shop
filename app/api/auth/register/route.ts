@@ -1,6 +1,7 @@
-import { register } from "@/services/auth.service";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+
+import { register } from "@/services/auth.service";
 
 /**
  * @route POST /api/auth/register
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
     if (error instanceof ZodError) {
       return NextResponse.json(
         { error: "Invalid data", details: error.errors },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

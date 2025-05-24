@@ -1,17 +1,18 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Role } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { GoTriangleDown } from "react-icons/go";
 import { toast } from "sonner";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface UserMenuProps {
   currentUser: {

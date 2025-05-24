@@ -1,8 +1,10 @@
-import { getCurrentUser } from "@/services/auth.service";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+
+import { getCurrentUser } from "@/services/auth.service";
+
 import CartQuantity from "./CartQuantity";
 import UserMenu from "./UserMenu";
 

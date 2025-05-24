@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export const getProducts = async () => {
   const products = await prisma.product.findMany({
@@ -26,7 +26,7 @@ export const createProduct = async (data: {
 
 export const updateProduct = async (
   id: string,
-  data: { name?: string; price?: string; inStock?: boolean },
+  data: { name?: string; price?: string; inStock?: boolean }
 ) => {
   const { name, price, inStock } = data;
   return prisma.product.update({

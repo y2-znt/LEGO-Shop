@@ -1,7 +1,8 @@
-import { CartItem, useCartStore } from "@/stores/CartStore";
-import { FavoriteItem } from "@/stores/FavoriteStore";
 import { Product } from "@prisma/client";
 import { toast } from "sonner";
+
+import { CartItem, useCartStore } from "@/stores/CartStore";
+import { FavoriteItem } from "@/stores/FavoriteStore";
 
 export const useCartActions = () => {
   const { removeFromCart, increaseQty, decreaseQty, clearCart, addToCart } =

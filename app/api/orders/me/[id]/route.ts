@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
+
 import { getCurrentUser } from "@/services/auth.service";
 import { deleteOrderForCurrentUser } from "@/services/order.service";
-import { NextResponse } from "next/server";
 
 /**
  * @route DELETE /api/orders/me/:id
@@ -9,7 +10,7 @@ import { NextResponse } from "next/server";
  */
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   try {
@@ -32,14 +33,14 @@ export async function DELETE(
       ) {
         return NextResponse.json(
           { error: "You are not authorized to delete this order" },
-          { status: 403 },
+          { status: 403 }
         );
       }
     }
 
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

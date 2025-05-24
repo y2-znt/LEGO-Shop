@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export const getAllUsers = async () => {
   return prisma.user.findMany({
@@ -8,7 +8,7 @@ export const getAllUsers = async () => {
 
 export const updateUser = async (
   id: string,
-  data: { name?: string; role?: "USER" | "ADMIN" },
+  data: { name?: string; role?: "USER" | "ADMIN" }
 ) => {
   const { name, role } = data;
   return prisma.user.update({

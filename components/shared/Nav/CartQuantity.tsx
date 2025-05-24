@@ -1,7 +1,8 @@
 "use client";
 
-import { useCartStore } from "@/stores/CartStore";
 import { useEffect, useState } from "react";
+
+import { useCartStore } from "@/stores/CartStore";
 
 export default function CartQuantity() {
   const [mounted, setMounted] = useState(false);
