@@ -50,7 +50,8 @@ export async function DELETE(
   try {
     const user = await deleteUser(id);
     return NextResponse.json(user);
-  } catch {
+  } catch (error) {
+    console.error("Error deleting user:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
