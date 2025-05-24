@@ -33,6 +33,13 @@ export default function AdminNav() {
             selected={pathname === "/admin/manage-products"}
           />
         </Link>
+        <Link href="/admin/manage-orders">
+          <AdminNavItem
+            label="ManageOrders"
+            icon={MdDns}
+            selected={pathname === "/admin/manage-orders"}
+          />
+        </Link>
         <Link href="/admin/manage-users">
           <AdminNavItem
             label="ManageUsers"
