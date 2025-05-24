@@ -17,22 +17,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No items provided" }, { status: 400 });
     }
 
-    const lineItems = items.map((item: any) => {
-      if (!item.name || !item.price || !item.quantity) {
-        throw new Error("Invalid item data");
-      }
-      return {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: item.name,
-            images: item.image ? [item.image] : [],
+    const lineItems = items.map(
+      (item: {
+        name: string;
+        price: number;
+        quantity: number;
+        image: string;
+      }) => {
+        if (!item.name || !item.price || !item.quantity) {
+          throw new Error("Invalid item data");
+        }
+        return {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.name,
+              images: item.image ? [item.image] : [],
+            },
+            unit_amount: Math.round(item.price * 100),
           },
-          unit_amount: Math.round(item.price * 100),
-        },
-        quantity: item.quantity,
-      };
-    });
+          quantity: item.quantity,
+        };
+      }
+    );
 
     const stripeSession = await stripe.checkout.sessions.create({
       customer_email: email,

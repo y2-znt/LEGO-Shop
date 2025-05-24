@@ -1,18 +1,22 @@
 "use client";
-import PageState from "@/components/shared/PageState";
-import Title from "@/components/shared/Title";
-import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/features/auth/hooks/useAuth";
-import CartItemCard from "@/features/cart/components/CartItemCard";
-import { useCartActions } from "@/features/cart/hooks/useCartActions";
-import { createCheckoutSession } from "@/features/checkout/lib/checkoutApi";
-import { CartItem, useCartStore } from "@/stores/CartStore";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
 import { toast } from "sonner";
+
+import { CartItem, useCartStore } from "@/stores/CartStore";
+
+import { useCurrentUser } from "@/features/auth/hooks/useAuth";
+import CartItemCard from "@/features/cart/components/CartItemCard";
+import { useCartActions } from "@/features/cart/hooks/useCartActions";
+import { createCheckoutSession } from "@/features/checkout/lib/checkoutApi";
+
+import PageState from "@/components/shared/PageState";
+import Title from "@/components/shared/Title";
+import { Button } from "@/components/ui/button";
 
 export default function CartView() {
   const [isLoading, setIsLoading] = useState(false);

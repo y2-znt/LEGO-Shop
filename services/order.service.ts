@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export const getOrdersByCurrentUser = async (userId: string) => {
   const orders = await prisma.order.findMany({

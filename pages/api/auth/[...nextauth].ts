@@ -4,7 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 import { login } from "@/services/auth.service";
 
@@ -40,7 +40,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         try {
           return await login(credentials as LoginFormData);
-        } catch (error) {
+        } catch {
           return null;
         }
       },

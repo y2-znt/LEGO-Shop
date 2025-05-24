@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
     const product = await createProduct(body);
     return NextResponse.json(product);
   } catch (error) {
+    console.error("Error creating product:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

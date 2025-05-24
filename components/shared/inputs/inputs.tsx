@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import {
+  FieldErrors,
+  FieldValues,
+  Path,
+  UseFormRegister,
+} from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { Input } from "@/components/ui/input";
@@ -20,7 +25,6 @@ const Inputs = <T extends FieldValues>({
   label,
   type,
   disabled,
-  required,
   register,
   errors,
 }: InputType<T>) => {
@@ -40,8 +44,7 @@ const Inputs = <T extends FieldValues>({
         autoComplete="off"
         id={id as string}
         disabled={disabled}
-        // @ts-ignore
-        {...register(id as string)}
+        {...register(id as Path<T>)}
         placeholder=""
         type={getInputType()}
         className={`w-full ${

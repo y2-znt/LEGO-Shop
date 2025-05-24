@@ -23,6 +23,7 @@ export async function PATCH(
     const user = await updateUser(id, body);
     return NextResponse.json(user);
   } catch (error) {
+    console.error("Error updating user:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
@@ -49,7 +50,7 @@ export async function DELETE(
   try {
     const user = await deleteUser(id);
     return NextResponse.json(user);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

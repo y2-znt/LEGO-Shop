@@ -7,11 +7,12 @@ import { getAllUsers } from "@/services/user.service";
  * @description Get all users
  * @returns {User[]} The list of users
  */
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     const users = await getAllUsers();
     return NextResponse.json(users);
   } catch (error) {
+    console.error("Error fetching users:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

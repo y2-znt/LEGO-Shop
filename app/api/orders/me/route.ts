@@ -8,7 +8,7 @@ import { getOrdersByCurrentUser } from "@/services/order.service";
  * @description Get orders for the current user
  * @returns {order[]} The list of orders for the current user
  */
-export async function GET() {
+export async function GET(_req: Request) {
   try {
     const currentUser = await getCurrentUser();
 
@@ -19,6 +19,7 @@ export async function GET() {
     const orders = await getOrdersByCurrentUser(currentUser.id);
     return NextResponse.json(orders);
   } catch (error) {
+    console.error("Error fetching orders:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

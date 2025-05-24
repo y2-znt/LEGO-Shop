@@ -2,7 +2,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
 
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 import {
   LoginFormData,
