@@ -9,17 +9,17 @@ import Status from "@/features/admin/components/Status";
 
 import Title from "@/components/shared/Title";
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 
 import { useGetOrders, useUpdateOrder } from "../hooks/useOrders";
-import { getStatusBadge } from "../lib/utils/getStatusBadge";
+import { getStatusBadge } from "../utils/getStatusBadge";
 
 const ORDER_STATUS_CYCLE: OrderStatus[] = ["PENDING", "PAID", "CANCELLED"];
 
@@ -87,7 +87,7 @@ export default function ManageOrdersView() {
                 <Status
                   text={order.status}
                   color={getStatusBadge(order.status)}
-                  width="w-24"
+                  width="w-28"
                 />
               </TableCell>
               <TableCell>
