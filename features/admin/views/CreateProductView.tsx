@@ -10,7 +10,7 @@ import { useCreateProduct } from "@/features/admin/hooks/useProduct";
 import {
   AddProductFormData,
   AddProductFormSchema,
-} from "@/features/admin/schemas/product.schema";
+} from "@/features/admin/validations/form/product.form.schema";
 
 import CustomCheckBox from "@/components/shared/inputs/CustomCheckBox";
 import SelectImage from "@/components/shared/inputs/SelectImage";
@@ -57,7 +57,7 @@ export default function CreateProductView() {
     createProduct(
       {
         name: data.name,
-        price: data.price,
+        price: Number(data.price),
         inStock: data.inStock,
         image: data.image,
       },

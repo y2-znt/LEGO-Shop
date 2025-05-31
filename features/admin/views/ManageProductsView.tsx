@@ -10,7 +10,7 @@ import Status from "@/features/admin/components/Status";
 import {
   useDeleteProduct,
   useDeleteProductImage,
-  useProduct,
+  useProducts,
   useToggleStock,
   useUpdateProduct,
 } from "@/features/admin/hooks/useProduct";
@@ -29,7 +29,7 @@ import {
 export default function ManageProductsView() {
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "", price: "" });
-  const { data: products } = useProduct();
+  const { data: products } = useProducts();
   const { deleteProduct } = useDeleteProduct();
   const { updateProduct } = useUpdateProduct();
   const { toggleStock } = useToggleStock();
@@ -40,8 +40,8 @@ export default function ManageProductsView() {
   };
 
   const handleDeleteProduct = (id: string, image: string) => {
-    deleteProductImage(image);
-    deleteProduct(id);
+    deleteProductImage({ imageUrl: image });
+    deleteProduct({ id });
   };
 
   const handleEditClick = (id: string, name: string, price: number) => {

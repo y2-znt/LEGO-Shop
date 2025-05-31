@@ -9,7 +9,17 @@ import {
 
 import firebaseApp from "@/lib/firebase";
 
-import { CreateProductData, UpdateProductData } from "../types/adminTypes";
+import {
+  CreateProductData,
+  DeleteProductImageParams,
+  DeleteProductImageSchema,
+  DeleteProductParams,
+  DeleteProductSchema,
+  ToggleStockParams,
+  ToggleStockSchema,
+  UpdateProductData,
+  UpdateProductSchema,
+} from "../validations/api/product.api.schema";
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
@@ -24,17 +34,21 @@ export const getAllProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const updateProduct = async (
-  id: string,
-  productData: UpdateProductData
-) => {
+export const updateProduct = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: UpdateProductData;
+}) => {
   try {
+    const validatedData = UpdateProductSchema.shape.data.parse(data);
     const response = await fetch(`/api/products/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(validatedData),
     });
 
     if (!response.ok) {
@@ -48,8 +62,9 @@ export const updateProduct = async (
   }
 };
 
-export const deleteProduct = async (id: string) => {
+export const deleteProduct = async (params: DeleteProductParams) => {
   try {
+    const { id } = DeleteProductSchema.parse(params);
     const response = await fetch(`/api/products/${id}`, {
       method: "DELETE",
     });
@@ -62,12 +77,14 @@ export const deleteProduct = async (id: string) => {
   }
 };
 
-export const toggleStock = async (id: string, inStock: boolean) => {
-  return updateProduct(id, { inStock: !inStock });
+export const toggleStock = async (params: ToggleStockParams) => {
+  const { id, inStock } = ToggleStockSchema.parse(params);
+  return updateProduct({ id, data: { inStock: !inStock } });
 };
 
-export const deleteProductImage = async (imageUrl: string) => {
+export const deleteProductImage = async (params: DeleteProductImageParams) => {
   try {
+    const { imageUrl } = DeleteProductImageSchema.parse(params);
     const storage = getStorage(firebaseApp);
     const imageRef = ref(storage, imageUrl);
     await deleteObject(imageRef);

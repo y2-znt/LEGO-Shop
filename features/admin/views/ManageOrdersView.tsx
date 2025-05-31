@@ -25,10 +25,10 @@ import { getStatusBadge } from "../utils/getStatusBadge";
 const ORDER_STATUS_CYCLE: OrderStatus[] = ["PENDING", "PAID", "CANCELLED"];
 
 export default function ManageOrdersView() {
-  const { orders, stats, isLoading } = useGetOrders();
+  const { orders, stats } = useGetOrders();
   const { updateOrderStatus } = useUpdateOrder();
 
-  if (isLoading) {
+  if (!orders) {
     return (
       <div className="flex h-96 items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin" />

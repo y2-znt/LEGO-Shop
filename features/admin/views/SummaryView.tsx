@@ -7,8 +7,8 @@ import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 import StatsOverview from "@/features/admin/components/StatsOverview";
 import Status from "@/features/admin/components/Status";
 import { useGetOrders } from "@/features/admin/hooks/useOrders";
-import { useProduct } from "@/features/admin/hooks/useProduct";
-import { useUser } from "@/features/admin/hooks/useUser";
+import { useProducts } from "@/features/admin/hooks/useProduct";
+import { useUsers } from "@/features/admin/hooks/useUser";
 
 import Title from "@/components/shared/Title";
 import {
@@ -43,9 +43,9 @@ const transformData = (products: Product[]) => {
 };
 
 export default function SummaryView() {
-  const { data: allUsers } = useUser();
-  const { data: products } = useProduct();
-  const { stats: orderStats, isLoading } = useGetOrders();
+  const { data: allUsers } = useUsers();
+  const { data: products } = useProducts();
+  const { stats: orderStats } = useGetOrders();
   const chartData = transformData(products ?? []);
 
   const statsData = [
