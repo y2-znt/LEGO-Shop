@@ -57,7 +57,7 @@ export default function CreateProductView() {
     createProduct(
       {
         name: data.name,
-        price: data.price,
+        price: Number(data.price),
         inStock: data.inStock,
         image: data.image,
       },
