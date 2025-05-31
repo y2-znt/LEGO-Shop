@@ -18,7 +18,7 @@ export const useDeleteOrderForCurrentUser = () => {
   const queryClient = useQueryClient();
 
   const deleteOrderMutation = useToastMutation({
-    mutationFn: (orderId: string) => deleteOrderForCurrentUser(orderId),
+    mutationFn: deleteOrderForCurrentUser,
     loadingMessage: "Deleting order, please wait...",
     successMessage: "Order deleted successfully",
     errorMessage: "Error deleting order",

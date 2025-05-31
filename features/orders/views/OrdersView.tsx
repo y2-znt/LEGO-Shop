@@ -25,6 +25,10 @@ export default function OrdersView() {
   const { data: orders } = useOrderForCurrentUser();
   const { deleteOrder } = useDeleteOrderForCurrentUser();
 
+  const handleDeleteOrder = (orderId: string) => {
+    deleteOrder({ orderId });
+  };
+
   if (orders?.length === 0) {
     return (
       <div>
@@ -137,7 +141,7 @@ export default function OrdersView() {
                 <div className="mt-4 flex justify-end">
                   <ActionBtn
                     icon={MdDelete}
-                    onClick={() => deleteOrder(order.id)}
+                    onClick={() => handleDeleteOrder(order.id)}
                   />
                 </div>
               </div>

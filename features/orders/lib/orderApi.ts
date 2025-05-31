@@ -1,4 +1,5 @@
 import { OrderDetails } from "../types/orderTypes";
+import { DeleteOrderParams, DeleteOrderSchema } from "../validations/order.api";
 
 export const getAllOrdersForCurrentUser = async (): Promise<OrderDetails[]> => {
   try {
@@ -13,8 +14,9 @@ export const getAllOrdersForCurrentUser = async (): Promise<OrderDetails[]> => {
   }
 };
 
-export const deleteOrderForCurrentUser = async (orderId: string) => {
+export const deleteOrderForCurrentUser = async (params: DeleteOrderParams) => {
   try {
+    const { orderId } = DeleteOrderSchema.parse(params);
     const response = await fetch(`/api/orders/me/${orderId}`, {
       method: "DELETE",
     });
