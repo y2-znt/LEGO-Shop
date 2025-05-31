@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { useToastMutation } from "@/hooks/useToastMutation";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { OrdersResponse } from "../lib/ordersAPI";
 import {
@@ -24,26 +24,16 @@ export const useGetOrders = () => {
 export const useUpdateOrder = () => {
   const queryClient = useQueryClient();
 
-  const updateOrderStatus = useMutation({
+  const updateOrderStatus = useToastMutation({
     mutationFn: (data: UpdateOrderData) =>
       updateOrderStatusAPI(data.orderId, data.status),
-    onMutate: () => {
-      const toastId = toast.loading("Updating order status...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
-      toast.success("Order status updated successfully");
-    },
-    onError: (error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      console.error(error);
-      toast.error("Failed to update order status");
+    loadingMessage: "Updating order status...",
+    successMessage: "Order status updated successfully",
+    errorMessage: "Failed to update order status",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
+      },
     },
   });
 

@@ -1,5 +1,6 @@
+import { useToastMutation } from "@/hooks/useToastMutation";
+import { Product } from "@prisma/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 import {
   createProduct,
@@ -13,39 +14,24 @@ import {
 import { CreateProductData, UpdateProductData } from "../types/adminTypes";
 
 export const useProduct = () => {
-  return useQuery({
+  return useQuery<Product[]>({
     queryKey: ["products"],
-    queryFn: async () => {
-      const products = await getAllProducts();
-      return products;
-    },
+    queryFn: getAllProducts,
   });
 };
 
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
-  const createProductMutation = useMutation({
-    mutationFn: async (data: CreateProductData) => {
-      return await createProduct(data);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Creating LEGO, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("LEGO created successfully");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error creating LEGO");
-      console.error("Error creating LEGO:", error);
+  const createProductMutation = useToastMutation({
+    mutationFn: (data: CreateProductData) => createProduct(data),
+    loadingMessage: "Creating LEGO, please wait...",
+    successMessage: "LEGO created successfully",
+    errorMessage: "Error creating LEGO",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+      },
     },
   });
 
@@ -58,33 +44,16 @@ export const useCreateProduct = () => {
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
-  const updateProductMutation = useMutation({
-    mutationFn: async ({
-      id,
-      data,
-    }: {
-      id: string;
-      data: UpdateProductData;
-    }) => {
-      return await updateProduct(id, data);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Updating LEGO, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("LEGO updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error updating LEGO");
-      console.error("Error updating LEGO:", error);
+  const updateProductMutation = useToastMutation({
+    mutationFn: ({ id, data }: { id: string; data: UpdateProductData }) =>
+      updateProduct(id, data),
+    loadingMessage: "Updating LEGO, please wait...",
+    successMessage: "LEGO updated successfully!",
+    errorMessage: "Error updating LEGO",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+      },
     },
   });
 
@@ -96,28 +65,15 @@ export const useUpdateProduct = () => {
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
-  const deleteProductMutation = useMutation({
-    mutationFn: async (id: string) => {
-      return await deleteProduct(id);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Deleting LEGO, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-
-      toast.success("LEGO deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error deleting LEGO");
-      console.error("Error deleting LEGO:", error);
+  const deleteProductMutation = useToastMutation({
+    mutationFn: (id: string) => deleteProduct(id),
+    loadingMessage: "Deleting LEGO, please wait...",
+    successMessage: "LEGO deleted successfully",
+    errorMessage: "Error deleting LEGO",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+      },
     },
   });
 
@@ -129,27 +85,16 @@ export const useDeleteProduct = () => {
 export const useToggleStock = () => {
   const queryClient = useQueryClient();
 
-  const toggleStockMutation = useMutation({
-    mutationFn: async ({ id, inStock }: { id: string; inStock: boolean }) => {
-      return await toggleStock(id, inStock);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Toggling stock, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("Stock toggled successfully!");
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error toggling stock");
-      console.error("Error toggling stock:", error);
+  const toggleStockMutation = useToastMutation({
+    mutationFn: ({ id, inStock }: { id: string; inStock: boolean }) =>
+      toggleStock(id, inStock),
+    loadingMessage: "Toggling stock, please wait...",
+    successMessage: "Stock toggled successfully!",
+    errorMessage: "Error toggling stock",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+      },
     },
   });
 
@@ -160,9 +105,7 @@ export const useToggleStock = () => {
 
 export const useDeleteProductImage = () => {
   const deleteProductImageMutation = useMutation({
-    mutationFn: async (imageUrl: string) => {
-      return await deleteProductImage(imageUrl);
-    },
+    mutationFn: (imageUrl: string) => deleteProductImage(imageUrl),
   });
 
   return {

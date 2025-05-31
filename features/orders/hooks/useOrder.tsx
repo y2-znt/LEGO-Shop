@@ -1,6 +1,6 @@
+import { useToastMutation } from "@/hooks/useToastMutation";
 import { OrderDetails } from "@/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   deleteOrderForCurrentUser,
@@ -10,37 +10,22 @@ import {
 export const useOrderForCurrentUser = () => {
   return useQuery<OrderDetails[]>({
     queryKey: ["me/orders"],
-    queryFn: async () => {
-      const orders = await getAllOrdersForCurrentUser();
-      return orders;
-    },
+    queryFn: getAllOrdersForCurrentUser,
   });
 };
 
 export const useDeleteOrderForCurrentUser = () => {
   const queryClient = useQueryClient();
 
-  const deleteOrderMutation = useMutation({
-    mutationFn: async (orderId: string) => {
-      return await deleteOrderForCurrentUser(orderId);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Deleting order, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("Order deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["me/orders"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error deleting order");
-      console.error("Error deleting order:", error);
+  const deleteOrderMutation = useToastMutation({
+    mutationFn: (orderId: string) => deleteOrderForCurrentUser(orderId),
+    loadingMessage: "Deleting order, please wait...",
+    successMessage: "Order deleted successfully",
+    errorMessage: "Error deleting order",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["me/orders"] });
+      },
     },
   });
 

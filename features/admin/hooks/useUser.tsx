@@ -1,6 +1,6 @@
-import { Role } from "@prisma/client";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { useToastMutation } from "@/hooks/useToastMutation";
+import { Role, User } from "@prisma/client";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   deleteUser,
@@ -12,39 +12,25 @@ import {
 import { UpdateUserData } from "../types/adminTypes";
 
 export const useUser = () => {
-  return useQuery({
+  return useQuery<User[]>({
     queryKey: ["users"],
-    queryFn: async () => {
-      const users = await getUsers();
-      return users;
-    },
+    queryFn: getUsers,
   });
 };
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
-  const updateUserMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: UpdateUserData }) => {
-      return await updateUser(id, data);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Updating user, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("User updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error updating user");
-      console.error("Error updating user:", error);
+  const updateUserMutation = useToastMutation({
+    mutationFn: ({ id, data }: { id: string; data: UpdateUserData }) =>
+      updateUser(id, data),
+    loadingMessage: "Updating user, please wait...",
+    successMessage: "User updated successfully!",
+    errorMessage: "Error updating user",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+      },
     },
   });
   return {
@@ -55,28 +41,15 @@ export const useUpdateUser = () => {
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
-  const deleteUserMutation = useMutation({
-    mutationFn: async (id: string) => {
-      return await deleteUser(id);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Deleting user, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-
-      toast.success("User deleted successfully");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error deleting user");
-      console.error("Error deleting user:", error);
+  const deleteUserMutation = useToastMutation({
+    mutationFn: (id: string) => deleteUser(id),
+    loadingMessage: "Deleting user, please wait...",
+    successMessage: "User deleted successfully!",
+    errorMessage: "Error deleting user",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+      },
     },
   });
 
@@ -88,33 +61,16 @@ export const useDeleteUser = () => {
 export const useToggleUserRole = () => {
   const queryClient = useQueryClient();
 
-  const toggleUserRoleMutation = useMutation({
-    mutationFn: async ({
-      id,
-      currentRole,
-    }: {
-      id: string;
-      currentRole: Role;
-    }) => {
-      return await toggleUserRole(id, currentRole);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Toggling user role, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("User role toggled successfully!");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Error toggling user role");
-      console.error("Error toggling user role:", error);
+  const toggleUserRoleMutation = useToastMutation({
+    mutationFn: ({ id, currentRole }: { id: string; currentRole: Role }) =>
+      toggleUserRole(id, currentRole),
+    loadingMessage: "Toggling user role, please wait...",
+    successMessage: "User role toggled successfully!",
+    errorMessage: "Error toggling user role",
+    options: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["users"] });
+      },
     },
   });
 

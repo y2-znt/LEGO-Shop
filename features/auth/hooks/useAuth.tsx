@@ -1,6 +1,6 @@
+import { useToastMutation } from "@/hooks/useToastMutation";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import {
   getCurrentUser,
@@ -23,32 +23,16 @@ export const useCurrentUser = () => {
 export const useLogin = () => {
   const router = useRouter();
 
-  const loginMutation = useMutation({
-    mutationFn: async (data: LoginFormData) => {
-      return await loginWithCredentials(data);
-    },
-    onMutate: () => {
-      const toastId = toast.loading("Logging in, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("Logged in successfully");
-      router.push("/");
-      router.refresh();
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      if (error.message.includes("Invalid email or password")) {
-        toast.error("Incorrect email or password. Please try again.");
-      } else {
-        toast.error("An unexpected error occurred. Please try again.");
-      }
-      console.error("Login error:", error);
+  const loginMutation = useToastMutation({
+    mutationFn: (data: LoginFormData) => loginWithCredentials(data),
+    loadingMessage: "Logging in, please wait...",
+    successMessage: "Logged in successfully",
+    errorMessage: "Error logging in",
+    options: {
+      onSuccess: () => {
+        router.push("/");
+        router.refresh();
+      },
     },
   });
 
@@ -61,29 +45,18 @@ export const useLogin = () => {
 export const useRegister = () => {
   const router = useRouter();
 
-  const registerMutation = useMutation({
+  const registerMutation = useToastMutation({
     mutationFn: async (data: RegisterFormData) => {
-      const registeredUser = await registerUser(data);
-      return { user: registeredUser };
+      return await registerUser(data);
     },
-    onMutate: () => {
-      const toastId = toast.loading("Creating an account, please wait...");
-      return { toastId };
-    },
-    onSuccess: (_, __, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.success("Account successfully created");
-      router.push("/");
-      router.refresh();
-    },
-    onError: (error: Error, _, context) => {
-      if (context?.toastId) {
-        toast.dismiss(context.toastId);
-      }
-      toast.error("Something went wrong");
-      console.error("Registration error:", error);
+    loadingMessage: "Creating an account, please wait...",
+    successMessage: "Account created successfully",
+    errorMessage: "Error creating account",
+    options: {
+      onSuccess: () => {
+        router.push("/");
+        router.refresh();
+      },
     },
   });
 
