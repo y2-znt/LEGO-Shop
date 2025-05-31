@@ -1,4 +1,9 @@
-import { OrderStatus, Order as PrismaOrder, User } from "@prisma/client";
+import { Order as PrismaOrder, User } from "@prisma/client";
+
+import {
+  UpdateOrderData,
+  UpdateOrderSchema,
+} from "../schemas/orders.api.schema";
 
 export interface Order extends PrismaOrder {
   user: User;
@@ -28,14 +33,9 @@ export const getAllOrders = async (): Promise<OrdersResponse> => {
   }
 };
 
-export const updateOrderStatus = async ({
-  orderId,
-  status,
-}: {
-  orderId: string;
-  status: OrderStatus;
-}): Promise<Order> => {
+export const updateOrderStatus = async (params: UpdateOrderData) => {
   try {
+    const { orderId, status } = UpdateOrderSchema.parse(params);
     const response = await fetch(`/api/orders/${orderId}`, {
       method: "PATCH",
       headers: {

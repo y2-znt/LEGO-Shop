@@ -9,7 +9,17 @@ import {
 
 import firebaseApp from "@/lib/firebase";
 
-import { CreateProductData, UpdateProductData } from "../types/adminTypes";
+import {
+  CreateProductData,
+  DeleteProductImageParams,
+  DeleteProductImageSchema,
+  DeleteProductParams,
+  DeleteProductSchema,
+  ToggleStockParams,
+  ToggleStockSchema,
+  UpdateProductData,
+  UpdateProductSchema,
+} from "../schemas/product.api.schema";
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
@@ -32,12 +42,13 @@ export const updateProduct = async ({
   data: UpdateProductData;
 }) => {
   try {
+    const validatedData = UpdateProductSchema.shape.data.parse(data);
     const response = await fetch(`/api/products/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(validatedData),
     });
 
     if (!response.ok) {
@@ -51,8 +62,9 @@ export const updateProduct = async ({
   }
 };
 
-export const deleteProduct = async ({ id }: { id: string }) => {
+export const deleteProduct = async (params: DeleteProductParams) => {
   try {
+    const { id } = DeleteProductSchema.parse(params);
     const response = await fetch(`/api/products/${id}`, {
       method: "DELETE",
     });
@@ -65,22 +77,14 @@ export const deleteProduct = async ({ id }: { id: string }) => {
   }
 };
 
-export const toggleStock = async ({
-  id,
-  inStock,
-}: {
-  id: string;
-  inStock: boolean;
-}) => {
+export const toggleStock = async (params: ToggleStockParams) => {
+  const { id, inStock } = ToggleStockSchema.parse(params);
   return updateProduct({ id, data: { inStock: !inStock } });
 };
 
-export const deleteProductImage = async ({
-  imageUrl,
-}: {
-  imageUrl: string;
-}) => {
+export const deleteProductImage = async (params: DeleteProductImageParams) => {
   try {
+    const { imageUrl } = DeleteProductImageSchema.parse(params);
     const storage = getStorage(firebaseApp);
     const imageRef = ref(storage, imageUrl);
     await deleteObject(imageRef);

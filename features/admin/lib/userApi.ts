@@ -1,6 +1,11 @@
 import { Role, User } from "@prisma/client";
 
-import { UpdateUserData } from "../types/adminTypes";
+import {
+  DeleteUserParams,
+  DeleteUserSchema,
+  UpdateUserData,
+  UpdateUserSchema,
+} from "../schemas/user.api.schema";
 
 export const getUsers = async (): Promise<User[]> => {
   try {
@@ -23,12 +28,13 @@ export const updateUser = async ({
   data: UpdateUserData;
 }) => {
   try {
+    const validatedData = UpdateUserSchema.shape.data.parse(data);
     const response = await fetch(`/api/users/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(validatedData),
     });
     if (!response.ok) {
       throw new Error("Failed to update user");
@@ -40,15 +46,15 @@ export const updateUser = async ({
   }
 };
 
-export const deleteUser = async ({ id }: { id: string }) => {
+export const deleteUser = async (params: DeleteUserParams) => {
   try {
+    const { id } = DeleteUserSchema.parse(params);
     const response = await fetch(`/api/users/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {
       throw new Error("Failed to delete user");
     }
-    return await response.json();
   } catch (error) {
     console.error("Error deleting user", error);
     throw error;

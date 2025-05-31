@@ -2,7 +2,7 @@
 
 import { UseFormRegister } from "react-hook-form";
 
-import { AddProductFormData } from "@/features/admin/schemas/product.schema";
+import { AddProductFormData } from "@/features/admin/schemas/product.form.schema";
 
 import { Label } from "@/components/ui/label";
 
