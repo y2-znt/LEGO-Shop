@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { MdCached } from "react-icons/md";
 
 import ActionBtn from "@/features/admin/components/ActionBtn";
+import StatsOverview from "@/features/admin/components/StatsOverview";
 import Status from "@/features/admin/components/Status";
 
 import Title from "@/components/shared/Title";
@@ -43,30 +44,29 @@ export default function ManageOrdersView() {
     updateOrderStatus({ orderId, status: nextStatus });
   };
 
+  const statsData = [
+    {
+      title: "Total Orders",
+      value: stats?.totalOrders || 0,
+    },
+    {
+      title: "Pending Orders",
+      value: stats?.pendingOrders || 0,
+    },
+    {
+      title: "Completed Orders",
+      value: stats?.paidOrders || 0,
+    },
+    {
+      title: "Total Revenue",
+      value: `$${stats?.totalRevenue.toFixed(2) || 0}`,
+    },
+  ];
+
   return (
     <div>
       <Title text="Manage Orders" />
-      <div className="mt-8 mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-lg bg-white p-4 shadow">
-          <h3 className="font-medium text-gray-500">Total Orders</h3>
-          <p className="text-2xl font-bold">{stats?.totalOrders}</p>
-        </div>
-        <div className="rounded-lg bg-white p-4 shadow">
-          <h3 className="font-medium text-gray-500">Pending Orders</h3>
-          <p className="text-2xl font-bold">{stats?.pendingOrders}</p>
-        </div>
-        <div className="rounded-lg bg-white p-4 shadow">
-          <h3 className="font-medium text-gray-500">Completed Orders</h3>
-          <p className="text-2xl font-bold">{stats?.paidOrders}</p>
-        </div>
-        <div className="rounded-lg bg-white p-4 shadow">
-          <h3 className="font-medium text-gray-500">Total Revenue</h3>
-          <p className="text-2xl font-bold">
-            ${stats?.totalRevenue.toFixed(2) || 0}
-          </p>
-        </div>
-      </div>
-
+      <StatsOverview stats={statsData} />
       <Table>
         <TableCaption>A list of your orders.</TableCaption>
         <TableHeader>

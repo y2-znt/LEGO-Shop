@@ -5,6 +5,7 @@ import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
 import ActionBtn from "@/features/admin/components/ActionBtn";
+import StatsOverview from "@/features/admin/components/StatsOverview";
 import Status from "@/features/admin/components/Status";
 import {
   useDeleteUser,
@@ -51,9 +52,33 @@ export default function ManageUsersView() {
     setEditValues({ name: "" });
   };
 
+  const statsData = [
+    {
+      title: "Total Users",
+      value: allUsers?.length || 0,
+    },
+    {
+      title: "Admin Users",
+      value: allUsers?.filter((user) => user.role === "ADMIN").length || 0,
+    },
+    {
+      title: "Client Users",
+      value: allUsers?.filter((user) => user.role === "USER").length || 0,
+    },
+    {
+      title: "Last Registration",
+      value: allUsers?.length
+        ? new Date(
+            Math.max(...allUsers.map((u) => new Date(u.createdAt).getTime()))
+          ).toLocaleDateString()
+        : "N/A",
+    },
+  ];
+
   return (
     <div>
       <Title text="Manage Users" />
+      <StatsOverview stats={statsData} />
       <Table className="mt-10">
         <TableCaption>A list of your users.</TableCaption>
         <TableHeader>

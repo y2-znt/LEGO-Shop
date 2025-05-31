@@ -5,6 +5,7 @@ import { useState } from "react";
 import { MdCached, MdCheck, MdDelete, MdEdit } from "react-icons/md";
 
 import ActionBtn from "@/features/admin/components/ActionBtn";
+import StatsOverview from "@/features/admin/components/StatsOverview";
 import Status from "@/features/admin/components/Status";
 import {
   useDeleteProduct,
@@ -60,9 +61,29 @@ export default function ManageProductsView() {
     setEditValues({ name: "", price: "" });
   };
 
+  const statsData = [
+    {
+      title: "Total Products",
+      value: products?.length || 0,
+    },
+    {
+      title: "In Stock",
+      value: products?.filter((p) => p.inStock).length || 0,
+    },
+    {
+      title: "Out of Stock",
+      value: products?.filter((p) => !p.inStock).length || 0,
+    },
+    {
+      title: "Total Value",
+      value: `$${products?.reduce((acc, p) => acc + p.price, 0).toFixed(2) || 0}`,
+    },
+  ];
+
   return (
     <div>
       <Title text="Manage Products" />
+      <StatsOverview stats={statsData} />
       <Table className="mt-10">
         <TableCaption>A list of your products.</TableCaption>
         <TableHeader>
