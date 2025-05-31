@@ -4,7 +4,9 @@ import { Product } from "@prisma/client";
 import Image from "next/image";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 
-import StatsCard from "@/features/admin/components/StatsCard";
+import StatsOverview from "@/features/admin/components/StatsOverview";
+import Status from "@/features/admin/components/Status";
+import { useGetOrders } from "@/features/admin/hooks/useOrders";
 import { useProduct } from "@/features/admin/hooks/useProduct";
 import { useUser } from "@/features/admin/hooks/useUser";
 
@@ -13,7 +15,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -26,6 +27,7 @@ import {
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -43,7 +45,27 @@ const transformData = (products: Product[]) => {
 export default function SummaryView() {
   const { data: allUsers } = useUser();
   const { data: products } = useProduct();
+  const { stats: orderStats, isLoading } = useGetOrders();
   const chartData = transformData(products ?? []);
+
+  const statsData = [
+    {
+      title: "Total Revenue",
+      value: `$${orderStats?.totalRevenue.toFixed(2) || 0}`,
+    },
+    {
+      title: "Total Orders",
+      value: orderStats?.totalOrders || 0,
+    },
+    {
+      title: "Total Products",
+      value: products?.length || 0,
+    },
+    {
+      title: "Total Users",
+      value: allUsers?.length || 0,
+    },
+  ];
 
   const chartConfig = {
     inStock: {
@@ -58,45 +80,20 @@ export default function SummaryView() {
 
   return (
     <div>
-      <Title text="Summary" />
-      <div className="mt-10 grid grid-cols-2 gap-4 max-sm:grid-cols-1">
-        <StatsCard value={products?.length ?? 0} label="Total LEGO" />
-        <StatsCard value={allUsers?.length ?? 0} label="Total Users" />
-        <StatsCard
-          value={products?.filter((product) => product.inStock).length ?? 0}
-          label="LEGO in Stock"
-        />
-        <StatsCard
-          value={
-            (products?.length ?? 0) -
-            (products?.filter((product) => product.inStock).length ?? 0)
-          }
-          label="LEGO out of Stock"
-        />
-      </div>
-      <div className="mt-20">
+      <Title text="Dashboard Overview" />
+      <StatsOverview stats={statsData} />
+
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <Card>
-          <CardHeader className="md:pl-8">
-            <CardTitle className="font-bold md:text-2xl">
-              LEGO Overview
-            </CardTitle>
-            <CardDescription className="md:text-lg">
-              overview for each LEGO
+          <CardHeader>
+            <CardTitle>Product Price Distribution</CardTitle>
+            <CardDescription>
+              Overview of product prices and stock status
             </CardDescription>
-            <div className="flex items-center justify-center gap-5">
-              <div className="text-muted-foreground flex flex-row items-center gap-2 text-center text-sm">
-                <span className="h-4 w-10 rounded-sm bg-[#ffcd56]"></span>In
-                Stock
-              </div>
-              <div className="text-muted-foreground flex flex-row items-center gap-2 text-center text-sm">
-                <span className="h-4 w-10 rounded-sm bg-[#ff6384]"></span>Out of
-                Stock
-              </div>
-            </div>
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig}>
-              <BarChart data={chartData} accessibilityLayer>
+              <BarChart data={chartData} accessibilityLayer height={300}>
                 <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="name"
@@ -124,48 +121,52 @@ export default function SummaryView() {
               </BarChart>
             </ChartContainer>
           </CardContent>
-          <CardFooter className="flex-col items-start gap-2 text-sm">
-            <div className="text-muted-foreground leading-none">
-              Showing overview of LEGO
-            </div>
-          </CardFooter>
         </Card>
-      </div>
-      <div className="mt-20">
-        <h2 className="text-2xl">Recently Updated LEGO</h2>
-        <div className="overflow-auto">
-          <Table className="my-10">
-            <TableHeader>
-              <TableRow>
-                <TableHead>Image</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Updated At</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {products?.slice(0, 5).map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>
-                    <Image
-                      src={product.image}
-                      alt={`Image of ${product.name}`}
-                      className="h-16 w-12 rounded-lg border object-cover"
-                      width={50}
-                      height={50}
-                    />
-                  </TableCell>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>${product.price}</TableCell>
-                  <TableCell>
-                    {new Date(product.updatedAt).toLocaleDateString()} -{" "}
-                    {new Date(product.updatedAt).toLocaleTimeString()}
-                  </TableCell>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Recently Updated Products</CardTitle>
+            <CardDescription>Latest product modifications</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Product</TableHead>
+                  <TableHead>Price</TableHead>
+                  <TableHead>Status</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {products?.slice(0, 5).map((product) => (
+                  <TableRow key={product.id}>
+                    <TableCell className="flex items-center gap-3">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        className="h-10 w-10 rounded-lg border object-cover"
+                        width={40}
+                        height={40}
+                      />
+                      <span className="font-medium">{product.name}</span>
+                    </TableCell>
+                    <TableCell>${product.price}</TableCell>
+                    <TableCell>
+                      <Status
+                        text={product.inStock ? "In Stock" : "Out of Stock"}
+                        color={product.inStock ? "bg-green-500" : "bg-red-500"}
+                        width="w-28"
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+              <TableCaption>
+                Showing the 5 most recently updated products
+              </TableCaption>
+            </Table>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
