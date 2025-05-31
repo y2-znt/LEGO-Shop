@@ -1,5 +1,5 @@
 import { useToastMutation } from "@/hooks/useToastMutation";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import {
@@ -8,10 +8,6 @@ import {
   loginWithProvider,
   registerUser,
 } from "@/features/auth/lib/authApi";
-import {
-  LoginFormData,
-  RegisterFormData,
-} from "@/features/auth/schemas/auth.schema";
 
 export const useCurrentUser = () => {
   return useQuery({
@@ -22,9 +18,10 @@ export const useCurrentUser = () => {
 
 export const useLogin = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const loginMutation = useToastMutation({
-    mutationFn: (data: LoginFormData) => loginWithCredentials(data),
+    mutationFn: loginWithCredentials,
     loadingMessage: "Logging in, please wait...",
     successMessage: "Logged in successfully",
     errorMessage: "Error logging in",
@@ -32,6 +29,7 @@ export const useLogin = () => {
       onSuccess: () => {
         router.push("/");
         router.refresh();
+        queryClient.invalidateQueries({ queryKey: ["currentUser"] });
       },
     },
   });
@@ -44,11 +42,9 @@ export const useLogin = () => {
 
 export const useRegister = () => {
   const router = useRouter();
-
+  const queryClient = useQueryClient();
   const registerMutation = useToastMutation({
-    mutationFn: async (data: RegisterFormData) => {
-      return await registerUser(data);
-    },
+    mutationFn: registerUser,
     loadingMessage: "Creating an account, please wait...",
     successMessage: "Account created successfully",
     errorMessage: "Error creating account",
@@ -56,6 +52,7 @@ export const useRegister = () => {
       onSuccess: () => {
         router.push("/");
         router.refresh();
+        queryClient.invalidateQueries({ queryKey: ["currentUser"] });
       },
     },
   });
@@ -68,7 +65,7 @@ export const useRegister = () => {
 
 export const useProviderLogin = () => {
   const providerLoginMutation = useMutation({
-    mutationFn: (provider: "google" | "github") => loginWithProvider(provider),
+    mutationFn: loginWithProvider,
   });
 
   return {

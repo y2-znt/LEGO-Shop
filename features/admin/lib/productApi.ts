@@ -24,17 +24,20 @@ export const getAllProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const updateProduct = async (
-  id: string,
-  productData: UpdateProductData
-) => {
+export const updateProduct = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: UpdateProductData;
+}) => {
   try {
     const response = await fetch(`/api/products/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -48,7 +51,7 @@ export const updateProduct = async (
   }
 };
 
-export const deleteProduct = async (id: string) => {
+export const deleteProduct = async ({ id }: { id: string }) => {
   try {
     const response = await fetch(`/api/products/${id}`, {
       method: "DELETE",
@@ -62,11 +65,21 @@ export const deleteProduct = async (id: string) => {
   }
 };
 
-export const toggleStock = async (id: string, inStock: boolean) => {
-  return updateProduct(id, { inStock: !inStock });
+export const toggleStock = async ({
+  id,
+  inStock,
+}: {
+  id: string;
+  inStock: boolean;
+}) => {
+  return updateProduct({ id, data: { inStock: !inStock } });
 };
 
-export const deleteProductImage = async (imageUrl: string) => {
+export const deleteProductImage = async ({
+  imageUrl,
+}: {
+  imageUrl: string;
+}) => {
   try {
     const storage = getStorage(firebaseApp);
     const imageRef = ref(storage, imageUrl);

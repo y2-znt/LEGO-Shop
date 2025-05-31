@@ -2,14 +2,10 @@ import { useToastMutation } from "@/hooks/useToastMutation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { OrdersResponse } from "../lib/ordersAPI";
-import {
-  getAllOrders,
-  updateOrderStatus as updateOrderStatusAPI,
-} from "../lib/ordersAPI";
-import { UpdateOrderData } from "../types/adminTypes";
+import { getAllOrders, updateOrderStatus } from "../lib/ordersAPI";
 
 export const useGetOrders = () => {
-  const { data, isLoading } = useQuery<OrdersResponse>({
+  const { data } = useQuery<OrdersResponse>({
     queryKey: ["admin-orders"],
     queryFn: getAllOrders,
   });
@@ -17,16 +13,14 @@ export const useGetOrders = () => {
   return {
     orders: data?.orders || [],
     stats: data?.stats,
-    isLoading,
   };
 };
 
 export const useUpdateOrder = () => {
   const queryClient = useQueryClient();
 
-  const updateOrderStatus = useToastMutation({
-    mutationFn: (data: UpdateOrderData) =>
-      updateOrderStatusAPI(data.orderId, data.status),
+  const updateOrderStatusMutation = useToastMutation({
+    mutationFn: updateOrderStatus,
     loadingMessage: "Updating order status...",
     successMessage: "Order status updated successfully",
     errorMessage: "Failed to update order status",
@@ -38,7 +32,7 @@ export const useUpdateOrder = () => {
   });
 
   return {
-    updateOrderStatus: updateOrderStatus.mutate,
-    isUpdating: updateOrderStatus.isPending,
+    updateOrderStatus: updateOrderStatusMutation.mutate,
+    isUpdating: updateOrderStatusMutation.isPending,
   };
 };

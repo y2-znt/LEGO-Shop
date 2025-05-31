@@ -1,5 +1,5 @@
 import { useToastMutation } from "@/hooks/useToastMutation";
-import { Role, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
@@ -9,9 +9,7 @@ import {
   updateUser,
 } from "@/features/admin/lib/userApi";
 
-import { UpdateUserData } from "../types/adminTypes";
-
-export const useUser = () => {
+export const useUsers = () => {
   return useQuery<User[]>({
     queryKey: ["users"],
     queryFn: getUsers,
@@ -22,8 +20,7 @@ export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
   const updateUserMutation = useToastMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateUserData }) =>
-      updateUser(id, data),
+    mutationFn: updateUser,
     loadingMessage: "Updating user, please wait...",
     successMessage: "User updated successfully!",
     errorMessage: "Error updating user",
@@ -42,7 +39,7 @@ export const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
   const deleteUserMutation = useToastMutation({
-    mutationFn: (id: string) => deleteUser(id),
+    mutationFn: deleteUser,
     loadingMessage: "Deleting user, please wait...",
     successMessage: "User deleted successfully!",
     errorMessage: "Error deleting user",
@@ -62,8 +59,7 @@ export const useToggleUserRole = () => {
   const queryClient = useQueryClient();
 
   const toggleUserRoleMutation = useToastMutation({
-    mutationFn: ({ id, currentRole }: { id: string; currentRole: Role }) =>
-      toggleUserRole(id, currentRole),
+    mutationFn: toggleUserRole,
     loadingMessage: "Toggling user role, please wait...",
     successMessage: "User role toggled successfully!",
     errorMessage: "Error toggling user role",

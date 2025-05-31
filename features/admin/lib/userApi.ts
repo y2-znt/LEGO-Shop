@@ -15,14 +15,20 @@ export const getUsers = async (): Promise<User[]> => {
   }
 };
 
-export const updateUser = async (id: string, userData: UpdateUserData) => {
+export const updateUser = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: UpdateUserData;
+}) => {
   try {
     const response = await fetch(`/api/users/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(data),
     });
     if (!response.ok) {
       throw new Error("Failed to update user");
@@ -34,7 +40,7 @@ export const updateUser = async (id: string, userData: UpdateUserData) => {
   }
 };
 
-export const deleteUser = async (id: string) => {
+export const deleteUser = async ({ id }: { id: string }) => {
   try {
     const response = await fetch(`/api/users/${id}`, {
       method: "DELETE",
@@ -49,7 +55,13 @@ export const deleteUser = async (id: string) => {
   }
 };
 
-export const toggleUserRole = async (id: string, currentRole: Role) => {
+export const toggleUserRole = async ({
+  id,
+  currentRole,
+}: {
+  id: string;
+  currentRole: Role;
+}) => {
   const newRole = currentRole === "USER" ? "ADMIN" : "USER";
-  return updateUser(id, { role: newRole });
+  return updateUser({ id, data: { role: newRole } });
 };

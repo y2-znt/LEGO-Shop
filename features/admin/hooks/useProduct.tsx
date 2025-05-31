@@ -1,6 +1,6 @@
 import { useToastMutation } from "@/hooks/useToastMutation";
 import { Product } from "@prisma/client";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   createProduct,
@@ -11,9 +11,7 @@ import {
   updateProduct,
 } from "@/features/admin/lib/productApi";
 
-import { CreateProductData, UpdateProductData } from "../types/adminTypes";
-
-export const useProduct = () => {
+export const useProducts = () => {
   return useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: getAllProducts,
@@ -24,7 +22,7 @@ export const useCreateProduct = () => {
   const queryClient = useQueryClient();
 
   const createProductMutation = useToastMutation({
-    mutationFn: (data: CreateProductData) => createProduct(data),
+    mutationFn: createProduct,
     loadingMessage: "Creating LEGO, please wait...",
     successMessage: "LEGO created successfully",
     errorMessage: "Error creating LEGO",
@@ -45,8 +43,7 @@ export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
   const updateProductMutation = useToastMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateProductData }) =>
-      updateProduct(id, data),
+    mutationFn: updateProduct,
     loadingMessage: "Updating LEGO, please wait...",
     successMessage: "LEGO updated successfully!",
     errorMessage: "Error updating LEGO",
@@ -66,7 +63,7 @@ export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
   const deleteProductMutation = useToastMutation({
-    mutationFn: (id: string) => deleteProduct(id),
+    mutationFn: deleteProduct,
     loadingMessage: "Deleting LEGO, please wait...",
     successMessage: "LEGO deleted successfully",
     errorMessage: "Error deleting LEGO",
@@ -86,8 +83,7 @@ export const useToggleStock = () => {
   const queryClient = useQueryClient();
 
   const toggleStockMutation = useToastMutation({
-    mutationFn: ({ id, inStock }: { id: string; inStock: boolean }) =>
-      toggleStock(id, inStock),
+    mutationFn: toggleStock,
     loadingMessage: "Toggling stock, please wait...",
     successMessage: "Stock toggled successfully!",
     errorMessage: "Error toggling stock",
@@ -104,8 +100,11 @@ export const useToggleStock = () => {
 };
 
 export const useDeleteProductImage = () => {
-  const deleteProductImageMutation = useMutation({
-    mutationFn: (imageUrl: string) => deleteProductImage(imageUrl),
+  const deleteProductImageMutation = useToastMutation({
+    mutationFn: deleteProductImage,
+    loadingMessage: "Deleting image, please wait...",
+    successMessage: "Image deleted successfully",
+    errorMessage: "Error deleting image",
   });
 
   return {

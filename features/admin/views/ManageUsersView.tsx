@@ -11,7 +11,7 @@ import {
   useDeleteUser,
   useToggleUserRole,
   useUpdateUser,
-  useUser,
+  useUsers,
 } from "@/features/admin/hooks/useUser";
 
 import Title from "@/components/shared/Title";
@@ -28,17 +28,17 @@ import {
 export default function ManageUsersView() {
   const [editingId, setEditingId] = useState("");
   const [editValues, setEditValues] = useState({ name: "" });
-  const { data: allUsers } = useUser();
+  const { data: allUsers } = useUsers();
   const { updateUser } = useUpdateUser();
   const { deleteUser } = useDeleteUser();
   const { toggleUserRole } = useToggleUserRole();
 
   const handleToggleRole = (id: string, currentRole: Role) => {
-    toggleUserRole({ id, currentRole });
+    toggleUserRole({ id, currentRole: currentRole });
   };
 
   const handleDeleteUser = (id: string) => {
-    deleteUser(id);
+    deleteUser({ id });
   };
 
   const handleEditClick = (id: string, name: string | null) => {
@@ -47,7 +47,7 @@ export default function ManageUsersView() {
   };
 
   const handleSaveClick = (id: string) => {
-    updateUser({ id, data: { name: editValues.name } });
+    updateUser({ id, data: { name: editValues.name ?? "" } });
     setEditingId("");
     setEditValues({ name: "" });
   };

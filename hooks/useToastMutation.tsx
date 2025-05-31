@@ -10,7 +10,7 @@ type ToastMutationOptions<TData, TError, TVariables> = {
 };
 
 /**
- * Custom Tanstack Query mutation hook with integrated toast notifications using Sonner.
+ * Custom TanStack Query mutation hook with integrated toast notifications using Sonner.
  *
  * This hook simplifies the usage of `useMutation` by automatically displaying
  * toast messages for loading, success, and error states.
@@ -25,7 +25,12 @@ type ToastMutationOptions<TData, TError, TVariables> = {
  * @param loadingMessage  - Message displayed during the loading state
  * @param successMessage  - Message displayed on successful mutation
  * @param errorMessage    - Message displayed if the mutation fails
- * @param options         - Additional options for Tanstack Query's `useMutation` (except mutationFn)
+ * @param options         - Additional options for TanStack Query's `useMutation` (except mutationFn)
+ *
+ * Callbacks (`onSuccess`, `onError`) receive 3 parameters:
+ * @param data      - The result returned by `mutationFn`, e.g. the updated/created entity
+ * @param variables - The variables passed to `mutate` or `mutateAsync`, e.g. `{ id, data }`
+ * @param context   - The object returned from `onMutate`, useful for optimistic updates or toast tracking (e.g. `{ toastId }`)
  *
  * @returns A wrapped version of `useMutation` with toast notifications included.
  */

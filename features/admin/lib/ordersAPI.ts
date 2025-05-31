@@ -28,10 +28,13 @@ export const getAllOrders = async (): Promise<OrdersResponse> => {
   }
 };
 
-export const updateOrderStatus = async (
-  orderId: string,
-  status: OrderStatus
-): Promise<Order> => {
+export const updateOrderStatus = async ({
+  orderId,
+  status,
+}: {
+  orderId: string;
+  status: OrderStatus;
+}): Promise<Order> => {
   try {
     const response = await fetch(`/api/orders/${orderId}`, {
       method: "PATCH",
