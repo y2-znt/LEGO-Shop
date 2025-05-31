@@ -3,7 +3,7 @@ import { Order as PrismaOrder, User } from "@prisma/client";
 import {
   UpdateOrderData,
   UpdateOrderSchema,
-} from "../schemas/orders.api.schema";
+} from "../validations/api/orders.api.schema";
 
 export interface Order extends PrismaOrder {
   user: User;

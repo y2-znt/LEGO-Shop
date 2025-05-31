@@ -19,7 +19,7 @@ import {
   ToggleStockSchema,
   UpdateProductData,
   UpdateProductSchema,
-} from "../schemas/product.api.schema";
+} from "../validations/api/product.api.schema";
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {

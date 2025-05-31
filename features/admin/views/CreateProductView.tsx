@@ -10,7 +10,7 @@ import { useCreateProduct } from "@/features/admin/hooks/useProduct";
 import {
   AddProductFormData,
   AddProductFormSchema,
-} from "@/features/admin/schemas/product.form.schema";
+} from "@/features/admin/validations/form/product.form.schema";
 
 import CustomCheckBox from "@/components/shared/inputs/CustomCheckBox";
 import SelectImage from "@/components/shared/inputs/SelectImage";

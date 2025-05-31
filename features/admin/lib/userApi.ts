@@ -5,7 +5,7 @@ import {
   DeleteUserSchema,
   UpdateUserData,
   UpdateUserSchema,
-} from "../schemas/user.api.schema";
+} from "../validations/api/user.api.schema";
 
 export const getUsers = async (): Promise<User[]> => {
   try {
